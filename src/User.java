@@ -46,7 +46,7 @@ abstract class User {
     }
 
     public int hashCode() {
-        String name = firstName + lastName;
+        String name = email + password;
         int key = 0;
         for (int i = 0; i < name.length(); i++) {
             key += (int) name.charAt(i);
