@@ -5,6 +5,7 @@
 
 import java.util.Comparator;
 import java.util.ArrayList;
+
 public class Heap<T> {
 
     private int heapSize;
@@ -44,11 +45,10 @@ public class Heap<T> {
         int l = get_left(index);
         int r = get_right(index);
         int index_of_max;
-       /* if (l <= heapSize && getElement(l) > getElement(index)) {
+/*        if (l <= heapSize && getElement(l) > getElement(index)) {
             index_of_max = l;
         }*/
     }
-
 
     /**
      * Inserts the given data into heap
