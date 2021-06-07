@@ -8,6 +8,7 @@ public class UserInterface {
         // call a method for either employee or customer
         int test;
         string pull;
+        string test1;
     }
 
     // method here for customer
