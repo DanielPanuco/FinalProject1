@@ -6,6 +6,7 @@ public class UserInterface {
         // read in files to hashtables
         // sign in
         // call a method for either employee or customer
+        int test;
     }
 
     // method here for customer
