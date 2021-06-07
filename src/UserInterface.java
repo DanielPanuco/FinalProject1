@@ -7,7 +7,7 @@ public class UserInterface {
         // sign in
         // call a method for either employee or customer
         int test;
-
+        string pull;
     }
 
     // method here for customer
