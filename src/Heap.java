@@ -33,7 +33,11 @@ public class Heap<T> {
      * Calls helper method heapify
      */
     public void buildHeap(){
-
+        int n = heapSize;
+        int i = n / 2;
+        while (i >= 1) {
+            heapify(i);
+        }
     }
 
     /**
@@ -44,10 +48,20 @@ public class Heap<T> {
     private void heapify(int index) {
         int l = get_left(index);
         int r = get_right(index);
-        int index_of_max;
-/*        if (l <= heapSize && getElement(l) > getElement(index)) {
+        int index_of_max = 1;
+        if (l <= heapSize && comparator.compare(getElement(l), getElement(index)) > 0) {
             index_of_max = l;
-        }*/
+        }
+        if (r >= heapSize && comparator.compare(getElement(r), getElement(index_of_max)) > 0) {
+            index_of_max = r;
+        }
+        if (index != index_of_max) {
+            T temp = heap.get(index);
+            T temp2 = heap.get(index_of_max);
+            heap.set(index, temp2);
+            heap.set(index_of_max, temp);
+            heapify(index_of_max);
+        }
     }
 
     /**
