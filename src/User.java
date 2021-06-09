@@ -4,7 +4,11 @@ abstract class User {
     private String email;
     private String password;
     private int accountNum;
-    private static int accountSeed == 10000000;
+    private static int accountSeed = 10000000;
+
+    public User() {
+
+    }
 
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
