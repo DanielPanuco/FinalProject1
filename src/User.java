@@ -6,6 +6,10 @@ abstract class User {
     private int accountNum;
     private static int accountSeed = 10000000;
 
+    public User() {
+
+    }
+
     public User(String email, String password) {
     	this.email = email;
     	this.password = password;
