@@ -1,8 +1,3 @@
-/**
- * @author
- * Final Project
- */
-
 import java.util.Comparator;
 import java.util.ArrayList;
 
@@ -22,7 +17,10 @@ public class Heap<T> {
      * of heap based on priority
      */
     public Heap(ArrayList<T> data, Comparator<T> comparator){
-
+        heap = data;
+        heapSize = data.size() - 1;
+        this.comparator = comparator;
+        buildHeap();
     }
 
     /**Mutators*/
@@ -32,10 +30,9 @@ public class Heap<T> {
      * max heap. Called by constructor
      * Calls helper method heapify
      */
-    public void buildHeap(){
+    public void buildHeap() {
         int n = heapSize;
-        int i = n / 2;
-        while (i >= 1) {
+        for (int i = (int) Math.floor(n / 2); i >= 1; i--) { // start at floor(n/2); we can ignore leaf nodes
             heapify(i);
         }
     }
@@ -46,21 +43,24 @@ public class Heap<T> {
      * @param index an index in the heap
      */
     private void heapify(int index) {
-        int l = get_left(index);
-        int r = get_right(index);
-        int index_of_max = 1;
-        if (l <= heapSize && comparator.compare(getElement(l), getElement(index)) > 0) {
-            index_of_max = l;
+        int index_of_max = index;
+        int l = get_left(index); // get the index of the left child of A[i] and store as l
+        int r = get_right(index); // get the index of the right child of A[i] and store r
+
+        if (l <= getHeapSize() && comparator.compare(getElement(l), getElement(index)) > 0) { // Check if l is off the end of the array (heap)
+            // AND compare heap[i] to its left child
+            index_of_max = l; // update index_of_max if left is bigger
         }
-        if (r >= heapSize && comparator.compare(getElement(r), getElement(index_of_max)) > 0) {
-            index_of_max = r;
+        if (r <= getHeapSize() && comparator.compare(getElement(r), getElement(index_of_max)) > 0) { // Check if r is off the end of the array (heap)
+            // AND compare heap[i] to its right child
+            index_of_max = r; // update index_of_max if right is bigger
         }
         if (index != index_of_max) {
-            T temp = heap.get(index);
-            T temp2 = heap.get(index_of_max);
-            heap.set(index, temp2);
-            heap.set(index_of_max, temp);
+            T temp = heap.get(index_of_max);
+            heap.set(index_of_max,getElement(index));
+            heap.set(index, temp);
             heapify(index_of_max);
+
         }
     }
 
@@ -70,7 +70,8 @@ public class Heap<T> {
      * @param key the data to insert
      */
     public void insert(T key){
-
+        heapSize++;
+        heapIncreaseKey(heapSize, key); //start at the last index, i=Heap_size(A)
     }
 
     /**
@@ -79,10 +80,15 @@ public class Heap<T> {
      * @param index the current index of the key
      * @param key the data
      */
-    private void heapIncreaseKey(int index, T key){
-
+    private void heapIncreaseKey(int index, T key) {
+        heap.add(index, key);// write over existing value at i with key
+        while (index > 1 && comparator.compare(heap.get(getParent(index)), heap.get(index)) < 0) { // while the																					// node
+            T temp = heap.get(getParent(index));
+            heap.set(getParent(index), heap.get(index));
+            heap.set(index, temp);
+            index = getParent(index);
+        }
     }
-
 
     /**
      * removes the element at the specified index
@@ -90,7 +96,11 @@ public class Heap<T> {
      * @param index the index of the element to remove
      */
     public void remove(int index){
-
+        heapSize--;
+        heap.remove(index);
+        for (int i = index; i >= 1; i--) { // start at floor(n/2); we can ignore leaf nodes
+            heapify(i);
+        }
     }
 
     /**Accessors*/
@@ -100,7 +110,7 @@ public class Heap<T> {
      * @return the max value
      */
     public T getMax(){
-        return null;
+        return heap.get(1);
     }
 
     /**
@@ -112,7 +122,11 @@ public class Heap<T> {
      * @throws IndexOutOfBoundsException
      */
     public int getParent(int index) throws IndexOutOfBoundsException {
-        return -1;
+        if (index < 0 || index > heapSize) {
+            throw new IndexOutOfBoundsException("getParent(): index out of bounds!");
+        } else {
+            return (int) (Math.floor(index / 2));
+        }
     }
 
     /**
@@ -124,7 +138,7 @@ public class Heap<T> {
      * @throws IndexOutOfBoundsException
      */
     public int get_left(int index) throws IndexOutOfBoundsException {
-        if (index >= heapSize || index < 0) {
+        if (index > heapSize || index < 0) {
             throw new IndexOutOfBoundsException("get_left(): index out of bounds");
         } else {
             return index * 2;
@@ -140,7 +154,7 @@ public class Heap<T> {
      * @throws IndexOutOfBoundsException
      */
     public int get_right(int index) throws IndexOutOfBoundsException {
-        if (index >= heapSize || index < 0) {
+        if (index > heapSize || index < 0) {
             throw new IndexOutOfBoundsException("get_right(): index out of bounds");
         } else {
             return (index * 2) + 1;
@@ -162,7 +176,7 @@ public class Heap<T> {
      * @throws IndexOutOfBoundsException
      */
     public T getElement(int index) throws IndexOutOfBoundsException {
-        if (index >= heapSize || index < 0) {
+        if (index > heapSize || index < 0) {
             throw new IndexOutOfBoundsException("getElement(): index out of bounds");
         } else {
             return heap.get(index);
@@ -175,7 +189,11 @@ public class Heap<T> {
      * Creates a String of all elements in the heap
      */
     @Override public String toString(){
-        return "";
+        String s = "";
+        for (int i = 1; i <= heapSize; i++) {
+            s += heap.get(i);
+        }
+        return s;
     }
 
     /**
@@ -186,7 +204,17 @@ public class Heap<T> {
      * @postcondition heap remains a valid heap
      */
     public ArrayList<T> sort() {
-        return new ArrayList<T>();
-    }
 
+        int n = heapSize;
+        for (int i = n; i >= 2; i--) {
+            T temp = heap.get(1);
+            heap.set(1, heap.get(i));
+            heap.set(i, temp);
+
+            heapSize--; // consider your heap to be one smaller
+
+            heapify(1); // restore max heap property
+        }
+        return heap;
+    }
 }
