@@ -58,11 +58,7 @@ abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public static void login(String email, String password) {
-    	
-    }
-    
+      
     public boolean passwordMatch(String anotherPassword) { 
 		return password.equals(anotherPassword); 
 	}
