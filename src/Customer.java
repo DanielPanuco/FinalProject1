@@ -69,7 +69,7 @@ public class Customer extends User {
 		//Order newOrder = new Order(orderName);  //check out later	
 	}
 	
-	public static void login(String email, String password) {
+	public static void login(String email, String password, HashTable<Customer> customers) {
     	//overwrite
     }
 
@@ -88,6 +88,7 @@ public class Customer extends User {
 	public void placeOrder(Order order) {
 		//this.unshippedOrders.addLast(order);
 	}
+	
 	
 	public void viewUnshippedOrders() {
 		if(unshippedOrders.isEmpty()) {

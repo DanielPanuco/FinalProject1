@@ -41,4 +41,12 @@ public class Employee extends User {
 		
 	}
 	
+	public static void login(String email, String password) {
+		
+	}
+	
+	public String toString() {
+		return null;
+	}
+	
 }

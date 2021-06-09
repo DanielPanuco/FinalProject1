@@ -66,6 +66,21 @@ abstract class User {
     public boolean passwordMatch(String anotherPassword) { 
 		return password.equals(anotherPassword); 
 	}
+    
+    @Override public boolean equals(Object o) {
+		if(o == this) {
+             return true;
+         } else if (!(o instanceof User)) {
+             return false;
+         } else {
+             User user = (User) o;
+             if (this.email.equals(user.email) && this.password.equals(user.password)) {
+                 return true;
+             } else {
+                 return false;
+             }
+         }
+	}
 
     public int hashCode() {
         String name = email + password;
