@@ -1,9 +1,9 @@
 abstract class User {
     private String firstName;
-    String lastName;
-    String email;
-    String password;
-    
+    private String lastName;
+    private String email;
+    private String password;
+    private int accountNum;
     private static int accountSeed == 10000000;
 
     public User(String firstName, String lastName, String email, String password) {
@@ -11,7 +11,7 @@ abstract class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.accountSeed = ++accountSeed;
+        this.accountNum = ++accountSeed;
     }
 
     public String getFirstName() {
