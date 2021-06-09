@@ -1,15 +1,16 @@
 abstract class User {
-    private String firstName;
+    
+	private String firstName;
     private String lastName;
     private String email;
     private String password;
     private int accountNum;
     private static int accountSeed = 10000000;
 
-    public User() {
+     public User() {
 
     }
-
+    
     public User(String email, String password) {
     	this.email = email;
     	this.password = password;
@@ -57,6 +58,14 @@ abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public static void login(String email, String password) {
+    	
+    }
+    
+    public boolean passwordMatch(String anotherPassword) { 
+		return password.equals(anotherPassword); 
+	}
 
     public int hashCode() {
         String name = email + password;
