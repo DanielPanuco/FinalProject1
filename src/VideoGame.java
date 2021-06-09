@@ -9,16 +9,37 @@ public class VideoGame {
     private String platform;
 
     //constructors
-    VideoGame(String title, String developer, int releaseDate, double price, String genre, String esrb, int metaCriticScore, String platform) {
-
+    VideoGame(String title, String developer, int releaseDate, double price, String genre, String esrb, double metaCriticScore, String platform) {
+        this.title = title;
+        this.developer = developer;
+        this.releaseDate = releaseDate;
+        this.price = price;
+        this.genre = genre;
+        this.esrb = esrb;
+        this.metaCriticScore = metaCriticScore;
+        this.platform = platform;
     }
 
     VideoGame(String title) {
-
+        this.title = title;
+        developer = "no developer";
+        releaseDate = 000000;
+        price = 0;
+        genre = "no genre";
+        esrb = "no ESRB";
+        metaCriticScore = 0.0;
+        platform = "no platform";
     }
 
     VideoGame(int releaseDate) {
-
+        title = "no title";
+        developer = "no developer";
+        this.releaseDate = releaseDate;
+        price = 0;
+        genre = "no genre";
+        esrb = "no ESRB";
+        metaCriticScore = 0.0;
+        platform = "no platform";
     }
 
     //accessors
