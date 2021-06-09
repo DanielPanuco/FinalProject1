@@ -48,5 +48,4 @@ public class Employee extends User {
 	public String toString() {
 		return null;
 	}
-	
 }

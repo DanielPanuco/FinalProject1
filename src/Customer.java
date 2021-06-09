@@ -65,11 +65,6 @@ public class Customer extends User {
 		this.zip = zip;
 	}
 	
-	public Order getUnshippedOrderByName(String orderName) {
-		//Order newOrder = new Order(orderName);  //check out later
-		return null;
-	}
-	
 	public static void login(String email, String password, HashTable<Customer> customers) {
     	//overwrite
     }
@@ -106,5 +101,9 @@ public class Customer extends User {
 			System.out.println(shippedOrders);
 		}
 	}
+	
+	public String toString() {
+		return null;
+	} 
 
 }
