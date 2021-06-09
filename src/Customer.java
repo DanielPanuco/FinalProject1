@@ -42,7 +42,7 @@ public class Customer extends User {
 	}
 
 	public String getCity() {
-		return city
+		return city;
 	}
 
 	public void setCity(String city) {
@@ -66,7 +66,8 @@ public class Customer extends User {
 	}
 	
 	public Order getUnshippedOrderByName(String orderName) {
-		//Order newOrder = new Order(orderName);  //check out later	
+		//Order newOrder = new Order(orderName);  //check out later
+		return null;
 	}
 	
 	public static void login(String email, String password) {
