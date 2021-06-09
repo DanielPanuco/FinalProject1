@@ -9,16 +9,20 @@ import java.util.Scanner;
 
 public class UserInterface {
     public static void main(String[] args) {
-        final int userSize = 100;
+        final int customerSize = 5;
+        final int employeeSize = 3;
         Scanner input = new Scanner(System.in);
-        HashTable<Customer> customers = new HashTable<>(userSize * 2);
-        HashTable<Employee> employees = new HashTable<>(userSize * 2);
+        HashTable<Customer> customers = new HashTable<>(customerSize * 2);
+        HashTable<Employee> employees = new HashTable<>(employeeSize * 2);
         BST<VideoGame> byTitle = new BST<>();
         BST<VideoGame> byDate = new BST<>();
+
+        //Heap<Order> orderHeap = new Heap<>(); need to finish some methods in heap to call this
 
         fileToVideoGame(input, byTitle, byDate);
         fileToCustomer(input, customers);
         fileToEmployee(input, employees);
+        //fileToOrders(input, orderHeap);
 
         String email;
         int typeOfUser;
@@ -134,6 +138,21 @@ public class UserInterface {
     }
 
     public static void fileToVideoGame(Scanner input, BST<VideoGame> byTitle, BST<VideoGame> byDate) {
+
+    }
+
+    public static void fileToOrders(Scanner input, Heap<Order> orderHeap) {
+    }
+
+    public static void ordersToFile(Heap<Order> orderHeap) {
+
+    }
+
+    public static void employeeToFile(HashTable<Employee> employees) {
+
+    }
+
+    public static void customerToFile(HashTable<Customer> customers) {
 
     }
 }
