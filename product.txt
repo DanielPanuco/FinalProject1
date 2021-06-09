@@ -1,101 +1,188 @@
 Halo 5: Guardians
 343 Industries
-October 27, 2015
-$20.00	Shooter
+20070925
+20.00
+Shooter
 T
 84
+Xbox One
 
 Halo 3
 Bungie
-Sep 25, 2007
-$5
+20200714
+5
 Shooter
 M
 94
+PC
 
 Valorant
 Riot Games
-June 2, 2020
-$0
+20200602
+0
 Tactical shooter
-PEGI 16
+T
 80
+PC
 
 Genshin Impact
 Mihoyo
-September 28, 2020
-$0
+20200928
+0
 RPG
-PEGI 12
+T
 84
+PC
 
 Zero Escape: Virtue's Last Reward
 Spike Chunsoft
-February 16, 2012
-$23.99
+20120216
+23.99
 Visual Novel
 M
 88
+Nintendo 3DS
 
 Phoenix Wright: Ace Attorney - Dual Destinies
 Capcom
-July 25, 2013
-$29.99
+20130725
+29.99
 Visual Novel
 M
 81
+Nintendo 3DS
 
 Dark Souls
 From Software
-September 22 2011
-$39.99
-Action role-playing game
+20110922
+39.99
+Action RPG
 M
 89
+PC
 
 Dark Souls II
 From Software
-March 11 2014
-$39.99
-Action role-playing game
+20140311
+39.99
+Action RPG
 T
 87
+PC
 
 Dark Souls III
 From Software
-March 24 2016
-$59.99
-Action role-playing game
+20160324
+59.99
+Action RPG
 M
 89
+PC
 
 Animal Crossing: New Horizons
 Nintendo
-March 20, 2020
-$60
+20200320
+60
 Life Simulation
 E
 90
+Nintendo Switch
 
 The Witcher
 CD Projekt Red
-October 26 2007	$9.99
-role-playing game
+20071026
+9.99
+Action RPG
 M
 81
+PC
 
 Resident Evil Village
 Capcom
-May 7,2021
-$69.99
+20210507
+69.99
 Action Adventure
 M
 81
+PC
 
 Halo Infinite
 343 Industries
-November 10, 2020
-$59.99
+20210901
+59.99
 Shooter
 M
 80
+PC
+
+Victoria II
+Paradox Development Studio
+20100813
+21.99
+Strategy
+T
+75
+PC
+
+Red Dead Redemption
+Rockstar Games
+20181026
+59.99
+Action-Adventure
+M
+97
+PS4
+
+Crusader Kings III
+Paradox Interactive
+20200901
+39.99
+Strategy
+M
+91
+PC
+
+Hades
+Supergiant Games
+20170303
+34.99
+Roguelike
+T
+93
+Nintendo Switch
+
+The Legend of Zelda: Breath of the Wild
+Nintendo
+20171201
+59.99
+Action-Adventure
+E 10+
+97
+Nintendo Switch
+
+Xenoblade Chronicles 2
+Monolith Soft
+2019/12/01
+59.99
+JRPG
+T
+83
+Nintendo Switch
+
+Xenoblade Chronicles: Definitive Edition
+Monolith Soft
+20200529
+59.99
+JRPG
+T
+89
+Nintendo Switch
+
+Okami HD
+Capcom
+20180809
+5.99
+Action-Adventure
+T
+92
+Nintendo Switch
