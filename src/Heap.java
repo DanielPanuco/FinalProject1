@@ -99,7 +99,7 @@ public class Heap<T> {
         heapSize--;
         heap.remove(index);
         for (int i = index; i >= 1; i--) { // start at floor(n/2); we can ignore leaf nodes
-            heapify(i);
+            heapify(i); //TODO: ask in office hours if we can use buildHeap
         }
     }
 
@@ -204,7 +204,6 @@ public class Heap<T> {
      * @postcondition heap remains a valid heap
      */
     public ArrayList<T> sort() {
-
         int n = heapSize;
         for (int i = n; i >= 2; i--) {
             T temp = heap.get(1);
@@ -214,7 +213,7 @@ public class Heap<T> {
             heapSize--; // consider your heap to be one smaller
 
             heapify(1); // restore max heap property
-        }
+        } //TODO: should we return a new arraylist or return heap and why is index 1 a null object?
         return heap;
     }
 }
