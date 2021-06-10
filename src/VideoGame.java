@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 public class VideoGame {
     private String title;
     private String developer;
@@ -136,3 +138,16 @@ public class VideoGame {
         return sum;
     }
 }
+
+class TitleComparator implements Comparator<VideoGame> {
+    public int compare(VideoGame v1, VideoGame v2) {
+        return v1.getTitle().compareTo(v2.getTitle());
+    }
+}
+
+class DateComparator implements Comparator<VideoGame> {
+    public int compare(VideoGame v1, VideoGame v2) {
+        return v1.getDate() - v2.getDate();
+    }
+}
+
