@@ -113,8 +113,16 @@ public class VideoGame {
         return " ";
     }
 
+    //compares this videoGame to another object for equality, compares titles
     @Override public boolean equals(Object o) {
-        return false;
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof VideoGame)) {
+            return false;
+        } else {
+            VideoGame otherGame = (VideoGame) o;
+            return otherGame.getTitle().equals(title);
+        }
     }
 
     public int hashCode() {
