@@ -1,11 +1,8 @@
 public class Customer extends User {
 	
-	private String address;
-	private String city;
-	private String state;
-	private String zip;
-	private List<Order> unshippedOrders;
-	private List<Order> shippedOrders;
+	private String address, city, state;
+	private int zip;
+	private List<Order> unshippedOrders, shippedOrders;
 	
 	Customer() {
 
@@ -16,14 +13,14 @@ public class Customer extends User {
 		this.address = "address unknown";
 		this.city = "city unknown";
 		this.state = "state unknown";
-		this.zip = "zip unknown";
+		this.zip = 00000;
 		this.unshippedOrders = new List<>();
 		this.shippedOrders = new List<>();
 		
 	}
 
 	public Customer(String firstName, String lastName, String email, String password, 
-			String address, String city, String state, String zip) {
+			String address, String city, String state, int zip) {
 		super(firstName, lastName, email, password);
 		this.address = address;
 		this.city = city;
@@ -57,11 +54,11 @@ public class Customer extends User {
 		this.state = state;
 	}
 
-	public String getZip() {
+	public int getZip() {
 		return zip;
 	}
 
-	public void setZip(String zip) {
+	public void setZip(int zip) {
 		this.zip = zip;
 	}
 	
@@ -118,7 +115,7 @@ public class Customer extends User {
 		String result = "Address: " + address + "\n"
 				+ "City: " + city + "\n"
     		    + "State: " + state + "\n"
-    		    + "Zip: " +zip + "\n"
+    		    + "Zip: " + zip + "\n"
     		    + "Unshipped Orders: " + unshippedOrders + "\n"
     		    + "Shipped Orders: " + shippedOrders + "\n"
 				+ super.toString();

@@ -3,14 +3,11 @@ import java.util.Comparator;
 public class Order {
 
     private Customer customer;
-    private int date;
+    private int date, shippingSpeed, priority; //TODO: ask her about how we calculate priority
     private List<VideoGame> orderContents;
-    private int shippingSpeed;
-    private int priority; //TODO: ask her about how we calculate priority
     private boolean shippingStatus;
 
     public Order(Customer customer, int date, List<VideoGame> orderContents, int shippingSpeed, boolean shippingStatus) {
-
         this.customer = customer;
         this.date = date;
         this.orderContents = orderContents;

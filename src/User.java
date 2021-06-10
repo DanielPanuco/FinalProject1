@@ -1,22 +1,19 @@
 
 abstract class User {
     
-	private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
+	private String firstName, lastName, email, password;
     private int accountNum;
     private static int accountSeed = 10000000;
 
-     public User() {
+    public User() {
 
     }
-    
+
     public User(String email, String password) {
     	this.email = email;
     	this.password = password;
     	this.firstName = " first name unknown";
-        this.lastName = "last name unknown";
+    	this.lastName = "last name unknown";
     	this.accountNum = ++accountSeed;
     }
 

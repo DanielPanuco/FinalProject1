@@ -10,8 +10,7 @@ import java.util.Comparator;
 public class BST<T> {
 	private class Node {
 		private T data;
-		private Node left;
-		private Node right;
+		private Node left, right;
 
 		public Node(T data) {
 			this.data = data;

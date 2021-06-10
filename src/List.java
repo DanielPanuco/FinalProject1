@@ -10,8 +10,7 @@ import java.util.NoSuchElementException;
 public class List<T> {
     private class Node {
         private T data;
-        private Node next;
-        private Node prev;
+        private Node next, prev;
 
         public Node(T data) {
             this.data = data;
@@ -21,9 +20,7 @@ public class List<T> {
     }
 
     private int length;
-    private Node first;
-    private Node last;
-    private Node iterator;
+    private Node first, last, iterator;
 
     /**** CONSTRUCTOR ****/
 

@@ -6,7 +6,7 @@ public class VideoGame {
     private int releaseDate;
 
     //constructors
-    VideoGame(String title, String developer, int releaseDate, double price, String genre, String esrb, double metaCriticScore, String platform) {
+    public VideoGame(String title, String developer, int releaseDate, double price, String genre, String esrb, double metaCriticScore, String platform) {
         this.title = title;
         this.developer = developer;
         this.releaseDate = releaseDate;
@@ -17,7 +17,7 @@ public class VideoGame {
         this.platform = platform;
     }
 
-    VideoGame(String title) {
+    public VideoGame(String title) {
         this.title = title;
         developer = "no developer";
         releaseDate = 000000;
@@ -28,7 +28,7 @@ public class VideoGame {
         platform = "no platform";
     }
 
-    VideoGame(int releaseDate) {
+    public VideoGame(int releaseDate) {
         title = "no title";
         developer = "no developer";
         this.releaseDate = releaseDate;

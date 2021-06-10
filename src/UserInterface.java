@@ -11,23 +11,25 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class UserInterface {
-	private static final String vgFile = ("product.txt"); //maybe change to videogames.txt
-	//once we decide on a String txt name it's good to make it final (taught in 36B)
+	private static final String vgFile = ("product.txt"),
+			custFile = ("customers.txt"), empFile = ("employees.txt");
+	//maybe change to videoGames.txt, once we decide on a String txt
+	//name it's good to make it final (taught in 36B)
 	//(if we don't want to end up changing it later on)
+	
     public static void main(String[] args) throws IOException{
-        final int customerSize = 5;
-        final int employeeSize = 3;
+        final int customerSize = 5, employeeSize = 3;
         Scanner input = new Scanner(System.in);
-        HashTable<Customer> customers = new HashTable<>(customerSize * 2);
-        HashTable<Employee> employees = new HashTable<>(employeeSize * 2);
-        BST<VideoGame> byTitle = new BST<>();
-        BST<VideoGame> byDate = new BST<>();
+        HashTable<Customer> customersHT = new HashTable<>(customerSize * 2);
+        HashTable<Employee> employeesHT = new HashTable<>(employeeSize * 2);
+        BST<VideoGame> vgbyTitle = new BST<>();
+        BST<VideoGame> vgbyDate = new BST<>();
        
         //Heap<Order> orderHeap = new Heap<>(); need to finish some methods in heap to call this
 
-        fileToVG(input, byTitle, byDate);
-        fileToCust(input, customers);
-        fileToEmp(input, employees);
+        fileToVG(input, vgbyTitle, vgbyDate);
+        fileToCust(input, customersHT);
+        fileToEmp(input, employeesHT);
         //fileToOrders(input, orderHeap);
 
         String email;
@@ -35,19 +37,19 @@ public class UserInterface {
         System.out.println("What type of user are you? (1 Customer | 2 Employee): ");
         typeOfUser = input.nextInt();
         if (typeOfUser == 1) {
-            customerInterface(input);
+            custInterface(input);
         } else {
-            employeeInterface(input);
+            empInterface(input);
         }
         // read in files to hashtables
         // sign in
         // call a method for either employee or customer
     }
 
-    public static void customerInterface(Scanner input) {
+    public static void custInterface(Scanner input) {
         String choice = "";
         while (!choice.equalsIgnoreCase("X")) {
-            displayCustomerMenu();
+            displayCustMenu();
             System.out.print("Enter your choice: ");
             choice = input.nextLine();
             switch (choice.toUpperCase()) {
@@ -71,10 +73,10 @@ public class UserInterface {
         }
     }
 
-    public static void employeeInterface(Scanner input) {
+    public static void empInterface(Scanner input) {
         String choice = "";
         while (!choice.equalsIgnoreCase("X")) {
-            displayEmployeeMenu();
+            displayEmpMenu();
             System.out.print("Enter your choice: ");
             choice = input.nextLine();
             switch (choice.toUpperCase()) {
@@ -117,7 +119,7 @@ public class UserInterface {
 
     }
 
-    public static void displayCustomerMenu() {
+    public static void displayCustMenu() {
         System.out.println("\nPlease select from the following options:\n\n"
                 + "P. Place Order\n"
                 + "B. List Video Games\n"
@@ -126,7 +128,7 @@ public class UserInterface {
                 + "X. Exit\n"); //TODO: temp output
     }
 
-    public static void displayEmployeeMenu() {
+    public static void displayEmpMenu() {
         System.out.println("\nPlease select from the following options:\n\n"
                 + "P. Place Order\n"
                 + "B. View Orders by Priority\n"
@@ -136,21 +138,60 @@ public class UserInterface {
                 + "X. Exit\n"); //TODO: temp output
     }
 
-    public static void fileToCust(Scanner input, HashTable<Customer> customers) {
-
+    public static void fileToCust(Scanner input, HashTable<Customer> customersHT) throws FileNotFoundException {
+    	String username, fName, lName, email, pw, address, city, state;
+		int zip;
+    	File file = new File(custFile);
+		input = new Scanner(file);
+		
+		while (input.hasNextLine()) {
+			username = input.nextLine();
+			//System.out.println("uName: " +username);
+			fName = input.nextLine();
+			//System.out.println("fname: " +fName);
+			lName = input.nextLine();
+			//System.out.println("lname: " +lName);
+			email = input.nextLine();
+			//System.out.println("email: " +email);
+			pw = input.nextLine();
+			//System.out.println("pw: " + pw);
+			address = input.nextLine();
+			//System.out.println("add: " + address);
+			city = input.nextLine();
+			//System.out.println("city: " + city);
+			state = input.nextLine();
+			//System.out.println("state: " + state);
+			zip = input.nextInt();
+			//System.out.println("zip:" + zip);
+			if (input.hasNextLine()) {
+				input.nextLine();  //clear buffer
+				input.nextLine();
+			}
+			Customer newC = new Customer(fName, lName, email, pw, address, city, state, zip);
+			//System.out.println(newC);
+			customersHT.insert(newC);
+		
+		}
+		input.close();
     }
 
-    public static void fileToEmp(Scanner input, HashTable<Employee> employees) {
-    	
+    public static void fileToEmp(Scanner input, HashTable<Employee> employees) throws FileNotFoundException {
+    	//File file = new File(empFile);
+		//input = new Scanner(file);
+		//while loop to read in
+		//input.close();
     }
 
 	public static void fileToVG(Scanner input, BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate) throws FileNotFoundException {
-		File file = new File(vgFile);
-		input = new Scanner(file);
 		String title, dev, genre, ESRB, pform;
 		double price;
 		int rDate, mcScore;
+		TitleComparator tComp = new TitleComparator();
+		DateComparator dComp = new DateComparator();
+		File file = new File(vgFile);
+		input = new Scanner(file);
+		
 		while (input.hasNextLine()) {
 			title = input.nextLine();
 			// System.out.println(title);
@@ -175,11 +216,9 @@ public class UserInterface {
 			}
 			VideoGame newVG = new VideoGame(title, dev, rDate, price, genre,
 					ESRB, mcScore, pform);
-			//System.out.println(newVG); needs constructor to be finished first
-			// byTitle.insert(newVG, null); //will replace both nulls with
-			// comparator
-			// byDate.insert(newVG, null);
-
+			//System.out.println(newVG); //needs toString to be finished first
+			vgByTitle.insert(newVG, tComp);
+			vgByDate.insert(newVG, dComp);
 		}
 		input.close();
 	}
