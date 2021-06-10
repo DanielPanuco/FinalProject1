@@ -65,12 +65,14 @@ public class Customer extends User {
 		this.zip = zip;
 	}
 	
-	public static Customer login(String email, String password, HashTable<Customer> customers) {
-    	if(!customers.contains(new Customer(email, password))) {
+	
+	@Override public static User login(String email, String password, HashTable<User> users) {
+		if(!users.contains(new Customer(email, password))) {
     		System.out.println("Invalid email or password!\nPlease type again\n");
+    		return null;
     	}else {
     		System.out.println("Successfully login!\n");
-    		return customers.get(new Customer(email, password)));
+    		return users.get(new Customer(email, password));
     	}
     }
 
@@ -116,6 +118,9 @@ public class Customer extends User {
     		    + "Shipped Orders: " + shippedOrders + "\n";
 				+ super.toString();
 		return result;
-	} 
+	}
+
+
+
 
 }
