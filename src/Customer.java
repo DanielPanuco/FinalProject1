@@ -67,7 +67,7 @@ public class Customer extends User {
 	
 	public static User login(String email, String password, HashTable<User> users) throws NullPointerException {
 		if(users == null) {
-			throw new NullPointerException("Customer login(): cannot find user list\n");
+			throw new NullPointerException("Customer login(): cannot find customer list\n");
 		}
 		if(!users.contains(new Customer(email, password))) {
     		System.out.println("Invalid email or password!\nPlease type again\n");
