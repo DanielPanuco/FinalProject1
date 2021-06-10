@@ -144,7 +144,7 @@ public class VideoGame {
     }
 }
 
-//comparators 
+//comparators, compare by
 class TitleComparator implements Comparator<VideoGame> {
     public int compare(VideoGame v1, VideoGame v2) {
         return v1.getTitle().compareTo(v2.getTitle());
