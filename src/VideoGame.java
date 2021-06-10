@@ -1,4 +1,5 @@
 import java.util.Comparator;
+import java.text.NumberFormat;
 
 public class VideoGame {
     private String title, developer, genre, esrb, platform;
@@ -107,8 +108,16 @@ public class VideoGame {
 
     //additional operations
     @Override public String toString() {
-        //TODO: finish writing toString()
-        return " ";
+        DecimalFormat priceFormat = new DecimalFormat("##0.00");
+        String S = "Title: " + title + "\n"
+                + "Developer: " + developer + "\n"
+                + "Release Date: " + releaseDate + "\n"
+                + "Price: $" + priceFormat.format(price) + "\n"
+                + "Genre: " + genre + "\n"
+                + "ESRB Rating: " + esrb + "\n"
+                + "Metacritic Score: " + metaCriticScore + "\n"
+                + "Platform: " + platform + "\n";
+        return S;
     }
 
     //compares this videoGame to another object for equality, compares titles
