@@ -1,5 +1,5 @@
 import java.util.Comparator;
-import java.text.NumberFormat;
+import java.text.DecimalFormat;
 
 public class VideoGame {
     private String title, developer, genre, esrb, platform;
@@ -21,7 +21,7 @@ public class VideoGame {
     VideoGame(String title) {
         this.title = title;
         developer = "no developer";
-        releaseDate = 000000;
+        releaseDate = 00000000;
         price = 0;
         genre = "no genre";
         esrb = "no ESRB";
@@ -108,11 +108,12 @@ public class VideoGame {
 
     //additional operations
     @Override public String toString() {
-        DecimalFormat priceFormat = new DecimalFormat("##0.00");
+        DecimalFormat df = new DecimalFormat("##0.00");
+        String dateStr = "" + releaseDate;
         String S = "Title: " + title + "\n"
                 + "Developer: " + developer + "\n"
-                + "Release Date: " + releaseDate + "\n"
-                + "Price: $" + priceFormat.format(price) + "\n"
+                + "Release Date: " + dateStr.substring(0, 4) + "/" + dateStr.substring(4,6) + "/" + dateStr.substring(6) + "\n"
+                + "Price: $" + df.format(price) + "\n"
                 + "Genre: " + genre + "\n"
                 + "ESRB Rating: " + esrb + "\n"
                 + "Metacritic Score: " + metaCriticScore + "\n"
