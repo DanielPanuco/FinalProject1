@@ -60,7 +60,9 @@ abstract class User {
         this.password = password;
     }
     
-    public abstract void login();
+    public static User login(String email, String password, HashTable<User> users) {
+		return null;
+	}
     
     public boolean passwordMatch(String anotherPassword) { 
 		return password.equals(anotherPassword); 
