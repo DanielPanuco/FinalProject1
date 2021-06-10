@@ -65,12 +65,17 @@ public class Customer extends User {
 		this.zip = zip;
 	}
 	
-	public static void login(String email, String password, HashTable<Customer> customers) {
-    	//overwrite
+	public static Customer login(String email, String password, HashTable<Customer> customers) {
+    	if(!customers.contains(new Customer(email, password))) {
+    		System.out.println("Invalid email or password!\nPlease type again\n");
+    	}else {
+    		System.out.println("Successfully login!\n");
+    		return customers.get(new Customer(email, password)));
+    	}
     }
 
-	public static void loginAsGuest(String email, String password) {
-		
+	public static void loginAsGuest() {
+		System.out.println("You have already logged in as a guest");
 	}
 	
 	public static VideoGame searchGameByTitle(String title, BST<VideoGame> byTitle) {
@@ -82,7 +87,7 @@ public class Customer extends User {
 	}
 	
 	public void placeOrder(Order order) {
-		//this.unshippedOrders.addLast(order);
+		this.unshippedOrders.addLast(order);
 	}
 	
 	
@@ -103,7 +108,14 @@ public class Customer extends User {
 	}
 	
 	public String toString() {
-		return null;
+		String result = "Address: " + address + "\n"
+				+ "City: " + city + "\n"
+    		    + "State: " + state + "\n"
+    		    + "Zip: " +zip + "\n"
+    		    + "Unshipped Orders: " + unshippedOrders + "\n"
+    		    + "Shipped Orders: " + shippedOrders + "\n";
+				+ super.toString();
+		return result;
 	} 
 
 }
