@@ -1,14 +1,9 @@
 import java.util.Comparator;
 
 public class VideoGame {
-    private String title;
-    private String developer;
+    private String title, developer, genre, esrb, platform;
+    private double price, metaCriticScore;
     private int releaseDate;
-    private double price;
-    private String genre;
-    private String esrb;
-    private double metaCriticScore;
-    private String platform;
 
     //constructors
     VideoGame(String title, String developer, int releaseDate, double price, String genre, String esrb, double metaCriticScore, String platform) {
