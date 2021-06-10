@@ -110,6 +110,7 @@ public class VideoGame {
 
     //additional operations
     @Override public String toString() {
+        //TODO: finish writing toString()
         return " ";
     }
 
@@ -125,7 +126,13 @@ public class VideoGame {
         }
     }
 
-    public int hashCode() {
-        return 0;
+    //adds primary and secondary keys, title and developer, and converts to unicode
+    @Override public int hashCode() {
+        String key = title + releaseDate;
+        int sum = 0;
+        for (int i = 0; i < key.length(); i++) {
+            sum += (int) key.charAt(i);
+        }
+        return sum;
     }
 }
