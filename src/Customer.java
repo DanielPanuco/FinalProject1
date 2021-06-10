@@ -65,8 +65,7 @@ public class Customer extends User {
 		this.zip = zip;
 	}
 	
-	
-	@Override public static User login(String email, String password, HashTable<User> users) {
+	public static User login(String email, String password, HashTable<User> users) {
 		if(!users.contains(new Customer(email, password))) {
     		System.out.println("Invalid email or password!\nPlease type again\n");
     		return null;
@@ -74,8 +73,8 @@ public class Customer extends User {
     		System.out.println("Successfully login!\n");
     		return users.get(new Customer(email, password));
     	}
-    }
-
+    }	
+	
 	public static void loginAsGuest() {
 		System.out.println("You have already logged in as a guest");
 	}
@@ -115,12 +114,8 @@ public class Customer extends User {
     		    + "State: " + state + "\n"
     		    + "Zip: " +zip + "\n"
     		    + "Unshipped Orders: " + unshippedOrders + "\n"
-    		    + "Shipped Orders: " + shippedOrders + "\n";
+    		    + "Shipped Orders: " + shippedOrders + "\n"
 				+ super.toString();
 		return result;
 	}
-
-
-
-
 }
