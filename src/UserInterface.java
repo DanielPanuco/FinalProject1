@@ -175,7 +175,8 @@ public class UserInterface {
 		input.close();
     }
 
-    public static void fileToEmp(Scanner input, HashTable<Employee> employees) throws FileNotFoundException {
+	public static void fileToEmp(Scanner input, HashTable<Employee> empHT)
+			throws FileNotFoundException {
     	//File file = new File(empFile);
 		//input = new Scanner(file);
 		//while loop to read in
