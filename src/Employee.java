@@ -62,15 +62,15 @@ public class Employee extends User {
 		if(users == null) {
 			throw new NullPointerException("Employee login(): cannot find employee list\n");
 		}
-		if(!users.contains(new Employee(email, password))) {
-    		System.out.println("Invalid email or password!\nPlease type again\n");
-    		return null;
-    	}else {
-    		System.out.println("Successfully login!\n");
-    		return users.get(new Employee(email, password));
-    	}
-    }	
-	
+		if(!(users.contains(new Employee(email, password)))) {
+			System.out.println("Invalid email or password!\nPlease type again\n");
+			return null;
+		}else {
+			System.out.println("Successfully login!\n");
+			return users.get(new Employee(email, password));
+		}
+	}	
+
 	public String toString() {
 		return super.toString();
 	}
