@@ -45,14 +45,16 @@ public class Employee extends User {
 		}
 	}
 	
-	public static void addProduct(BST<VideoGame> byTitle, BST<VideoGame> byDate, VideoGame videogame) {
-		//byTitle.insert(videogame,titleComparator);
-		//byDate.insert(videogame,dateComparator)
+	public static void addProduct(BST<VideoGame> byTitle, BST<VideoGame> byDate, VideoGame videogame,
+			TitleComparator tc, DateComparator dc) {
+		byTitle.insert(videogame,tc);
+		byDate.insert(videogame,dc);
 	}
 	
-	public static void removeProduct(BST<VideoGame> byTitle, BST<VideoGame> byDate, VideoGame videogame) {
-		//byTitle.remove(videogame, titleComparator);
-		//byDate.remove(videogame, dateComparator);
+	public static void removeProduct(BST<VideoGame> byTitle, BST<VideoGame> byDate, VideoGame videogame,
+			TitleComparator tc, DateComparator dc) {
+		byTitle.remove(videogame, tc);
+		byDate.remove(videogame, dc);
 	}
 	
 

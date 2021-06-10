@@ -82,12 +82,15 @@ public class Customer extends User {
 		System.out.println("You have already logged in as a guest");
 	}
 	
-	public static VideoGame searchGameByTitle(String title, BST<VideoGame> byTitle) {
-		return null;
+	public static VideoGame searchGameByTitle(String title, BST<VideoGame> byTitle,
+			TitleComparator tc) {
+		return byTitle.search(new VideoGame(title), tc);
+
 	}
 	
-	public static VideoGame searchGameByDate(String title, BST<VideoGame> byDate) {
-		return null;
+	public static VideoGame searchGameByDate(String title, BST<VideoGame> byDate,
+			DateComparator dc) {
+		return byDate.search(new VideoGame(title), dc);
 	}
 	
 	public void placeOrder(Order order) {
