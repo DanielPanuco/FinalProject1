@@ -1,3 +1,4 @@
+
 abstract class User {
     
 	private String firstName;
@@ -81,6 +82,15 @@ abstract class User {
              }
          }
 	}
+    
+    @Override public String toString() {
+		String result = "Name: " + firstName + " " + lastName + "\n"
+				+ "Email: " + email + "\n"
+    		    + "Password: " + password + "\n"
+    		    + "Account Number: " +accountNum + "\n";
+		return result;
+	}
+
 
     public int hashCode() {
         String name = email + password;
