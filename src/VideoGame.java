@@ -9,16 +9,37 @@ public class VideoGame {
     private String platform;
 
     //constructors
-    VideoGame(String title, String developer, int releaseDate, double price, String genre, String esrb, int metaCriticScore, String platform) {
-
+    VideoGame(String title, String developer, int releaseDate, double price, String genre, String esrb, double metaCriticScore, String platform) {
+        this.title = title;
+        this.developer = developer;
+        this.releaseDate = releaseDate;
+        this.price = price;
+        this.genre = genre;
+        this.esrb = esrb;
+        this.metaCriticScore = metaCriticScore;
+        this.platform = platform;
     }
 
     VideoGame(String title) {
-
+        this.title = title;
+        developer = "no developer";
+        releaseDate = 000000;
+        price = 0;
+        genre = "no genre";
+        esrb = "no ESRB";
+        metaCriticScore = 0.0;
+        platform = "no platform";
     }
 
     VideoGame(int releaseDate) {
-
+        title = "no title";
+        developer = "no developer";
+        this.releaseDate = releaseDate;
+        price = 0;
+        genre = "no genre";
+        esrb = "no ESRB";
+        metaCriticScore = 0.0;
+        platform = "no platform";
     }
 
     //accessors
@@ -89,14 +110,29 @@ public class VideoGame {
 
     //additional operations
     @Override public String toString() {
+        //TODO: finish writing toString()
         return " ";
     }
 
+    //compares this videoGame to another object for equality, compares titles
     @Override public boolean equals(Object o) {
-        return false;
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof VideoGame)) {
+            return false;
+        } else {
+            VideoGame otherGame = (VideoGame) o;
+            return otherGame.getTitle().equals(title);
+        }
     }
 
-    public int hashCode() {
-        return 0;
+    //adds primary and secondary keys, title and developer, and converts to unicode
+    @Override public int hashCode() {
+        String key = title + releaseDate;
+        int sum = 0;
+        for (int i = 0; i < key.length(); i++) {
+            sum += (int) key.charAt(i);
+        }
+        return sum;
     }
 }
