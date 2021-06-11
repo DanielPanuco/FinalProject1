@@ -13,6 +13,12 @@ public class Employee extends User {
 		super(firstName, lastName, email, password);
 	}
 	
+	public Employee(String firstName, String lastName, 
+			String email, String password, int accountNum) {
+		super(firstName, lastName, email, password);
+		this.setAccountNum(accountNum);
+	}
+	
 	public static Customer searchCustomer(String email, String password, HashTable<Customer> customers) {
 		return customers.get(new Customer(email, password));
 	}
