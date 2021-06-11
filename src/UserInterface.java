@@ -17,7 +17,7 @@ public class UserInterface {
 	//name it's good to make it final (taught in 36B)
 	//(if we don't want to end up changing it later on)
 	
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) {
         final int customerSize = 5, employeeSize = 3;
         Scanner input = new Scanner(System.in);
         HashTable<Customer> customersHT = new HashTable<>(customerSize * 2);
@@ -26,17 +26,28 @@ public class UserInterface {
         BST<VideoGame> vgbyDate = new BST<>();
        
         //Heap<Order> orderHeap = new Heap<>(); need to finish some methods in heap to call this
-
-        fileToVG(input, vgbyTitle, vgbyDate);
-        fileToCust(input, customersHT);
-        fileToEmp(input, employeesHT);
+		try {
+			fileToVG(input, vgbyTitle, vgbyDate);
+			fileToCust(input, customersHT);
+			fileToEmp(input, employeesHT);
+		} catch (FileNotFoundException e) {
+			System.out.println("File(s) not found, please make sure it is in the project"
+					+ "folder and rereun the program. ");
+		} catch (IOException e) { //unreachable catch block?
+			System.out.println("Unable to read your input file(s), please double check if"
+					+ "it's corrupt and rereun the program.");
+		}
+       
         //fileToOrders(input, orderHeap);
 
         String email;
-        int typeOfUser;
-        System.out.println("What type of user are you? (1 Customer | 2 Employee): ");
-        typeOfUser = input.nextInt();
-        if (typeOfUser == 1) {
+        int userType;
+        System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
+        System.out.println("What type of user are you? Please select: \n"
+        		+ "1. Customer\n"
+        		+ "2. Employee");
+        userType = input.nextInt();
+        if (userType == 1) {
             custInterface(input);
         } else {
             empInterface(input);
@@ -146,41 +157,45 @@ public class UserInterface {
 		
 		while (input.hasNextLine()) {
 			username = input.nextLine();
-			//System.out.println("uName: " +username);
 			fName = input.nextLine();
-			//System.out.println("fname: " +fName);
 			lName = input.nextLine();
-			//System.out.println("lname: " +lName);
 			email = input.nextLine();
-			//System.out.println("email: " +email);
 			pw = input.nextLine();
-			//System.out.println("pw: " + pw);
 			address = input.nextLine();
-			//System.out.println("add: " + address);
 			city = input.nextLine();
-			//System.out.println("city: " + city);
 			state = input.nextLine();
-			//System.out.println("state: " + state);
 			zip = input.nextInt();
-			//System.out.println("zip:" + zip);
 			if (input.hasNextLine()) {
 				input.nextLine();  //clear buffer
 				input.nextLine();
 			}
-			Customer newC = new Customer(fName, lName, email, pw, address, city, state, zip);
-			//System.out.println(newC);
+			Customer newC = new Customer(username, fName, lName, email, pw, address, city, state, zip);
 			customersHT.insert(newC);
-		
 		}
 		input.close();
     }
 
 	public static void fileToEmp(Scanner input, HashTable<Employee> empHT)
 			throws FileNotFoundException {
-    	//File file = new File(empFile);
-		//input = new Scanner(file);
-		//while loop to read in
-		//input.close();
+		String fName, lName, email, pw;
+		int accNum;
+    	File file = new File(empFile);
+		input = new Scanner(file);
+		
+		while (input.hasNextLine()) {
+			fName = input.nextLine();
+			lName = input.nextLine();
+			email = input.nextLine();
+			pw = input.nextLine();
+			accNum = input.nextInt();
+			if (input.hasNextLine()) {
+				input.nextLine();  //clear buffer
+				input.nextLine();
+			}
+			Employee newE = new Employee(fName, lName, email, pw, accNum);
+			empHT.insert(newE);
+		}
+		input.close();
     }
 
 	public static void fileToVG(Scanner input, BST<VideoGame> vgByTitle,
@@ -195,29 +210,20 @@ public class UserInterface {
 		
 		while (input.hasNextLine()) {
 			title = input.nextLine();
-			// System.out.println(title);
 			dev = input.nextLine();
-			// System.out.println(dev);
 			rDate = input.nextInt();
-			// System.out.println(rDate);
 			price = input.nextDouble();
-			// System.out.println(price);
 			input.nextLine(); // clear buffer
 			genre = input.nextLine();
-			// System.out.println(genre);
 			ESRB = input.nextLine();
-			// System.out.println(ESRB);
 			mcScore = input.nextInt();
-			// System.out.println(mcScore);
 			input.nextLine();
 			pform = input.nextLine();
-			//System.out.println(pform);
 			if (input.hasNextLine()) {
 				input.nextLine();
 			}
 			VideoGame newVG = new VideoGame(title, dev, rDate, price, genre,
 					ESRB, mcScore, pform);
-			//System.out.println(newVG); //needs toString to be finished first
 			vgByTitle.insert(newVG, tComp);
 			vgByDate.insert(newVG, dComp);
 		}

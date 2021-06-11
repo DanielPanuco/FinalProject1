@@ -1,6 +1,6 @@
 public class Customer extends User {
 	
-	private String address, city, state;
+	private String address, city, state, username;
 	private int zip;
 	private List<Order> unshippedOrders, shippedOrders;
 	
@@ -19,15 +19,24 @@ public class Customer extends User {
 		
 	}
 
-	public Customer(String firstName, String lastName, String email, String password, 
+	public Customer(String username, String firstName, String lastName, String email, String password, 
 			String address, String city, String state, int zip) {
 		super(firstName, lastName, email, password);
+		this.username = username;
 		this.address = address;
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
 		this.unshippedOrders = new List<>();
 		this.shippedOrders = new List<>();
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getAddress() {

@@ -3,20 +3,22 @@ import java.text.DecimalFormat;
 
 public class VideoGame {
     private String title, developer, genre, esrb, platform;
-    private double price, metaCriticScore;
-    private int releaseDate;
+    private double price;
+    private int releaseDate, metaCriticScore;
 
     //constructors
-    public VideoGame(String title, String developer, int releaseDate, double price, String genre, String esrb, double metaCriticScore, String platform) {
-        this.title = title;
-        this.developer = developer;
-        this.releaseDate = releaseDate;
-        this.price = price;
-        this.genre = genre;
-        this.esrb = esrb;
-        this.metaCriticScore = metaCriticScore;
-        this.platform = platform;
-    }
+	public VideoGame(String title, String developer, int releaseDate,
+			double price, String genre, String esrb, int metaCriticScore,
+			String platform) {
+		this.title = title;
+		this.developer = developer;
+		this.releaseDate = releaseDate;
+		this.price = price;
+		this.genre = genre;
+		this.esrb = esrb;
+		this.metaCriticScore = metaCriticScore;
+		this.platform = platform;
+	}
 
     public VideoGame(String title) {
         this.title = title;
@@ -25,7 +27,7 @@ public class VideoGame {
         price = 0;
         genre = "no genre";
         esrb = "no ESRB";
-        metaCriticScore = 0.0;
+        metaCriticScore = 0;
         platform = "no platform";
     }
 
@@ -36,7 +38,7 @@ public class VideoGame {
         price = 0;
         genre = "no genre";
         esrb = "no ESRB";
-        metaCriticScore = 0.0;
+        metaCriticScore = 0;
         platform = "no platform";
     }
 
@@ -98,7 +100,7 @@ public class VideoGame {
         this.esrb = esrb;
     }
 
-    public void setScore(double metaCriticScore) {
+    public void setScore(int metaCriticScore) {
         this.metaCriticScore = metaCriticScore;
     }
 
@@ -112,7 +114,8 @@ public class VideoGame {
         String dateStr = "" + releaseDate;
         String S = "Title: " + title + "\n"
                 + "Developer: " + developer + "\n"
-                + "Release Date: " + dateStr.substring(0, 4) + "/" + dateStr.substring(4,6) + "/" + dateStr.substring(6) + "\n"
+				+ "Release Date: " + dateStr.substring(4, 6) + "/"
+				+ dateStr.substring(6) + "/" + dateStr.substring(0, 4) + "\n"
                 + "Price: $" + df.format(price) + "\n"
                 + "Genre: " + genre + "\n"
                 + "ESRB Rating: " + esrb + "\n"
