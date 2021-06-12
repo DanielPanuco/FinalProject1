@@ -33,9 +33,6 @@ public class UserInterface {
 		} catch (FileNotFoundException e) {
 			System.out.println("File(s) not found, please make sure it is in the project"
 					+ "folder and rereun the program.");
-		} catch (IOException e) { //unreachable catch block?
-			System.out.println("Unable to read your input file(s), please double check if"
-					+ "it's corrupt and rerun the program.");
 		}
        
         //fileToOrders(input, orderHeap);
@@ -106,60 +103,60 @@ public class UserInterface {
 			System.out.println("\nWelcome back, " + currentC.getFirstName()
 					+ " " + currentC.getLastName() + "!\n");
 		}
-		
+
 		while (!choice.equals("5")) {
 			displayCustMenu();
 			System.out.print("Enter your choice: ");
 			choice = input.nextLine();
 			switch (choice) {
-			case "1":
-				break;
-			case "2":
-				listVideoGames(input, vgByTitle, vgByDate);
-				//choice = "";
-				break;
-			case "3":
-				searchVideoGame(input, currentC, vgByTitle);
-				break;
-			case "4":
-				break;
-			case "5":
-				System.out.println("\nGoodbye!");
-				break;
-			default:
-				System.out.println("\nInvalid menu option."
-						+ " Please enter A-D or X to exit.");
-				break;
+				case "1":
+					break;
+				case "2":
+					listVideoGames(input, vgByTitle, vgByDate);
+					//choice = "";
+					break;
+				case "3":
+					searchVideoGame(input, currentC, vgByTitle);
+					break;
+				case "4":
+					break;
+				case "5":
+					System.out.println("\nGoodbye!");
+					break;
+				default:
+					System.out.println("\nInvalid menu option."
+							+ " Please enter A-D or X to exit.");
+					break;
 			}
 		}
 	}
 
-    public static void empInterface(Scanner input) {
-        String choice = "";
-        input.nextLine(); //clear buffer from reading an Int
-        while (!choice.equalsIgnoreCase("X")) {
-            displayEmpMenu();
-            System.out.print("Enter your choice: ");
-            choice = input.nextLine();
-            switch (choice.toUpperCase()) {
-                case "A":
-                    break;
-                case "B":
-                    break;
-                case "C":
-                    break;
-                case "D":
-                    break;
-                case "X":
-                    System.out.println("\nGoodbye!");
-                    break;
-                default:
-                    System.out.println("\nInvalid menu option."
-                            + " Please enter A-D or X to exit.");
-                    break;
-            }
-        }
-    }
+	public static void empInterface(Scanner input) {
+		String choice = "";
+		input.nextLine(); //clear buffer from reading an Int
+		while (!choice.equalsIgnoreCase("X")) {
+			displayEmpMenu();
+			System.out.print("Enter your choice: ");
+			choice = input.nextLine();
+			switch (choice.toUpperCase()) {
+				case "A":
+					break;
+				case "B":
+					break;
+				case "C":
+					break;
+				case "D":
+					break;
+				case "X":
+					System.out.println("\nGoodbye!");
+					break;
+				default:
+					System.out.println("\nInvalid menu option."
+							+ " Please enter A-D or X to exit.");
+					break;
+			}
+		}
+	}
 
     public static void placeOrder(Scanner input, Customer customerC) {
 
@@ -167,26 +164,33 @@ public class UserInterface {
 
 	public static void searchVideoGame(Scanner input, Customer customerC,
 			BST<VideoGame> vgByTitle) {
-			TitleComparator tc = new TitleComparator();
-			String userSearch;
-			VideoGame searchVG;
-			System.out.println("\nWhich video game would you like to search for?");
-			System.out.print("\nEnter the title: ");
-			userSearch = input.nextLine();
-			searchVG = new VideoGame(userSearch);
-			searchVG = vgByTitle.search(searchVG, tc);
-			if (searchVG != null) {
-				System.out.println("\nWe were able to find this video game: \n\n"
-								+ searchVG);
-			} else {
-				System.out.println("Sorry, we don't have this "
-						+ "video game in our system yet!");
-			}
+		TitleComparator tc = new TitleComparator();
+		String userSearch;
+		VideoGame searchVG;
+		System.out.println("\nWhich video game would you like to search for?");
+		System.out.print("\nEnter the title: ");
+		userSearch = input.nextLine();
+		searchVG = new VideoGame(userSearch);
+		searchVG = vgByTitle.search(searchVG, tc);
+		if (searchVG != null) {
+			System.out.println("\nWe were able to find this video game: \n\n"
+					+ searchVG);
+		} else {
+			System.out.println("Sorry, we don't have this "
+					+ "video game in our system yet!");
+		}
 
 	}
 
     public static void viewPurchases(Scanner input, Customer customerC) { //shopping cart?
+		String viewChoice;
+    	System.out.println("1 to view unshipped orders | 2 to view shipped orders");
+		viewChoice = input.nextLine();
+		if (viewChoice.equals("1")) {
+			// System.out.println(customer.getShipped); no getter for shipped or unshipped list
+		} else {
 
+		}
     }
 
     public static void listVideoGames(Scanner input, BST<VideoGame> vgByTitle,
