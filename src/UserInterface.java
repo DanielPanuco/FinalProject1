@@ -62,8 +62,7 @@ public class UserInterface {
     }
 
     public static void custInterface(Scanner input, HashTable<Customer> custHT) {
-		String username = "", fName, lName, email, password, address, city, state,
-				choice = "";
+		String username = "", fName, lName, email, pw, addr, city, state, choice = "";
         int zip;
         input.nextLine(); //clear buffer from reading
         while (!choice.equalsIgnoreCase("X")) {
@@ -73,9 +72,9 @@ public class UserInterface {
             System.out.print("Enter your email address: ");
     		email = input.nextLine();
     		System.out.print("Enter your password: ");
-    		password = input.nextLine();
-    		Customer tempC = new Customer(username, email, password);
-    		Customer returningC;
+    		pw= input.nextLine();
+    		Customer tempC = new Customer(username, email, pw);
+    		Customer currentC;
     		if (!(custHT.contains(tempC))) {
     			System.out.println("\nWe don't have your account on file...\n");
     			System.out.println("Let's create an account for you!");
@@ -88,7 +87,7 @@ public class UserInterface {
     			System.out.print("Enter your email: ");
     			email= input.nextLine();
     			System.out.print("Enter your address: ");
-    			address = input.nextLine();
+    			addr = input.nextLine();
     			System.out.print("Enter your city: ");
     			city = input.nextLine();
     			System.out.print("Enter your state: ");
@@ -96,17 +95,19 @@ public class UserInterface {
     			System.out.print("Enter your zipcode: ");
     			zip = input.nextInt();
     			input.nextLine(); //clear buffer
-    			System.out.println("\nYou have succesfully created an account, " + fName + " " + lName + "!\n");
-    			returningC = new Customer(username, fName, lName, email, password, address, city, state, zip);
-    			custHT.insert(returningC);
-    		} else {
-    			returningC = custHT.get(tempC);
-    			System.out.println("\nWelcome back, " + returningC.getFirstName()
-    					+ " " + returningC.getLastName() + "!\n");
-    		}
-    		displayCustMenu();
-            System.out.print("Enter your choice: ");
-            choice = input.nextLine();
+				System.out.println("\nYou have succesfully created an account, "
+						+ fName + " " + lName + "!\n");
+				currentC = new Customer(username, fName, lName, email, pw,
+						addr, city, state, zip);
+				custHT.insert(currentC);
+			} else {
+				currentC = custHT.get(tempC);
+				System.out.println("\nWelcome back, " + currentC.getFirstName() + " "
+						+ currentC.getLastName() + "!\n");
+			}
+			displayCustMenu();
+			System.out.print("Enter your choice: ");
+			choice = input.nextLine();
             switch (choice.toUpperCase()) {
             	//I'll decide if I think having num or letters is more fitting
                 case "A":
