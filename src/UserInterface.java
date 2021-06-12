@@ -55,7 +55,7 @@ public class UserInterface {
         } else {
             empInterface(input);
         }
-        input.nextLine(); //clear buffer
+        //input.nextLine(); //clear buffer
         // read in files to hashtables
         // sign in
         // call a method for either employee or customer
@@ -65,8 +65,9 @@ public class UserInterface {
 		String username = "", fName, lName, email, password, address, city, state,
 				choice = "";
         int zip;
+        input.nextLine(); //clear buffer from reading
         while (!choice.equalsIgnoreCase("X")) {
-        	System.out.println("Welcome to our store, please login here!");
+        	System.out.println("\n Welcome to our store, please login here!");
         	System.out.print("Enter your username: ");
      		username = input.nextLine();
             System.out.print("Enter your email address: ");
@@ -129,6 +130,7 @@ public class UserInterface {
 
     public static void empInterface(Scanner input) {
         String choice = "";
+        input.nextLine(); //clear buffer from reading an Int
         while (!choice.equalsIgnoreCase("X")) {
             displayEmpMenu();
             System.out.print("Enter your choice: ");
@@ -184,11 +186,11 @@ public class UserInterface {
 
     public static void displayEmpMenu() {
         System.out.println("\nPlease select from the following options:\n\n"
-                + "P. Place Order\n"
                 + "B. View Orders by Priority\n"
                 + "S. Search for Customer\n"
                 + "O. Ship Orders\n"
                 + "A. Add New Product\n"
+                + "R. Remove a Product\n"
                 + "X. Exit\n"); //TODO: temp output
     }
 
