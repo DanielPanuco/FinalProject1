@@ -19,8 +19,8 @@ public class Employee extends User {
 		this.setAccountNum(accountNum);
 	}
 	
-	public static Customer searchCustomer(String email, String password, HashTable<Customer> customers) {
-		return customers.get(new Customer(email, password));
+	public static Customer searchCustomer(String username, String email, String password, HashTable<Customer> customers) {
+		return customers.get(new Customer(username, email, password));
 	}
 	
 	public static void displayCustomer(Customer customer) {
