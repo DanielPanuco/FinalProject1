@@ -2,6 +2,7 @@ public class Customer extends User {
 	
 	private String address, city, state, username;
 	private int zip;
+	//private double cash;
 	private List<Order> unshippedOrders, shippedOrders;
 	
 	Customer() {
@@ -9,14 +10,15 @@ public class Customer extends User {
 	}
 
 	public Customer(String username, String email, String password) {
+		//def constructor should have all params 
+		//String city, String state, int zip
+		//removed lists here
 		super(email, password);
 		this.username = "unknown username";
 		this.address = "address unknown";
 		this.city = "city unknown";
 		this.state = "state unknown";
 		this.zip = 00000;
-		this.unshippedOrders = new List<>();
-		this.shippedOrders = new List<>();
 		
 	}
 
@@ -104,7 +106,6 @@ public class Customer extends User {
 	public void placeOrder(Order order) {
 		this.unshippedOrders.addLast(order);
 	}
-	
 	
 	public void viewUnshippedOrders() {
 		if(unshippedOrders.isEmpty()) {

@@ -19,10 +19,11 @@ public class Employee extends User {
 		this.setAccountNum(accountNum);
 	}
 	
-	public static Customer searchCustomer(String username, String email, String password, HashTable<Customer> customers) {
+	public static Customer searchCustomer(String username, String email,
+			String password, HashTable<Customer> customers) {
 		return customers.get(new Customer(username, email, password));
 	}
-	
+
 	public static void displayCustomer(Customer customer) {
 		System.out.println(customer);
 	}
@@ -71,7 +72,7 @@ public class Employee extends User {
 		if(!(users.contains(new Employee(email, password)))) {
 			System.out.println("Invalid email or password!\nPlease type again\n");
 			return null;
-		}else {
+		} else {
 			System.out.println("Successfully login!\n");
 			return users.get(new Employee(email, password));
 		}
