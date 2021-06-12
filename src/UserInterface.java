@@ -218,6 +218,14 @@ public class UserInterface {
     	//
     }
 
+    public static void addVG(BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
+
+	}
+
+	public static void removeVG(BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
+
+	}
+
     public static void displayCustMenu() { //could pass scanner input in and return choice
         System.out.println("\nPlease select from the following options:\n\n"
                 + "1. Place Order\n"
