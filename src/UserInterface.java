@@ -32,7 +32,7 @@ public class UserInterface {
 			fileToEmp(input, employeesHT);
 		} catch (FileNotFoundException e) {
 			System.out.println("File(s) not found, please make sure it is in the project"
-					+ "folder and rereun the program. ");
+					+ "folder and rereun the program.");
 		} catch (IOException e) { //unreachable catch block?
 			System.out.println("Unable to read your input file(s), please double check if"
 					+ "it's corrupt and rereun the program.");
@@ -43,24 +43,67 @@ public class UserInterface {
         String email;
         int userType;
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
-        System.out.println("What type of user are you? Please select: \n"
+        //Probably will write something about being cash only and no refunds
+        System.out.println("What type of user are you?\n"
         		+ "1. Customer\n"
         		+ "2. Employee");
+        
+        System.out.print("\nPlease enter 1 or 2: ");
         userType = input.nextInt();
         if (userType == 1) {
-            custInterface(input);
+            custInterface(input, customersHT);
         } else {
             empInterface(input);
         }
+        input.nextLine(); //clear buffer
         // read in files to hashtables
         // sign in
         // call a method for either employee or customer
     }
 
-    public static void custInterface(Scanner input) {
-        String choice = "";
+    public static void custInterface(Scanner input, HashTable<Customer> custHT) {
+		String username = "", fName, lName, email, password, address, city, state,
+				choice = "";
+        int zip;
         while (!choice.equalsIgnoreCase("X")) {
-            displayCustMenu();
+        	System.out.println("Welcome to our store, please login here!");
+        	System.out.print("Enter your username: ");
+     		username = input.nextLine();
+            System.out.print("Enter your email address: ");
+    		email = input.nextLine();
+    		System.out.print("Enter your password: ");
+    		password = input.nextLine();
+    		Customer tempC = new Customer(username, email, password);
+    		Customer returningC;
+    		if (!(custHT.contains(tempC))) {
+    			System.out.println("\nWe don't have your account on file...\n");
+    			System.out.println("Let's create an account for you!");
+    			System.out.print("Enter your username: ");
+    			username = input.nextLine();
+    			System.out.print("Enter your first name: ");
+    			fName = input.nextLine();
+    			System.out.print("Enter your last name: ");
+    			lName = input.nextLine();
+    			System.out.print("Enter your email: ");
+    			email= input.nextLine();
+    			System.out.print("Enter your address: ");
+    			address = input.nextLine();
+    			System.out.print("Enter your city: ");
+    			city = input.nextLine();
+    			System.out.print("Enter your state: ");
+    			state = input.nextLine();
+    			System.out.print("Enter your zipcode: ");
+    			zip = input.nextInt();
+    			input.nextLine(); //clear buffer
+    			System.out.println("\nYou have succesfully created an account, " + fName + " " + lName + "!\n");
+    			returningC = new Customer(username, fName, lName, email, password, address, city, state, zip);
+    			custHT.insert(returningC);
+    		} else {
+    			returningC = custHT.get(tempC);
+    			System.out.println("\nWelcome back, " + returningC.getFirstName()
+    					+ " " + returningC.getLastName() + "!\n");
+    		}
+    		displayCustMenu();
             System.out.print("Enter your choice: ");
             choice = input.nextLine();
             switch (choice.toUpperCase()) {

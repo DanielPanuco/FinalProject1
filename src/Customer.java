@@ -8,8 +8,9 @@ public class Customer extends User {
 
 	}
 
-	public Customer(String email, String password) {
+	public Customer(String username, String email, String password) {
 		super(email, password);
+		this.username = "unknown username";
 		this.address = "address unknown";
 		this.city = "city unknown";
 		this.state = "state unknown";
@@ -71,16 +72,17 @@ public class Customer extends User {
 		this.zip = zip;
 	}
 	
-	public static User login(String email, String password, HashTable<User> users) throws NullPointerException {
-		if(users == null) {
+	public static User login(String username, String email, String password,
+			HashTable<User> users) throws NullPointerException {
+		if (users == null) {
 			throw new NullPointerException("Customer login(): cannot find customer list\n");
 		}
-		if(!users.contains(new Customer(email, password))) {
+		if(!users.contains(new Customer(username, email, password))) {
     		System.out.println("Invalid email or password!\nPlease type again\n");
     		return null;
     	}else {
     		System.out.println("Successfully login!\n");
-    		return users.get(new Customer(email, password));
+    		return users.get(new Customer(username, email, password));
     	}
     }	
 	
