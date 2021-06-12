@@ -112,7 +112,6 @@ public class UserInterface {
 					break;
 				case "2":
 					listVideoGames(input, vgByTitle, vgByDate);
-					//choice = "";
 					break;
 				case "3":
 					searchVideoGame(input, currentC, vgByTitle);
@@ -336,4 +335,9 @@ public class UserInterface {
     public static void customerToFile(HashTable<Customer> customers) {
 
     }
+
+    public static void ordersToFile(Heap<Order> orderHeap) {
+
+	}
+
 }

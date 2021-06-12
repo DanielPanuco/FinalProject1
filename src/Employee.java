@@ -63,7 +63,6 @@ public class Employee extends User {
 		byTitle.remove(videogame, tc);
 		byDate.remove(videogame, dc);
 	}
-	
 
 	public static User login(String email, String password, HashTable<User> users) throws NullPointerException {
 		if(users == null) {
