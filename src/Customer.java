@@ -19,7 +19,6 @@ public class Customer extends User {
 		this.city = "city unknown";
 		this.state = "state unknown";
 		this.zip = 00000;
-		
 	}
 
 	public Customer(String username, String firstName, String lastName, String email, String password, 
@@ -32,6 +31,19 @@ public class Customer extends User {
 		this.zip = zip;
 		this.unshippedOrders = new List<>();
 		this.shippedOrders = new List<>();
+	}
+	
+	public Customer(String username, String firstName, String lastName, String email, String password, 
+			String address, String city, String state, int zip,
+			List<Order> unshippedOrders, List<Order> shippedOrders) {
+		super(firstName, lastName, email, password);
+		this.username = username;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.unshippedOrders = unshippedOrders;
+		this.shippedOrders = shippedOrders;
 	}
 	
 	public String getUsername() {
