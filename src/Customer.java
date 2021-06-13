@@ -126,7 +126,7 @@ public class Customer extends User {
     }
 	
 	public void viewUnshippedOrders() {
-		if(unshippedOrders.isEmpty()) {
+		if (unshippedOrders.isEmpty()) {
 			System.out.println("You don't have any unshipped orders!");
 		} else {
 			unshippedOrders.placeIterator();
@@ -134,13 +134,14 @@ public class Customer extends User {
 				List<VideoGame> vgList = unshippedOrders.getIterator()
 						.getOrderContents();
 				vgList.placeIterator();
-				System.out.println("\t\t[Order #" + (i + 1)
-						+ "]\n\tTitle\t\t\tPrice\n----------------------------------------");
+				System.out.println("\t\t[Order #" + (i + 1) + "]\n"
+						+ " Qty\tPrice\t\t\tTitle\n"
+						+ "---------------------------------------------------------");
 				for (int j = 0; j < vgList.getLength(); j++) {
-					System.out.println((j + 1) + ": "
-							+ vgList.getIterator().getTitle() + " ("
-							+ vgList.getIterator().getPlatform() + ")\t\t\t"
-							+ df.format(vgList.getIterator().getPrice()));
+					System.out.println((j + 1) + ":\t"
+							+ df.format(vgList.getIterator().getPrice())
+							+ "\t\t" + vgList.getIterator().getTitle() + " ("
+							+ vgList.getIterator().getPlatform() + ")\t\t\t");
 					vgList.advanceIterator();
 				}
 				unshippedOrders.advanceIterator();
@@ -149,7 +150,7 @@ public class Customer extends User {
 	}
 
 	public void viewShippedOrders() {
-		if(shippedOrders.isEmpty()) {
+		if (shippedOrders.isEmpty()) {
 			System.out.println("You don't have any shipped orders!");
 		} else {
 			shippedOrders.placeIterator();
@@ -157,20 +158,21 @@ public class Customer extends User {
 				List<VideoGame> vgList = shippedOrders.getIterator()
 						.getOrderContents();
 				vgList.placeIterator();
-				System.out.println("\t\t[Order #" + (i + 1)
-						+ "]\n\tTitle\t\t\tPrice\n----------------------------------------");
+				System.out.println("\t\t[Order #" + (i + 1) + "]\n"
+						+ " Qty\tPrice\t\t\tTitle\n"
+						+ "---------------------------------------------------------");
 				for (int j = 0; j < vgList.getLength(); j++) {
-					System.out.println((j + 1) + ": "
-							+ vgList.getIterator().getTitle() + " ("
-							+ vgList.getIterator().getPlatform() + ")\t\t\t"
-							+ df.format(vgList.getIterator().getPrice()));
+					System.out.println((j + 1) + ":\t"
+							+ df.format(vgList.getIterator().getPrice())
+							+ "\t\t" + vgList.getIterator().getTitle() + " ("
+							+ vgList.getIterator().getPlatform() + ")");
 					vgList.advanceIterator();
 				}
 				shippedOrders.advanceIterator();
 			}
 		}
 	}
-	
+
 	@Override public String toString() {
 		String result = super.toString() + "\nAddress: " + address + "\n"
 				+ "City: " + city + "\n"

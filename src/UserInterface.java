@@ -54,7 +54,7 @@ public class UserInterface {
 	public static void custInterface(Scanner input, HashTable<Customer> custHT,
 			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
 		String username = "", fName, lName, email, pw, addr, city, state,
-				choice = "";
+				choice = "", ans;
 		int zip;
 		input.nextLine(); // clear buffer from reading
 		System.out.println("\nWelcome to our store, please login here!");
@@ -112,17 +112,27 @@ public class UserInterface {
 					searchVideoGame(input, currentC, vgByTitle);
 					break;
 				case "4":
-					//4. View Purchases
 					//check if they don't have any orders, else
-					System.out.println("Here are your unshipped orders: ");
-					currentC.viewUnshippedOrders();
-					System.out.println("Here are your shipped orders: ");
-					currentC.viewShippedOrders();
-					break;
-				case "5":
-					//TODO: EXTRA: Remove video game from unshippedorderlist
-					//specify from unshipped list (but this is essentially offering refunds)
-					//if unshippedorderlist is empty, run if block, else
+					System.out.println("[Viewing Order(s) Submenu]");
+					System.out.println("Would you like to view your unshipped orders or"
+							+ "your shipped orders?\n Please only enter U or S to choose:");
+					ans = input.nextLine();
+					if (ans.equalsIgnoreCase("U")) {
+						System.out.println("\n\t[" + currentC.getUsername()
+								+ "'s Unshipped Orders]\n");
+						currentC.viewUnshippedOrders();
+						//TODO: EXTRA: Remove video game from unshippedorderlist
+						//this is essentially offering refunds)
+						//System.out.println("Would you like a refund on an unshipped video game? 
+						//+ (Y/N)");
+					} else if (ans.equalsIgnoreCase("S")) { // for typos
+						System.out.println("\n\t[" + currentC.getUsername()
+								+ "'s Shipped Orders]\n");
+						currentC.viewShippedOrders();
+					} else {
+						System.out.println(
+								"Invalid Input, Please enter only U or S next time!");
+					}
 					break;
 				case "X":
 					System.out.println("\nGoodbye!");
@@ -268,8 +278,7 @@ public class UserInterface {
 				+ "1. Place Order\n"
 				+ "2. List Video Games\n"
 				+ "3. Search for Video Game\n"
-				+ "4. View Purchases\n"
-				+ "5. Remove a video Game from your shopping cart\n"
+				+ "4. View Unshipped and Shipped Orders\n"
 				+ "X. Exit\n"); // TODO: finalize output
 
     }
