@@ -50,7 +50,7 @@ public class UserInterface {
         if (userType == 1) {
             custInterface(input, customersHT, vgByTitle, vgByDate);
         } else {
-            empInterface(input);
+            empInterface(input, vgByDate, vgByDate);
         }
         //input.nextLine(); //clear buffer
         // read in files to hashtables
