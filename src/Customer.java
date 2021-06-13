@@ -38,8 +38,8 @@ public class Customer extends User {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.unshippedOrders = unshippedOrders;
-		this.shippedOrders = shippedOrders;
+		this.unshippedOrders = new List<Order>(unshippedOrders);
+		this.shippedOrders = new List<Order>(shippedOrders);
 	}
 	
 	public String getUsername() {
@@ -111,9 +111,13 @@ public class Customer extends User {
 		return byDate.search(new VideoGame(title), dc);
 	}
 	
-	public void placeOrder(Order order) {
-		this.unshippedOrders.addLast(order);
-	}
+	public void placeUnshippedOrder(Order order) {
+        this.unshippedOrders.addLast(order);
+    }
+
+    public void placeShippedOrder(Order order) {
+        this.shippedOrders.addLast(order);
+    }
 	
 	public void viewUnshippedOrders() {
 		if(unshippedOrders.isEmpty()) {
