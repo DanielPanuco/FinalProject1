@@ -21,7 +21,7 @@ public class Employee extends User {
 	
 	public static Customer searchCustomer(String username, String email,
 			String password, HashTable<Customer> customers) {
-		return customers.get(new Customer(username, email, password));
+		return customers.get(new Customer(email, password));
 	}
 
 	public static void displayCustomer(Customer customer) {
