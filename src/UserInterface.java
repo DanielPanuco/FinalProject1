@@ -102,9 +102,9 @@ public class UserInterface {
 			choice = input.nextLine();
 			switch (choice.toUpperCase()) {
 				case "1":
-					//Place Orders (buying video game)
-					//- Overnight Shipping, Rush Shipping, Standard Shipping
-					//pirority attribute for each video game order? or overall?
+					placeOrder(input, currentC, vgByDate);
+					//Overnight Shipping, Rush Shipping, Standard Shipping
+					//Priority attribute for each video game order? or overall?
 					break;
 				case "2":
 					listVideoGames(input, vgByTitle, vgByDate);
@@ -114,8 +114,11 @@ public class UserInterface {
 					break;
 				case "4":
 					//4. View Purchases
-					//currentC.viewShippedOrders();
-					//currentC.viewUnshippedOrders();
+					//check if they don't have any orders, else
+					System.out.println("Here are your unshipped orders: ");
+					currentC.viewUnshippedOrders();
+					System.out.println("Here are your shipped orders: ");
+					currentC.viewShippedOrders();
 					break;
 				case "5":
 					//Remove video game from unshippedorderlist
@@ -181,8 +184,25 @@ public class UserInterface {
 		}
 	}
 
-    public static void placeOrder(Scanner input, Customer customerC) {
-
+    public static void placeOrder(Scanner input, Customer currentC,  BST<VideoGame> vgByTitle) {
+    	TitleComparator tc = new TitleComparator(); //TODO: pass in TC?
+    	String title;
+    	Long cTimestamp = null; 
+    	int uShipSpeed = 0; //TODO: need to figure out how to get timestamp, ship speed
+    	List<VideoGame> unshippedVG = new List<>();
+    	System.out.println("Enter the title of the video game you would like to buy: ");
+		title = input.nextLine();
+		VideoGame tempVG = new VideoGame(title);
+		tempVG = vgByTitle.search(tempVG, tc); //TODO: Doesn't work properly yet?
+		if (tempVG == null) {
+			System.out.println("Sorry, we don't carry this title yet."
+					+ "Please make sure you entered the correct case sensitive title!");
+		} else {
+			unshippedVG.addLast(tempVG);
+			Order unshippedOrder = new Order(currentC, cTimestamp, unshippedVG,
+					uShipSpeed, false);
+			currentC.placeUnshippedOrder(unshippedOrder);
+		}
     }
 
 	public static void searchVideoGame(Scanner input, Customer customerC,
@@ -311,6 +331,7 @@ public class UserInterface {
 				title = input.nextLine();
 				//System.out.println("title: " +title);
 				VideoGame tempVG = new VideoGame(title);
+				tempVG = vgByTitle.search(tempVG, tc);
 				shippedVG.addLast(tempVG);
 			}
 			sTimestamp = input.nextLong();

@@ -66,7 +66,8 @@ public class Order {
     }
     
     @Override public String toString() {
-		return "";
+		return "" + getOrderContents(); //TODO: why are there 2 extra /n before shipped orders?
+		//"Before here: Here are your shipped orders: "
     }
 
 
