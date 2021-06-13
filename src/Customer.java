@@ -5,7 +5,7 @@ public class Customer extends User {
 	//private double cash;
 	private List<Order> unshippedOrders, shippedOrders;
 	
-	Customer() {
+	Customer() { //ask prof parrish if this is necessary
 
 	}
 
@@ -19,6 +19,7 @@ public class Customer extends User {
 
 	public Customer(String username, String firstName, String lastName, String email, String password, 
 			String address, String city, String state, int zip) {
+		//call this one when the customers doesn't have any existing orders
 		super(firstName, lastName, email, password);
 		this.username = username;
 		this.address = address;
@@ -32,6 +33,8 @@ public class Customer extends User {
 	public Customer(String username, String firstName, String lastName, String email, String password, 
 			String address, String city, String state, int zip,
 			List<Order> unshippedOrders, List<Order> shippedOrders) {
+		//call this one when the customers does have both shipped and unshipped orders
+		
 		super(firstName, lastName, email, password);
 		this.username = username;
 		this.address = address;
