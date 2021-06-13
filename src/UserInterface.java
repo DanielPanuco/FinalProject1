@@ -64,13 +64,11 @@ public class UserInterface {
 		int zip;
 		input.nextLine(); // clear buffer from reading
 		System.out.println("\nWelcome to our store, please login here!");
-		System.out.print("Enter your username: ");
-		username = input.nextLine();
 		System.out.print("Enter your email address: ");
 		email = input.nextLine();
 		System.out.print("Enter your password: ");
 		pw = input.nextLine();
-		Customer tempC = new Customer(username, email, pw);
+		Customer tempC = new Customer(email, pw);
 		Customer currentC;
 		if (!(custHT.contains(tempC))) {
 			System.out.println("\nWe don't have your account on file...\n");
