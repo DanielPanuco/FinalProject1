@@ -3,16 +3,17 @@ import java.util.Comparator;
 public class Order {
 
     private Customer customer;
-    private int date, shippingSpeed, priority; //TODO: ask her about how we calculate priority
+    private int shippingSpeed, priority; //TODO: ask her about how we calculate priority
+    private long date;
     private List<VideoGame> orderContents;
     private boolean shippingStatus;
 
-    public Order(Customer customer, int date, List<VideoGame> orderContents, int shippingSpeed, boolean shippingStatus) {
+    public Order(Customer customer, long date, List<VideoGame> orderContents, int shippingSpeed, boolean shippingStatus) {
         this.customer = customer;
         this.date = date;
         this.orderContents = orderContents;
         this.shippingSpeed = shippingSpeed;
-        this.priority = date / shippingSpeed;
+        this.priority = (int) (date / shippingSpeed);
         this.shippingStatus = shippingStatus;
     }
 
@@ -24,7 +25,7 @@ public class Order {
         this.customer = customer;
     }
 
-    public int getDate() {
+    public long getDate() {
         return date;
     }
 
@@ -62,6 +63,11 @@ public class Order {
 
     public void setShippingStatus(boolean shippingStatus) {
         this.shippingStatus = shippingStatus;
+    }
+    
+    @Override public String toString() {
+		return ;
+    	
     }
 
 

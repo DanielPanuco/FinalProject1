@@ -48,7 +48,7 @@ public class UserInterface {
         if (userType == 1) {
             custInterface(input, customersHT, vgByTitle, vgByDate);
         } else {
-            empInterface(input, vgByDate, vgByDate);
+            empInterface(input, vgByDate, vgByDate, customersHT);
         }
     }
 
@@ -136,7 +136,7 @@ public class UserInterface {
 	}
 
 	public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate) {
+			BST<VideoGame> vgByDate, HashTable<Customer> customersHT) {
 		String choice = "";
 		input.nextLine(); //clear buffer from reading an Int
 		while (!choice.equalsIgnoreCase("X")) {
@@ -148,8 +148,10 @@ public class UserInterface {
 					//1. View Orders by Priority
 					break;
 				case "2":
-					//Display unsorted customer information, 
+					System.out.println(customersHT); //Display unsorted customer information, 
 					//including first and last name, address, phone number, order history
+					//TODO: add customers phone numbers, need to format individual printing fields
+					//(avoid printing passwords)
 					break;
 				case "3":
 					//Search for Customer
@@ -273,7 +275,8 @@ public class UserInterface {
 			HashTable<Customer> customersHT, BST<VideoGame> vgByTitle) throws FileNotFoundException {
 		TitleComparator tc = new TitleComparator();
     	String username, fName, lName, email, pw, address, city, state, title;
-		int zip, numGames, uTimestamp, sTimestamp, uShipSpeed, sShipSpeed;
+		int zip, numGames, uShipSpeed, sShipSpeed;
+		Long uTimestamp, sTimestamp;
     	File file = new File(custFile);
 		input = new Scanner(file);
 		
@@ -287,11 +290,10 @@ public class UserInterface {
 			city = input.nextLine();
 			state = input.nextLine();
 			zip = input.nextInt();
-			Customer newC = new Customer(username, fName, lName, email, pw,
-					address, city, state, zip);
 			List<VideoGame> unshippedVG = new List<>();
 			List<VideoGame> shippedVG = new List<>();
 			numGames = input.nextInt();
+			//System.out.println(numGames);
 			input.nextLine();
 			for (int i = 0; i < numGames; i++) {
 				title = input.nextLine();
@@ -299,26 +301,31 @@ public class UserInterface {
 				tempVG = vgByTitle.search(tempVG, tc);
 				unshippedVG.addLast(tempVG);
 			}
-			uTimestamp = input.nextInt();
+			uTimestamp = input.nextLong();
+			//System.out.println(uTimestamp);
 			uShipSpeed = input.nextInt();
+			//System.out.println(uShipSpeed);
+			numGames = input.nextInt();
 			input.nextLine();
 			for (int i = 0; i < numGames; i++) {
 				title = input.nextLine();
+				//System.out.println("title: " +title);
 				VideoGame tempVG = new VideoGame(title);
 				shippedVG.addLast(tempVG);
 			}
-			sTimestamp = input.nextInt();
+			sTimestamp = input.nextLong();
+			input.nextLine();
 			sShipSpeed = input.nextInt();
 			if (input.hasNextLine()) {
 				input.nextLine();
 				input.nextLine();
 			}
-			Customer finalizedNewC = new Customer(username, fName, lName, email, pw,
+			Customer newC = new Customer(username, fName, lName, email, pw,
 					address, city, state, zip);
-			Order shippedOrder = new Order(finalizedNewC, sTimestamp, shippedVG, sShipSpeed, true);
-			Order unshippedOrder = new Order(finalizedNewC, uTimestamp, unshippedVG, uShipSpeed, false);
-			finalizedNewC.placeShippedOrder(shippedOrder);
-			finalizedNewC.placeUnshippedOrder(unshippedOrder);
+			Order shippedOrder = new Order(newC, sTimestamp, shippedVG, sShipSpeed, true);
+			Order unshippedOrder = new Order(newC, uTimestamp, unshippedVG, uShipSpeed, false);
+			newC.placeShippedOrder(shippedOrder);
+			newC.placeUnshippedOrder(unshippedOrder);
 			customersHT.insert(newC);
 		}
 		input.close();
