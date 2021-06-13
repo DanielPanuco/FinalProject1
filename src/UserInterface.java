@@ -28,7 +28,7 @@ public class UserInterface {
         //Heap<Order> orderHeap = new Heap<>(); //need to finish some methods in heap to call this
 		try {
 			fileToVG(input, vgByTitle, vgByDate);
-			fileToCust(input, customersHT);
+			fileToCust(input, customersHT, vgByTitle);
 			fileToEmp(input, employeesHT);
 		} catch (FileNotFoundException e) {
 			System.out.println("File(s) not found, please make sure it is in the project"
@@ -270,9 +270,10 @@ public class UserInterface {
     }
 
 	public static void fileToCust(Scanner input,
-			HashTable<Customer> customersHT) throws FileNotFoundException {
-    	String username, fName, lName, email, pw, address, city, state;
-		int zip;
+			HashTable<Customer> customersHT, BST<VideoGame> vgByTitle) throws FileNotFoundException {
+		TitleComparator tc = new TitleComparator();
+    	String username, fName, lName, email, pw, address, city, state, title;
+		int zip, numGames, uTimestamp, sTimestamp, uShipSpeed, sShipSpeed;
     	File file = new File(custFile);
 		input = new Scanner(file);
 		
@@ -286,12 +287,34 @@ public class UserInterface {
 			city = input.nextLine();
 			state = input.nextLine();
 			zip = input.nextInt();
-			if (input.hasNextLine()) {
-				input.nextLine();  //clear buffer
-				input.nextLine();
-			}
 			Customer newC = new Customer(username, fName, lName, email, pw,
 					address, city, state, zip);
+			List<Order> unshippedOrders = new List<Order>();
+			List<Order> shippedOrders = new List<Order>();
+			numGames = input.nextInt();
+			input.nextLine();
+			for (int i = 0; i < numGames; i++) {
+				title = input.nextLine();
+				VideoGame tempVG = new VideoGame(title);
+				tempVG = vgByTitle.search(tempVG, tc);
+				//newC.placeUnshippedOrder(tempVG);
+			}
+			uTimestamp = input.nextInt();
+			uShipSpeed = input.nextInt();
+			input.nextLine();
+			for (int i = 0; i < numGames; i++) {
+				title = input.nextLine();
+				VideoGame tempVG = new VideoGame(title);
+			}
+			sTimestamp = input.nextInt();
+			sShipSpeed = input.nextInt();
+			if (input.hasNextLine()) {
+				input.nextLine();
+				input.nextLine();
+			}
+			Customer finalizedNewC = new Customer(username, fName, lName, email, pw,
+					address, city, state, zip, unshippedOrders, shippedOrders);
+			//List<Order> unshippedOrders, List<Order> shippedOrders
 			customersHT.insert(newC);
 		}
 		input.close();
