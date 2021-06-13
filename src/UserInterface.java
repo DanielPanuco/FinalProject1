@@ -289,15 +289,15 @@ public class UserInterface {
 			zip = input.nextInt();
 			Customer newC = new Customer(username, fName, lName, email, pw,
 					address, city, state, zip);
-			List<Order> unshippedOrders = new List<Order>();
-			List<Order> shippedOrders = new List<Order>();
+			List<VideoGame> unshippedVG = new List<>();
+			List<VideoGame> shippedVG = new List<>();
 			numGames = input.nextInt();
 			input.nextLine();
 			for (int i = 0; i < numGames; i++) {
 				title = input.nextLine();
 				VideoGame tempVG = new VideoGame(title);
 				tempVG = vgByTitle.search(tempVG, tc);
-				//newC.placeUnshippedOrder(tempVG);
+				unshippedVG.addLast(tempVG);
 			}
 			uTimestamp = input.nextInt();
 			uShipSpeed = input.nextInt();
@@ -305,6 +305,7 @@ public class UserInterface {
 			for (int i = 0; i < numGames; i++) {
 				title = input.nextLine();
 				VideoGame tempVG = new VideoGame(title);
+				shippedVG.addLast(tempVG);
 			}
 			sTimestamp = input.nextInt();
 			sShipSpeed = input.nextInt();
@@ -313,8 +314,11 @@ public class UserInterface {
 				input.nextLine();
 			}
 			Customer finalizedNewC = new Customer(username, fName, lName, email, pw,
-					address, city, state, zip, unshippedOrders, shippedOrders);
-			//List<Order> unshippedOrders, List<Order> shippedOrders
+					address, city, state, zip);
+			Order shippedOrder = new Order(finalizedNewC, sTimestamp, shippedVG, sShipSpeed, true);
+			Order unshippedOrder = new Order(finalizedNewC, uTimestamp, unshippedVG, uShipSpeed, false);
+			finalizedNewC.placeShippedOrder(shippedOrder);
+			finalizedNewC.placeUnshippedOrder(unshippedOrder);
 			customersHT.insert(newC);
 		}
 		input.close();
