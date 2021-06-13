@@ -38,7 +38,7 @@ public class UserInterface {
         //fileToOrders(input, orderHeap);
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
         //System.out.println("Please note that we don't offer refunds after you place your orders!");
-        //maybe mention cash or credit/debit card only
+        //maybe mention credit/debit card only
         System.out.println("What type of user are you?\n"
         		+ "1. Customer\n"
         		+ "2. Employee");
@@ -122,7 +122,7 @@ public class UserInterface {
 								+ "'s Unshipped Orders]\n");
 						currentC.viewUnshippedOrders();
 						//TODO: EXTRA: Remove video game from unshippedorderlist
-						//this is essentially offering refunds)
+						//this is essentially offering refunds
 						//System.out.println("Would you like a refund on an unshipped video game? 
 						//+ (Y/N)");
 					} else if (ans.equalsIgnoreCase("S")) { // for typos
