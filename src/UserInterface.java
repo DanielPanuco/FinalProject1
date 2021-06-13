@@ -102,7 +102,7 @@ public class UserInterface {
 			choice = input.nextLine();
 			switch (choice.toUpperCase()) {
 				case "1":
-					placeOrder(input, currentC, vgByDate);
+					placeOrder(input, currentC, vgByTitle);
 					//Overnight Shipping, Rush Shipping, Standard Shipping
 					//Priority attribute for each video game order? or overall?
 					break;
@@ -187,21 +187,22 @@ public class UserInterface {
     public static void placeOrder(Scanner input, Customer currentC,  BST<VideoGame> vgByTitle) {
     	TitleComparator tc = new TitleComparator(); //TODO: pass in TC?
     	String title;
-    	Long cTimestamp = null; 
-    	int uShipSpeed = 0; //TODO: need to figure out how to get timestamp, ship speed
+    	//Long cTimestamp = null; 
+    	//int uShipSpeed = 1; //TODO: need to figure out how to get timestamp, ship speed
     	List<VideoGame> unshippedVG = new List<>();
     	System.out.println("Enter the title of the video game you would like to buy: ");
 		title = input.nextLine();
 		VideoGame tempVG = new VideoGame(title);
-		tempVG = vgByTitle.search(tempVG, tc); //TODO: Doesn't work properly yet?
+		tempVG = vgByTitle.search(tempVG, tc);
 		if (tempVG == null) {
 			System.out.println("Sorry, we don't carry this title yet."
 					+ "Please make sure you entered the correct case sensitive title!");
 		} else {
 			unshippedVG.addLast(tempVG);
-			Order unshippedOrder = new Order(currentC, cTimestamp, unshippedVG,
-					uShipSpeed, false);
-			currentC.placeUnshippedOrder(unshippedOrder);
+			//Order unshippedOrder = new Order(currentC, cTimestamp, unshippedVG,
+					//uShipSpeed, false);
+					//(Customer customer, long date, List<VideoGame> orderContents, int shippingSpeed, boolean shippingStatus)
+			//currentC.placeUnshippedOrder(unshippedOrder);
 		}
     }
 
