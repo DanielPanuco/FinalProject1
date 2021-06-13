@@ -17,15 +17,15 @@ public class UserInterface {
 	
     public static void main(String[] args) {
         final int customerSize = 5, employeeSize = 3;
-        Scanner input = new Scanner(System.in);
+        String email;
+        int userType;
         HashTable<Customer> customersHT = new HashTable<>(customerSize * 2);
         HashTable<Employee> employeesHT = new HashTable<>(employeeSize * 2);
         BST<VideoGame> vgByTitle = new BST<>();
         BST<VideoGame> vgByDate = new BST<>();
-        String email;
-        int userType;
         //Heap<Order> shippedOrders = new Heap<>();
         //Heap<Order> orderHeap = new Heap<>(); //need to finish some methods in heap to call this
+        Scanner input = new Scanner(System.in);
 		try {
 			fileToVG(input, vgByTitle, vgByDate);
 			fileToCust(input, customersHT, vgByTitle);
@@ -344,10 +344,10 @@ public class UserInterface {
 			}
 			Customer newC = new Customer(username, fName, lName, email, pw,
 					address, city, state, zip);
-			Order shippedOrder = new Order(newC, sTimestamp, shippedVG, sShipSpeed, true);
 			Order unshippedOrder = new Order(newC, uTimestamp, unshippedVG, uShipSpeed, false);
-			newC.placeShippedOrder(shippedOrder);
+			Order shippedOrder = new Order(newC, sTimestamp, shippedVG, sShipSpeed, true);
 			newC.placeUnshippedOrder(unshippedOrder);
+			newC.placeShippedOrder(shippedOrder);
 			customersHT.insert(newC);
 		}
 		input.close();
@@ -410,10 +410,6 @@ public class UserInterface {
 
     public static void fileToOrders(Scanner input, Heap<Order> orderHeap) {
     	//do this after order is finished
-    }
-
-    public static void employeeToFile(HashTable<Employee> employees) {
-
     }
 
     public static void customerToFile(HashTable<Customer> customers) {
