@@ -126,10 +126,18 @@ public class Customer extends User {
 		if(unshippedOrders.isEmpty()) {
 			System.out.println("No unshipped orders now");
 		} else {
-			System.out.println(unshippedOrders);
+			// System.out.println(unshippedOrders);
+			List<VideoGame> tempVG = unshippedOrders.getIterator()
+					.getOrderContents();
+			tempVG.placeIterator();
+			for (int i = 0; i < tempVG.getLength(); i++) {
+				System.out.println(i + ": " + tempVG.getIterator().getTitle()
+						+ tempVG.getIterator().getPrice());
+				tempVG.advanceIterator();
+			}
 		}
 	}
-	
+
 	public void viewShippedOrders() {
 		if(unshippedOrders.isEmpty()) {
 			System.out.println("No shipped orders now");

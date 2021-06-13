@@ -133,7 +133,6 @@ public class UserInterface {
 					System.out.println("\nInvalid menu option."
 							+ " Please enter A-D or X to exit.");
 					break;
-					
 			}
 		}
 	}
@@ -148,7 +147,7 @@ public class UserInterface {
 			choice = input.nextLine();
 			switch (choice.toUpperCase()) {
 				case "1":
-					//1. View Orders by Priority
+					//View Orders by Priority
 					break;
 				case "2":
 					System.out.println(customersHT); //Display unsorted customer information, 
@@ -199,10 +198,6 @@ public class UserInterface {
 					+ "Please make sure you entered the correct case sensitive title!");
 		} else {
 			unshippedVG.addLast(tempVG);
-			//Order unshippedOrder = new Order(currentC, cTimestamp, unshippedVG,
-					//uShipSpeed, false);
-					//(Customer customer, long date, List<VideoGame> orderContents, int shippingSpeed, boolean shippingStatus)
-			//currentC.placeUnshippedOrder(unshippedOrder);
 		}
     }
 
