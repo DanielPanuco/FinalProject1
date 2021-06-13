@@ -126,8 +126,9 @@ public class Customer extends User {
 		if(unshippedOrders.isEmpty()) {
 			System.out.println("No unshipped orders now");
 		} else {
-			// System.out.println(unshippedOrders);
-			List<VideoGame> tempVG = unshippedOrders.getIterator()
+			System.out.println(unshippedOrders);
+			/*//testing: err getIterator(): Iterator is off end of the list
+			 * List<VideoGame> tempVG = unshippedOrders.getIterator()
 					.getOrderContents();
 			tempVG.placeIterator();
 			for (int i = 0; i < tempVG.getLength(); i++) {
@@ -135,6 +136,8 @@ public class Customer extends User {
 						+ tempVG.getIterator().getPrice());
 				tempVG.advanceIterator();
 			}
+			 */
+			
 		}
 	}
 
