@@ -6,7 +6,7 @@ public class Customer extends User {
 	private int zip;
 	//private double cash;
 	private List<Order> unshippedOrders, shippedOrders;
-	DecimalFormat df = new DecimalFormat("##0.00");
+	DecimalFormat df = new DecimalFormat("$###,##0.00");
 	
 	Customer() { //ask prof parrish if this is necessary
 
@@ -126,37 +126,48 @@ public class Customer extends User {
     }
 	
 	public void viewUnshippedOrders() {
-		
 		if(unshippedOrders.isEmpty()) {
-			System.out.println("No unshipped orders now");
+			System.out.println("You don't have any unshipped orders!");
 		} else {
-			//System.out.println(unshippedOrders);
-			
-			 
 			unshippedOrders.placeIterator();
 			for (int i = 0; i < unshippedOrders.getLength(); i++) {
 				List<VideoGame> vgList = unshippedOrders.getIterator()
 						.getOrderContents();
-				System.out.println("Order #" + (i+1) + "\n------------");
 				vgList.placeIterator();
+				System.out.println("\t\t[Order #" + (i + 1)
+						+ "]\n\tTitle\t\t\tPrice\n----------------------------------------");
 				for (int j = 0; j < vgList.getLength(); j++) {
-					System.out.println((j + 1) + ": " + vgList.getIterator().getTitle()
-									+ df.format(vgList.getIterator().getPrice()));
+					System.out.println((j + 1) + ": "
+							+ vgList.getIterator().getTitle() + " ("
+							+ vgList.getIterator().getPlatform() + ")\t\t\t"
+							+ df.format(vgList.getIterator().getPrice()));
 					vgList.advanceIterator();
 				}
 				unshippedOrders.advanceIterator();
 			}
-			
-			
-			
 		}
 	}
 
 	public void viewShippedOrders() {
-		if(unshippedOrders.isEmpty()) {
-			System.out.println("No shipped orders now");
+		if(shippedOrders.isEmpty()) {
+			System.out.println("You don't have any shipped orders!");
 		} else {
-			System.out.println(shippedOrders);
+			shippedOrders.placeIterator();
+			for (int i = 0; i < shippedOrders.getLength(); i++) {
+				List<VideoGame> vgList = shippedOrders.getIterator()
+						.getOrderContents();
+				vgList.placeIterator();
+				System.out.println("\t\t[Order #" + (i + 1)
+						+ "]\n\tTitle\t\t\tPrice\n----------------------------------------");
+				for (int j = 0; j < vgList.getLength(); j++) {
+					System.out.println((j + 1) + ": "
+							+ vgList.getIterator().getTitle() + " ("
+							+ vgList.getIterator().getPlatform() + ")\t\t\t"
+							+ df.format(vgList.getIterator().getPrice()));
+					vgList.advanceIterator();
+				}
+				shippedOrders.advanceIterator();
+			}
 		}
 	}
 	
