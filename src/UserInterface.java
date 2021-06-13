@@ -37,12 +37,11 @@ public class UserInterface {
        
         //fileToOrders(input, orderHeap);
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
-        System.out.println("Please note that we don't offer refunds after you place your orders!");
+        //System.out.println("Please note that we don't offer refunds after you place your orders!");
         //maybe mention cash or credit/debit card only
         System.out.println("What type of user are you?\n"
         		+ "1. Customer\n"
         		+ "2. Employee");
-        
         System.out.print("\nPlease enter 1 or 2: ");
         userType = input.nextInt();
         if (userType == 1) {
@@ -121,8 +120,8 @@ public class UserInterface {
 					currentC.viewShippedOrders();
 					break;
 				case "5":
-					//Remove video game from unshippedorderlist
-					//maybe if block for mentioning that it has to be not shipped yet
+					//TODO: EXTRA: Remove video game from unshippedorderlist
+					//specify from unshipped list (but this is essentially offering refunds)
 					//if unshippedorderlist is empty, run if block, else
 					break;
 				case "X":
@@ -183,7 +182,7 @@ public class UserInterface {
 		}
 	}
 
-    public static void placeOrder(Scanner input, Customer currentC,  BST<VideoGame> vgByTitle) {
+    public static void placeOrder(Scanner input, Customer currentC, BST<VideoGame> vgByTitle) {
     	TitleComparator tc = new TitleComparator(); //TODO: pass in TC?
     	String title;
     	//Long cTimestamp = null; 
@@ -201,7 +200,7 @@ public class UserInterface {
 		}
     }
 
-	public static void searchVideoGame(Scanner input, Customer customerC,
+	public static void searchVideoGame(Scanner input, Customer currentC,
 			BST<VideoGame> vgByTitle) {
 		TitleComparator tc = new TitleComparator();
 		String userSearch;

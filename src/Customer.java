@@ -1,9 +1,12 @@
+import java.text.DecimalFormat;
+
 public class Customer extends User {
 	
 	private String address, city, state, username;
 	private int zip;
 	//private double cash;
 	private List<Order> unshippedOrders, shippedOrders;
+	DecimalFormat df = new DecimalFormat("##0.00");
 	
 	Customer() { //ask prof parrish if this is necessary
 
@@ -123,20 +126,28 @@ public class Customer extends User {
     }
 	
 	public void viewUnshippedOrders() {
+		
 		if(unshippedOrders.isEmpty()) {
 			System.out.println("No unshipped orders now");
 		} else {
-			System.out.println(unshippedOrders);
-			/*//testing: err getIterator(): Iterator is off end of the list
-			 * List<VideoGame> tempVG = unshippedOrders.getIterator()
-					.getOrderContents();
-			tempVG.placeIterator();
-			for (int i = 0; i < tempVG.getLength(); i++) {
-				System.out.println(i + ": " + tempVG.getIterator().getTitle()
-						+ tempVG.getIterator().getPrice());
-				tempVG.advanceIterator();
+			//System.out.println(unshippedOrders);
+			
+			 
+			unshippedOrders.placeIterator();
+			for (int i = 0; i < unshippedOrders.getLength(); i++) {
+				List<VideoGame> vgList = unshippedOrders.getIterator()
+						.getOrderContents();
+				System.out.println("Order #" + (i+1) + "\n------------");
+				vgList.placeIterator();
+				for (int j = 0; j < vgList.getLength(); j++) {
+					System.out.println((j + 1) + ": " + vgList.getIterator().getTitle()
+									+ df.format(vgList.getIterator().getPrice()));
+					vgList.advanceIterator();
+				}
+				unshippedOrders.advanceIterator();
 			}
-			 */
+			
+			
 			
 		}
 	}
@@ -150,13 +161,12 @@ public class Customer extends User {
 	}
 	
 	@Override public String toString() {
-		String result = "Address: " + address + "\n"
+		String result = super.toString() + "\nAddress: " + address + "\n"
 				+ "City: " + city + "\n"
     		    + "State: " + state + "\n"
     		    + "Zip: " + zip + "\n"
     		    + "Unshipped Orders: " + unshippedOrders + "\n"
-    		    + "Shipped Orders: " + shippedOrders + "\n"
-				+ super.toString();
+    		    + "Shipped Orders: " + shippedOrders + "\n";
 		return result;
 	}
 }

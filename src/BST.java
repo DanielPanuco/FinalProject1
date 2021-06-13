@@ -359,6 +359,16 @@ public class BST<T> {
 			inOrderPrint(node.right);
 		}
 	}
+	
+	private void inOrderPrintTitle(Node node) {
+		if (node == null) {
+			return;
+		} else {
+			inOrderPrint(node.left);
+			System.out.println(node.data);
+			inOrderPrint(node.right);
+		}
+	}
 
 	/**
 	 * Prints the data in post order to the console followed by a new line
