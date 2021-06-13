@@ -138,7 +138,7 @@ public class Customer extends User {
 		}
 	}
 	
-	public String toString() {
+	@Override public String toString() {
 		String result = "Address: " + address + "\n"
 				+ "City: " + city + "\n"
     		    + "State: " + state + "\n"
