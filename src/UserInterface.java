@@ -247,7 +247,6 @@ public class UserInterface {
 	}
 
     public static void displayCustMenu() {
-
 		System.out.println("\nPlease select from the following options:\n\n"
 				+ "1. Place Order\n"
 				+ "2. List Video Games\n"

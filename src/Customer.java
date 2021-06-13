@@ -33,7 +33,7 @@ public class Customer extends User {
 	public Customer(String username, String firstName, String lastName, String email, String password, 
 			String address, String city, String state, int zip,
 			List<Order> unshippedOrders, List<Order> shippedOrders) {
-		//call this one when the customers does have both shipped and unshipped orders
+		//call this one when the customers do have both shipped and unshipped orders
 		
 		super(firstName, lastName, email, password);
 		this.username = username;
