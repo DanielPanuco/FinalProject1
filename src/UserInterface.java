@@ -22,8 +22,9 @@ public class UserInterface {
         HashTable<Employee> employeesHT = new HashTable<>(employeeSize * 2);
         BST<VideoGame> vgByTitle = new BST<>();
         BST<VideoGame> vgByDate = new BST<>();
+        String email;
+        int userType;
         //Heap<Order> shippedOrders = new Heap<>();
-       
         //Heap<Order> orderHeap = new Heap<>(); //need to finish some methods in heap to call this
 		try {
 			fileToVG(input, vgByTitle, vgByDate);
@@ -35,11 +36,8 @@ public class UserInterface {
 		}
        
         //fileToOrders(input, orderHeap);
-
-        String email;
-        int userType;
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
-        System.out.println("Please note we don't offer refunds after you place your orders!");
+        System.out.println("Please note that we don't offer refunds after you place your orders!");
         //maybe mention cash or credit/debit card only
         System.out.println("What type of user are you?\n"
         		+ "1. Customer\n"
@@ -52,10 +50,6 @@ public class UserInterface {
         } else {
             empInterface(input, vgByDate, vgByDate);
         }
-        //input.nextLine(); //clear buffer
-        // read in files to hashtables
-        // sign in
-        // call a method for either employee or customer
     }
 
 	public static void custInterface(Scanner input, HashTable<Customer> custHT,
@@ -126,6 +120,7 @@ public class UserInterface {
 				case "5":
 					//Remove video game from unshippedorderlist
 					//maybe if block for mentioning that it has to be not shipped yet
+					//if unshippedorderlist is empty, run if block, else
 					break;
 				case "X":
 					System.out.println("\nGoodbye!");
@@ -135,6 +130,7 @@ public class UserInterface {
 					System.out.println("\nInvalid menu option."
 							+ " Please enter A-D or X to exit.");
 					break;
+					
 			}
 		}
 	}
@@ -143,7 +139,7 @@ public class UserInterface {
 			BST<VideoGame> vgByDate) {
 		String choice = "";
 		input.nextLine(); //clear buffer from reading an Int
-		while (!choice.equalsIgnoreCase("5")) {
+		while (!choice.equalsIgnoreCase("X")) {
 			displayEmpMenu();
 			System.out.print("Enter your choice: ");
 			choice = input.nextLine();
@@ -153,7 +149,6 @@ public class UserInterface {
 					break;
 				case "2":
 					//Display unsorted customer information, 
-					//
 					//including first and last name, address, phone number, order history
 					break;
 				case "3":
@@ -179,6 +174,7 @@ public class UserInterface {
 					System.out.println("\nInvalid menu option."
 							+ " Please enter A-D or X to exit.");
 					break;
+
 			}
 		}
 	}
@@ -240,7 +236,6 @@ public class UserInterface {
     public static void shipOrder() {
     	//emp calls this, based on heap
     	//remove this from the user? remove vg
-    	//
     }
 
     public static void addVG(BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
@@ -251,26 +246,32 @@ public class UserInterface {
 
 	}
 
-    public static void displayCustMenu() { //could pass scanner input in and return choice
-        System.out.println("\nPlease select from the following options:\n\n"
-                + "1. Place Order\n"
-                + "2. List Video Games\n"
-                + "3. Search for Video Game\n"
-                + "4. View Purchases\n"
-                + "5. Exit\n"); //TODO: temp output
+    public static void displayCustMenu() {
+
+		System.out.println("\nPlease select from the following options:\n\n"
+				+ "1. Place Order\n"
+				+ "2. List Video Games\n"
+				+ "3. Search for Video Game\n"
+				+ "4. View Purchases\n"
+				+ "5. Remove a video Game from your shopping cart\n"
+				+ "X. Exit\n"); // TODO: finalize output
+
     }
 
     public static void displayEmpMenu() {
         System.out.println("\nPlease select from the following options:\n\n"
                 + "1. View Orders by Priority\n"
-                + "2. Search for Customer\n"
-                + "3. Ship Orders\n"
-                + "4. Add New Product\n"
-                + "5. Remove a Product\n"
-                + "6. Exit\n"); //TODO: temp output
+                + "2. Display Customer Info\n"
+                + "3. Search for Customer\n"
+                + "4. Ship Orders\n"
+                + "5. List Video Games\n"
+                + "6. Add New Product\n"
+                + "7. Remove a Product\n"
+                + "X. Exit\n"); //TODO: finalize output
     }
 
-    public static void fileToCust(Scanner input, HashTable<Customer> customersHT) throws FileNotFoundException {
+	public static void fileToCust(Scanner input,
+			HashTable<Customer> customersHT) throws FileNotFoundException {
     	String username, fName, lName, email, pw, address, city, state;
 		int zip;
     	File file = new File(custFile);
@@ -290,7 +291,8 @@ public class UserInterface {
 				input.nextLine();  //clear buffer
 				input.nextLine();
 			}
-			Customer newC = new Customer(username, fName, lName, email, pw, address, city, state, zip);
+			Customer newC = new Customer(username, fName, lName, email, pw,
+					address, city, state, zip);
 			customersHT.insert(newC);
 		}
 		input.close();
