@@ -39,7 +39,8 @@ public class UserInterface {
         String email;
         int userType;
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
-        //Probably will write something about being cash only and no refunds
+        System.out.println("Please note we don't offer refunds after you place your orders!");
+        //maybe mention cash or credit/debit card only
         System.out.println("What type of user are you?\n"
         		+ "1. Customer\n"
         		+ "2. Employee");
@@ -101,12 +102,15 @@ public class UserInterface {
 					+ " " + currentC.getLastName() + "!\n");
 		}
 
-		while (!choice.equals("5")) {
+		while (!choice.equalsIgnoreCase("X")) {
 			displayCustMenu();
 			System.out.print("Enter your choice: ");
 			choice = input.nextLine();
-			switch (choice) {
+			switch (choice.toUpperCase()) {
 				case "1":
+					//Place Orders (buying video game)
+					//- Overnight Shipping, Rush Shipping, Standard Shipping
+					//pirority attribute for each video game order? or overall?
 					break;
 				case "2":
 					listVideoGames(input, vgByTitle, vgByDate);
@@ -115,9 +119,17 @@ public class UserInterface {
 					searchVideoGame(input, currentC, vgByTitle);
 					break;
 				case "4":
+					//4. View Purchases
+					//currentC.viewShippedOrders();
+					//currentC.viewUnshippedOrders();
 					break;
 				case "5":
+					//Remove video game from unshippedorderlist
+					//maybe if block for mentioning that it has to be not shipped yet
+					break;
+				case "X":
 					System.out.println("\nGoodbye!");
+					//Write to all txt files
 					break;
 				default:
 					System.out.println("\nInvalid menu option."
@@ -127,24 +139,41 @@ public class UserInterface {
 		}
 	}
 
-	public static void empInterface(Scanner input) {
+	public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
+			BST<VideoGame> vgByDate) {
 		String choice = "";
 		input.nextLine(); //clear buffer from reading an Int
-		while (!choice.equalsIgnoreCase("X")) {
+		while (!choice.equalsIgnoreCase("5")) {
 			displayEmpMenu();
 			System.out.print("Enter your choice: ");
 			choice = input.nextLine();
 			switch (choice.toUpperCase()) {
-				case "A":
+				case "1":
+					//1. View Orders by Priority
 					break;
-				case "B":
+				case "2":
+					//Display unsorted customer information, 
+					//
+					//including first and last name, address, phone number, order history
 					break;
-				case "C":
+				case "3":
+					//Search for Customer
 					break;
-				case "D":
+				case "4":
+					//Ship an Order (Remove from Heap) 
+					break;
+				case "5":
+					listVideoGames(input, vgByTitle, vgByDate);
+					break;
+				case "6":
+					//Add New Product
+					break;
+				case "7":
+					//Remove a Product
 					break;
 				case "X":
 					System.out.println("\nGoodbye!");
+					//Write to all txt files
 					break;
 				default:
 					System.out.println("\nInvalid menu option."
