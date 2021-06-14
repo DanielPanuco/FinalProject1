@@ -13,7 +13,8 @@ public class UserInterface {
 			custFile = ("customers.txt"), empFile = ("employees.txt");
 	private static String fName, lName, email, addr, city, state, pw;
 	private static int zip;
-	public static Customer currentC = null; //TODO: do we want a guest to be declared here
+	private static Customer currentC = null; //TODO: do we want a guest to be declared here
+	private static Employee currentEmp = null;
 	//maybe change to videoGames.txt, once we decide on a String txt
 	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
@@ -200,37 +201,40 @@ public class UserInterface {
 					System.out.println("\nInvalid menu option."
 							+ " Please enter A-D or X to exit.");
 					break;
+				}
 			}
 		}
-	}
-	  public static void empLogin(Scanner input, HashTable<Employee> empHT) {
+
+		public static void empLogin(Scanner input, HashTable<Employee> empHT) {
+			System.out.println("\n[Employee Login Menu]");
 	    	System.out.println("\nWelcome back! Please login here");
 	    	System.out.println("-------------------------------\n");
 	    	System.out.print("Enter your email address: ");
 			email = input.nextLine();
 			System.out.print("Enter your password: ");
 			pw = input.nextLine();
-			Employee currentEmp = new Employee(email, pw);
-			while (!(empHT.contains(currentEmp))) { //only works based on email and password
-				//one HT
-				System.out.println("\nPlease make sure you entered your correct case sensitive"
-						+ " email and password!"); //TODO: extra, give them X tries
-				//count with a num, if they exceed X tries the program will terminate.
+			currentEmp = new Employee(email, pw);
+			while (!(empHT.contains(currentEmp))) { // only works based on email
+													// and password, one HT
+				System.out.println("\nPlease make sure you entered your correct"
+						+ " case sensitive email and password!"); 
+				// TODO: extra, give them X tries, count with a num,
+				//if they exceed X tries the program will terminate.
 				System.out.print("Enter your email address: ");
 				email = input.nextLine();
 				System.out.print("\nEnter your password: ");
 				pw = input.nextLine();
 				currentEmp = new Employee(email, pw);
-			} 
-				currentEmp = empHT.get(currentEmp);
-				System.out.println("\nWelcome back, " + currentEmp.getFirstName()
-						+ " " + currentEmp.getLastName() + "!\n");
-	    }
+			}
+			currentEmp = empHT.get(currentEmp);
+			System.out.println("\nWelcome back, " + currentEmp.getFirstName()
+					+ " " + currentEmp.getLastName() + "!\n");
+		}
 	  
 	public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate, HashTable<Customer> custHT,
 			HashTable<Employee> empHT) {
-		String choice = ""; // TODO: EXTRA: access cust email, if price == 0,
+		String choice = "", ans; // TODO: EXTRA: access cust email, if price == 0,
 							// then print out f2p games with seperate for loop
 		input.nextLine(); // clear buffer from reading an Int
 		empLogin(input, empHT);
@@ -271,6 +275,14 @@ public class UserInterface {
 					break;
 				case "7":
 					//Remove a Product
+					break;
+				case "8":
+					System.out.println("Would you like to sign out?\n");
+					System.out.print("Enter (Y/N): ");
+					ans = input.nextLine();
+					if (ans.equalsIgnoreCase("Y")) {
+						empLogin(input, empHT);
+					}
 					break;
 				case "X":
 					System.out.println("\nGoodbye!");
