@@ -456,7 +456,10 @@ public class UserInterface {
     }
 
     public static void customerToFile(HashTable<Customer> customers) {
-
+    	//TODO: it's ok to write the guest(s) to the same file right?
+    	//technically they are also a customer
+    	//I have an idea to have a member variable called numGuests, we can we write and save it
+    	//so based on that num each guest would be "Guest #" + (numGuests + 1)convertToString
     }
 
     public static void ordersToFile(Heap<Order> orderHeap) {
