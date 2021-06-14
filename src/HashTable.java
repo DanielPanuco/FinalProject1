@@ -23,8 +23,10 @@ public class HashTable<T> {
      */
     public HashTable(int size) {
         Table = new ArrayList<>();
+        TableByKeys = new ArrayList<>();
         for(int i = 0; i < size; i++) {
             Table.add(new List<T>());
+            TableByKeys.add(new List<T>());
         }
         numElements = 0;
     }
@@ -166,7 +168,6 @@ public class HashTable<T> {
         }else {
             int bucket = hashByKeys(t, key1, key2);
             TableByKeys.get(bucket).addLast(t);
-            numElements++;
         }
 
     }
@@ -208,7 +209,6 @@ public class HashTable<T> {
             if(position != -1) {
                 list.iteratorToIndex(position);
                 list.removeIterator();
-                numElements--;
             }
         }
     }
