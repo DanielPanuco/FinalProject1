@@ -19,7 +19,14 @@ abstract class User {
         this.lastName = "last name unknown";
     	this.accountNum = ++accountSeed;
     }
-
+    
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.accountNum = ++accountSeed;
+    }
+    
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -1,10 +1,11 @@
 import java.text.DecimalFormat;
 
 public class Customer extends User {
-	
+	//TODO: Are we @Overriding equals? If not it should not be
+	//in the abstract user parent class
 	private String address, city, state, username;
 	private int zip;
-	//private double cash;
+	//private double card; //credit card/debit card
 	private List<Order> unshippedOrders, shippedOrders;
 	DecimalFormat df = new DecimalFormat("$###,##0.00");
 	
@@ -33,11 +34,21 @@ public class Customer extends User {
 		this.shippedOrders = new List<>();
 	}
 	
+	public Customer(String firstName, String lastName, String email, 
+			String address, String city, String state, int zip) { //Guest Constructor
+		super(firstName, lastName, email);
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.unshippedOrders = new List<>();
+		this.shippedOrders = new List<>();
+	}
+	
 	public Customer(String username, String firstName, String lastName, String email, String password, 
 			String address, String city, String state, int zip,
 			List<Order> unshippedOrders, List<Order> shippedOrders) {
 		//call this one when the customers do have both shipped and unshipped orders
-		
 		super(firstName, lastName, email, password);
 		this.username = username;
 		this.address = address;
