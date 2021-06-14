@@ -120,6 +120,8 @@ public class UserInterface {
 						System.out.println("\n\t[" + currentC.getUsername()
 								+ "'s Unshipped Orders]\n");
 						currentC.viewUnshippedOrders();
+						//TODO: EXTRA: will call a future cust method that iterates and just prints
+						//the toString for the selected video game or by matching the title
 						//TODO: EXTRA: Remove video game from unshippedorderlist
 						//this is essentially offering refunds
 						//System.out.println("Would you like a refund on an unshipped video game? 
