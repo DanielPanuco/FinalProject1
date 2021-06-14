@@ -285,7 +285,9 @@ public class UserInterface {
 	}
 
     public static void listVG(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate) {
+			BST<VideoGame> vgByDate) { //TODO: is there a way to access the variables of an object
+    	//in a BST? b/c if we have time, it would be nice to not 
+    	//spam our console with the info of 20ish+ games
     	String choice = "";
     	System.out.println("\nHow would you like to sort the avaliable video games?\n"
     			+ "1. By Title\n"
