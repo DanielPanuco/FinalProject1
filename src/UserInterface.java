@@ -409,6 +409,7 @@ public class UserInterface {
 
 	public static void fileToCust(Scanner input,
 			HashTable<Customer> customersHT, BST<VideoGame> vgByTitle) throws FileNotFoundException {
+		//TODO: add booleans for the amount of orders they have
 		TitleComparator tc = new TitleComparator();
     	String username, fName, lName, email, pw, address, city, state, title;
 		int zip, numGames, uShipSpeed, sShipSpeed;

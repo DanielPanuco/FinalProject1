@@ -141,10 +141,10 @@ public class Customer extends User {
 				List<VideoGame> vgList = unshippedOrders.getIterator()
 						.getOrderContents();
 				vgList.placeIterator();
-				VideoGame currVG = vgList.getIterator();
 				System.out.println(t2 + "[Order #" + (i + 1) + "]\n"
 						+ " Qty\tPrice" + t3 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
+					VideoGame currVG = vgList.getIterator();
 					System.out.println((j + 1) + ":\t"
 							+ df.format(currVG.getPrice()) + t2 + currVG.getTitle() 
 							+ " (" + currVG.getPlatform() + ")" +t3);
@@ -153,7 +153,7 @@ public class Customer extends User {
 				}
 				unshippedOrders.advanceIterator();
 			}
-			System.out.println("\n" + divider +"\nTotal: " + df.format(totalP));
+			System.out.println("\n" + divider +"\nTotal:  " + df.format(totalP));
 		}
 	}
 
@@ -168,10 +168,10 @@ public class Customer extends User {
 			for (int i = 0; i < shippedOrders.getLength(); i++) {
 				List<VideoGame> vgList = shippedOrders.getIterator().getOrderContents();
 				vgList.placeIterator();
-				VideoGame currVG = vgList.getIterator();
 				System.out.println(t2 + "[Order #" + (i + 1) + "]\n"
 						+ " Qty\tPrice" + t3 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
+					VideoGame currVG = vgList.getIterator();
 					System.out.println((j + 1) + ":\t"
 							+ df.format(currVG.getPrice()) + t2 + currVG.getTitle() 
 							+ " (" + currVG.getPlatform() + ")" +t3);
@@ -179,7 +179,7 @@ public class Customer extends User {
 					vgList.advanceIterator();
 				}
 				shippedOrders.advanceIterator();
-				System.out.println("\n" + divider +"\nTotal: " + df.format(totalP));
+				System.out.println("\n" + divider +"\nTotal:  " + df.format(totalP));
 			}
 		}
 	}
