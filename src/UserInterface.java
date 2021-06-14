@@ -460,6 +460,7 @@ public class UserInterface {
     	//technically they are also a customer
     	//I have an idea to have a member variable called numGuests, we can we write and save it
     	//so based on that num each guest would be "Guest #" + (numGuests + 1)convertToString
+    	//OR this is unnecess. having their email and contact info is enough?
     }
 
     public static void ordersToFile(Heap<Order> orderHeap) {

@@ -30,7 +30,7 @@ public class Customer extends User {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.unshippedOrders = new List<>();
+		this.unshippedOrders = new List<>(); //TODO: are we using these lists?
 		this.shippedOrders = new List<>();
 	}
 	
@@ -41,7 +41,7 @@ public class Customer extends User {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.unshippedOrders = new List<>();
+		this.unshippedOrders = new List<>();  
 		this.shippedOrders = new List<>();
 	}
 	
@@ -55,7 +55,7 @@ public class Customer extends User {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.unshippedOrders = new List<Order>(unshippedOrders);
+		this.unshippedOrders = new List<Order>(unshippedOrders); //TODO: this const is unnecess now?
 		this.shippedOrders = new List<Order>(shippedOrders);
 	}
 	
