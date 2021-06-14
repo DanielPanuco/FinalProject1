@@ -5,11 +5,20 @@ public class Order {
     private Customer customer;
     private int shippingSpeed, priority; //TODO: ask her about how we calculate priority
     //TODO: Also is it required to associate some shipping speeds with a cost, or is that extra?
-    //and how do we do this? prob need to pass in a total variable somewhere.
+    //and how do we do this? prob need to pass in a total variable somewhere. 
+    //stand shipping would be free if the user cart/order's total is >= $35.00.
+    //look at lab 1 block.class
     private long date;
     private List<VideoGame> orderContents;
     private boolean shippingStatus;
-
+    //one element larger  than the other in the heap
+    //index 1 (root) - highest pirority
+    //next lowest, below it
+    //remove the root when we ship
+    //compare orders based on pirority
+    //shipping speed can be a 1,2,3 int
+    //pirority will be complicated based on timestamp
+    //pirority queue in the form of a heap -triority queue future
     public Order(Customer customer, long date, List<VideoGame> orderContents, int shippingSpeed, boolean shippingStatus) {
         this.customer = customer;
         this.date = date;
@@ -78,6 +87,7 @@ public class Order {
 class OrderComparator implements Comparator<Order> {
     public int compare(Order order1, Order order2) {
         return order1.getPriority() - order2.getPriority();
+        //Integer.compare is ideal
     }
 }
 //Should also contain a Comparator class with a compare method to determine priority

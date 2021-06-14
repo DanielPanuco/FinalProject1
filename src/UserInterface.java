@@ -11,8 +11,10 @@ import java.util.Scanner;
 public class UserInterface {
 	private static final String vgFile = ("product.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
+	private static String fName, lName, email, addr, city, state;
+	private static int zip;
 	//maybe change to videoGames.txt, once we decide on a String txt
-	//name it's good to make it final (taught in 36B)
+	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
 	
     public static void main(String[] args) {
@@ -38,7 +40,7 @@ public class UserInterface {
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
         //System.out.println("Please note that we don't offer refunds after you place your orders!");
         //maybe mention credit/debit card only
-        System.out.println("What type of user are you?\n"
+        System.out.println("[Please select your user type]\n"
         		+ "1. Customer\n"
         		+ "2. Employee");
         System.out.print("\nPlease enter 1 or 2: ");
@@ -52,48 +54,66 @@ public class UserInterface {
 
 	public static void custInterface(Scanner input, HashTable<Customer> custHT,
 			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
-		String username = "", fName, lName, email, pw, addr, city, state,
-				choice = "", ans;
-		int zip;
+		String username, pw, choice = "", ans;
+		String cAcc ="Let's create an account for you!\n";
+		String enU = "Enter your username: ";
+		String cPW = "Create a password:";
+		String success = "\nYou have succesfully created an account,"
+							+ fName + " " + lName + "!\n";
+		Customer currentC = null; //do we want a guest to be declared here
 		input.nextLine(); // clear buffer from reading
 		System.out.println("\nWelcome to our store, please login here!");
-		System.out.print("Enter your email address: ");
-		email = input.nextLine();
-		System.out.print("Enter your password: ");
-		pw = input.nextLine();
-		Customer tempC = new Customer(email, pw);
-		Customer currentC;
-		if (!(custHT.contains(tempC))) {
-			System.out.println("\nWe don't have your account on file...\n");
-			System.out.println("Let's create an account for you!");
-			System.out.print("Enter your username: ");
-			username = input.nextLine();
-			System.out.print("Enter your first name: ");
-			fName = input.nextLine();
-			System.out.print("Enter your last name: ");
-			lName = input.nextLine();
-			System.out.print("Enter your email: ");
-			email = input.nextLine();
-			System.out.print("Enter your address: ");
-			addr = input.nextLine();
-			System.out.print("Enter your city: ");
-			city = input.nextLine();
-			System.out.print("Enter your state: ");
-			state = input.nextLine();
-			System.out.print("Enter your zipcode: ");
-			zip = input.nextInt();
-			input.nextLine(); // clear buffer
-			System.out.println("\nYou have succesfully created an account, "
-					+ fName + " " + lName + "!\n");
-			currentC = new Customer(username, fName, lName, email, pw, addr,
-					city, state, zip);
-			custHT.insert(currentC);
-		} else {
-			currentC = custHT.get(tempC);
-			System.out.println("\nWelcome back, " + currentC.getFirstName()
-					+ " " + currentC.getLastName() + "!\n");
-		}
-
+		System.out.println("\n[Choose your customer type]\n"
+	        		+ "1. Guest\n"
+	        		+ "2. New Customer\n"
+	        		+ "3. Existing Customer");
+		 	System.out.print("\nPlease enter 1, 2, or 3: ");
+	        ans = input.nextLine();
+	        if (ans.equals("1")) {
+				System.out.println("\nPlease start by filling out"
+						+ "your contact info!\n");
+	        	createAccount(input, currentC);
+				currentC = new Customer(fName, lName, email, addr,
+						city, state, zip);
+				custHT.insert(currentC);
+				System.out.println(success);
+	        } else if (ans.equals("2")) {
+				createAccount(input, currentC);
+				System.out.println(cAcc);
+    			System.out.print(enU);
+    			username = input.nextLine();
+    			System.out.println(cPW);
+    			pw = input.nextLine();
+				currentC = new Customer(username, fName, lName, email, pw, addr,
+						city, state, zip);
+				custHT.insert(currentC);
+	        } else if (ans.equals("3")){
+	        	System.out.print("Enter your email address: ");
+	    		email = input.nextLine();
+	    		System.out.print("Enter your password: ");
+	    		pw = input.nextLine();
+	    		Customer tempC = new Customer(email, pw);
+	    		if (!(custHT.contains(tempC))) { //only works based on email and password
+	    			//one HT
+					System.out.println("\nIt appears we don't have "
+							+ "your account on file...\n");
+	    			System.out.println(cAcc);
+	    			System.out.print(enU);
+	    			username = input.nextLine();
+	    			System.out.println(cPW);
+	    			pw = input.nextLine();
+					createAccount(input, currentC);
+	    			currentC = new Customer(username, fName, lName, email, pw, addr,
+	    					city, state, zip);
+	    			custHT.insert(currentC);
+	    			System.out.println(success);
+	    		} else {
+	    			currentC = custHT.get(tempC);
+	    			System.out.println("\nWelcome back, " + currentC.getFirstName()
+	    					+ " " + currentC.getLastName() + "!\n");
+	    		}
+	        }
+		
 		while (!choice.equalsIgnoreCase("X")) {
 			displayCustMenu();
 			System.out.print("Enter your choice: ");
@@ -146,6 +166,24 @@ public class UserInterface {
 					break;
 			}
 		}
+	}
+	
+	public static void createAccount(Scanner input, Customer currentC) {
+		System.out.print("Enter your first name: ");
+		fName = input.nextLine();
+		System.out.print("Enter your last name: ");
+		lName = input.nextLine();
+		System.out.print("Enter your email: ");
+		email = input.nextLine();
+		System.out.print("Enter your address: ");
+		addr = input.nextLine();
+		System.out.print("Enter your city: ");
+		city = input.nextLine();
+		System.out.print("Enter your state: ");
+		state = input.nextLine();
+		System.out.print("Enter your zipcode: ");
+		zip = input.nextInt();
+		input.nextLine(); // clear buffer
 	}
 
 	public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
@@ -240,13 +278,12 @@ public class UserInterface {
     
 	public static void searchVG(Scanner input, Customer currentC,
 			BST<VideoGame> vgByTitle) {
-		TitleComparator tc = new TitleComparator();
 		String title;
 		VideoGame searchVG;
 		System.out.println("\nWhich video game would you like to search for?");
 		System.out.print("\nEnter the title: ");
 		title = input.nextLine();
-		searchVG = Customer.searchGameByTitle(title, vgByTitle, tc);
+		searchVG = Customer.searchVGLByTitle(title, vgByTitle);
 		//TODO:is it better to have it a method in customer or here?
 		//searchVG = new VideoGame(userSearch);
 		//searchVG = vgByTitle.search(searchVG, tc);
@@ -260,7 +297,9 @@ public class UserInterface {
 	}
 
     public static void listVG(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate) {
+			BST<VideoGame> vgByDate) { //TODO: is there a way to access the variables of an object
+    	//in a BST? b/c if we have time, it would be nice to not 
+    	//spam our console with the info of 20ish+ games
     	String choice = "";
     	System.out.println("\nHow would you like to sort the avaliable video games?\n"
     			+ "1. By Title\n"
@@ -431,7 +470,17 @@ public class UserInterface {
     }
 
     public static void customerToFile(HashTable<Customer> customers) {
-
+    	//TODO: it's ok to write the guest(s) to the same file right?
+    	//technically they are also a customer. if we want to do it in the same file, we can just readin
+    	//a boolean if they have a username or password. similiar to the 36b review
+    	//but basically have a guest txt file is easier (no need to add booleans)
+    	//and then we can just insert it to the customersHT still.
+    	//if we had guests have an username and pw (but it's just null) then i guess we could have
+    	//one less constructor. but that may trigger a nullPointerException
+    	//I have an idea to have a member variable called numGuests, we can we write and save it
+    	//so based on that num each guest would be "Guest #" + (numGuests + 1)convertToString
+    	//OR this is unnecess. having their email and contact info is enough?
+    	//A:Don't save guest info (doesn't make sense), only save it in orders
     }
 
     public static void ordersToFile(Heap<Order> orderHeap) {
