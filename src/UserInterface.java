@@ -459,6 +459,8 @@ public class UserInterface {
     	//TODO: it's ok to write the guest(s) to the same file right?
     	//technically they are also a customer. if we want to do it in the same file, we can just readin
     	//a boolean if they have a username or password. similiar to the 36b review
+    	//but basically have a guest txt file is easier (no need to add booleans)
+    	//and then we can just insert it to the customersHT still.
     	//I have an idea to have a member variable called numGuests, we can we write and save it
     	//so based on that num each guest would be "Guest #" + (numGuests + 1)convertToString
     	//OR this is unnecess. having their email and contact info is enough?
