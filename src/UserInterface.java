@@ -11,8 +11,8 @@ import java.util.Scanner;
 public class UserInterface {
 	private static final String vgFile = ("product.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
-	public static String fName, lName, email, addr, city, state;
-	public static int zip;
+	private static String fName, lName, email, addr, city, state;
+	private static int zip;
 	//maybe change to videoGames.txt, once we decide on a String txt
 	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
@@ -87,14 +87,14 @@ public class UserInterface {
 				currentC = new Customer(username, fName, lName, email, pw, addr,
 						city, state, zip);
 				custHT.insert(currentC);
-				
 	        } else if (ans.equals("3")){
 	        	System.out.print("Enter your email address: ");
 	    		email = input.nextLine();
 	    		System.out.print("Enter your password: ");
 	    		pw = input.nextLine();
 	    		Customer tempC = new Customer(email, pw);
-	    		if (!(custHT.contains(tempC))) {
+	    		if (!(custHT.contains(tempC))) { //only works based on email and password
+	    			//one HT
 					System.out.println("\nIt appears we don't have "
 							+ "your account on file...\n");
 	    			System.out.println(cAcc);
@@ -268,13 +268,12 @@ public class UserInterface {
     
 	public static void searchVG(Scanner input, Customer currentC,
 			BST<VideoGame> vgByTitle) {
-		TitleComparator tc = new TitleComparator();
 		String title;
 		VideoGame searchVG;
 		System.out.println("\nWhich video game would you like to search for?");
 		System.out.print("\nEnter the title: ");
 		title = input.nextLine();
-		searchVG = Customer.searchGameByTitle(title, vgByTitle, tc);
+		searchVG = Customer.searchVGLByTitle(title, vgByTitle);
 		//TODO:is it better to have it a method in customer or here?
 		//searchVG = new VideoGame(userSearch);
 		//searchVG = vgByTitle.search(searchVG, tc);
@@ -471,6 +470,7 @@ public class UserInterface {
     	//I have an idea to have a member variable called numGuests, we can we write and save it
     	//so based on that num each guest would be "Guest #" + (numGuests + 1)convertToString
     	//OR this is unnecess. having their email and contact info is enough?
+    	//A:Don't save guest info (doesn't make sense), only save it in orders
     }
 
     public static void ordersToFile(Heap<Order> orderHeap) {
