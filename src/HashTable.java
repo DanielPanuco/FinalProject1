@@ -98,7 +98,7 @@ public class HashTable<T> {
         }
     }
     
-    public T getByKeys(T t, String key1, String key2) throws NullPointerException{
+    public T get(T t, String key1, String key2) throws NullPointerException{
         if(t == null) {
             throw new NullPointerException("get: cannot get null");
         }else {
@@ -160,7 +160,7 @@ public class HashTable<T> {
         }
     }
     
-    public void insertByKeys(T t, String key1, String key2) throws NullPointerException{
+    public void insert(T t, String key1, String key2) throws NullPointerException{
         if(t == null) {
             throw new NullPointerException("insert: cannot insert null");
         }else {
@@ -197,7 +197,7 @@ public class HashTable<T> {
         }
     }
     
-    public void removeByKeys(T t, String key1, String key2) throws NullPointerException {
+    public void remove(T t, String key1, String key2) throws NullPointerException {
         if(t == null) {
             throw new NullPointerException("remove: object to be removed is null, "
                     + "cannot remove");
