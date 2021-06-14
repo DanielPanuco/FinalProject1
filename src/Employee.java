@@ -4,8 +4,8 @@ public class Employee extends User {
 		super();
 	}
 	
-	public Employee(String email, String password) {
-		super(email, password);	
+	public Employee(String firstName, String LastName) {
+		super(firstName, LastName);
 	}
 	
 	public Employee(String firstName, String lastName, 
@@ -19,9 +19,9 @@ public class Employee extends User {
 		this.setAccountNum(accountNum);
 	}
 	
-	public static Customer searchCustomer(String username, String email,
-			String password, HashTable<Customer> customers) {
-		return customers.get(new Customer(email, password));
+	public static Customer searchCustomer(String firstName,
+			String lastName, HashTable<Customer> customers) {
+		return customers.get(new Customer(firstName, lastName));
 	}
 
 	public static void displayCustomer(Customer customer) {
