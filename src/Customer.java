@@ -140,8 +140,8 @@ public class Customer extends User {
 			for (int i = 0; i < unshippedOrders.getLength(); i++) {
 				List<VideoGame> vgList = unshippedOrders.getIterator()
 						.getOrderContents();
-				VideoGame currVG = vgList.getIterator();
 				vgList.placeIterator();
+				VideoGame currVG = vgList.getIterator();
 				System.out.println(t2 + "[Order #" + (i + 1) + "]\n"
 						+ " Qty\tPrice" + t3 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
@@ -167,8 +167,8 @@ public class Customer extends User {
 			shippedOrders.placeIterator();
 			for (int i = 0; i < shippedOrders.getLength(); i++) {
 				List<VideoGame> vgList = shippedOrders.getIterator().getOrderContents();
-				VideoGame currVG = vgList.getIterator();
 				vgList.placeIterator();
+				VideoGame currVG = vgList.getIterator();
 				System.out.println(t2 + "[Order #" + (i + 1) + "]\n"
 						+ " Qty\tPrice" + t3 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
