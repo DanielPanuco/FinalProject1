@@ -11,8 +11,10 @@ import java.util.Scanner;
 public class UserInterface {
 	private static final String vgFile = ("product.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
-	private static String fName, lName, email, addr, city, state;
+	private static String fName, lName, email, addr, city, state, pw;
 	private static int zip;
+	private static Customer currentC = null; //TODO: do we want a guest to be declared here
+	private static Employee currentEmp = null;
 	//maybe change to videoGames.txt, once we decide on a String txt
 	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
@@ -35,7 +37,8 @@ public class UserInterface {
 		} catch (FileNotFoundException e) {
 			System.out.println("File(s) not found, please make sure it is in the project"
 					+ "folder and rereun the program.");
-		}
+		} //TODO: ask about IOException for file corruption implementation, 
+		//need to be called for it to happen
        
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
         //System.out.println("Please note that we don't offer refunds after you place your orders!");
@@ -48,19 +51,19 @@ public class UserInterface {
         if (userType == 1) {
             custInterface(input, custHT, vgByTitle, vgByDate);
         } else {
-            empInterface(input, vgByDate, vgByDate, custHT);
+            empInterface(input, vgByDate, vgByDate, custHT, empHT);
         }
     }
-
-	public static void custInterface(Scanner input, HashTable<Customer> custHT,
+    
+    public static void custAccSetup(Scanner input, HashTable<Customer> custHT,
 			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
-		String username, pw, choice = "", ans;
-		String cAcc ="Let's create an account for you!\n";
+    	String username, ans; //TODO: should username and pw also be member var
+    	String cAcc ="Let's create an account for you!\n";
 		String enU = "Enter your username: ";
 		String cPW = "Create a password:";
 		String success = "\nYou have succesfully created an account,"
 							+ fName + " " + lName + "!\n";
-		Customer currentC = null; //do we want a guest to be declared here
+		//Customer currentC = null; 
 		input.nextLine(); // clear buffer from reading
 		System.out.println("\nWelcome to our store, please login here!");
 		System.out.println("\n[Choose your customer type]\n"
@@ -72,13 +75,13 @@ public class UserInterface {
 	        if (ans.equals("1")) {
 				System.out.println("\nPlease start by filling out"
 						+ "your contact info!\n");
-	        	createAccount(input, currentC);
+	        	createAccount(input);
 				currentC = new Customer(fName, lName, email, addr,
 						city, state, zip);
 				custHT.insert(currentC);
 				System.out.println(success);
 	        } else if (ans.equals("2")) {
-				createAccount(input, currentC);
+				createAccount(input);
 				System.out.println(cAcc);
     			System.out.print(enU);
     			username = input.nextLine();
@@ -102,7 +105,7 @@ public class UserInterface {
 	    			username = input.nextLine();
 	    			System.out.println(cPW);
 	    			pw = input.nextLine();
-					createAccount(input, currentC);
+					createAccount(input);
 	    			currentC = new Customer(username, fName, lName, email, pw, addr,
 	    					city, state, zip);
 	    			custHT.insert(currentC);
@@ -111,16 +114,40 @@ public class UserInterface {
 	    			currentC = custHT.get(tempC);
 	    			System.out.println("\nWelcome back, " + currentC.getFirstName()
 	    					+ " " + currentC.getLastName() + "!\n");
+	    			//System.out.println(currentC); /proof that reading in cust's orders works
 	    		}
 	        }
-		
+    }
+    
+    public static void createAccount(Scanner input) {
+		System.out.print("Enter your first name: ");
+		fName = input.nextLine();
+		System.out.print("Enter your last name: ");
+		lName = input.nextLine();
+		System.out.print("Enter your email: ");
+		email = input.nextLine();
+		System.out.print("Enter your address: ");
+		addr = input.nextLine();
+		System.out.print("Enter your city: ");
+		city = input.nextLine();
+		System.out.print("Enter your state: ");
+		state = input.nextLine();
+		System.out.print("Enter your zipcode: ");
+		zip = input.nextInt();
+		input.nextLine(); // clear buffer
+	}
+  
+	public static void custInterface(Scanner input, HashTable<Customer> custHT,
+			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
+		String choice = "", ans;
+		custAccSetup(input, custHT, vgByTitle, vgByDate); 
 		while (!choice.equalsIgnoreCase("X")) {
 			displayCustMenu();
-			System.out.print("Enter your choice: ");
+			System.out.print("Enter your choice: "); //TODO: will convert this to a member string
 			choice = input.nextLine();
 			switch (choice.toUpperCase()) {
 				case "1":
-					placeOrder(input, currentC, vgByTitle);
+					placeOrder(input, vgByTitle);
 					//Overnight Shipping, Rush Shipping, Standard Shipping
 					//Priority attribute for each video game order? or overall?
 					break;
@@ -128,14 +155,16 @@ public class UserInterface {
 					listVG(input, vgByTitle, vgByDate);
 					break;
 				case "3":
-					searchVG(input, currentC, vgByTitle);
+					searchVG(input, vgByTitle);
 					break;
 				case "4":
 					//check if they don't have any orders, else
-					System.out.println("[\nViewing Order(s) Submenu]");
-					System.out.println("Which would you like to view?\n"
+					//TODO: the method called to view orders are broken now somehow
+					System.out.println("\n[Viewing Order(s) Submenu]");
+					System.out.println("Which would you like to view?\n\n"
 							+ "U: My Unshipped Orders\n"
-							+ "S: My Shipped Orders");
+							+ "S: My Shipped Orders\n");
+					System.out.print("Enter your choice: "); //TODO: extra add while loop
 					ans = input.nextLine();
 					if (ans.equalsIgnoreCase("U")) {
 						System.out.println("\n\t[" + currentC.getUsername()
@@ -156,6 +185,14 @@ public class UserInterface {
 								"Invalid Input, Please enter only U or S next time!");
 					}
 					break;
+				case "5": //TODO: this works but requires to enter for some reason, buffer issue?
+					System.out.println("\nWould you like to sign out?\n");
+					System.out.print("Enter (Y/N): ");
+					ans = input.nextLine();
+					if (ans.equalsIgnoreCase("Y")) {
+						custAccSetup(input, custHT, vgByTitle, vgByDate);
+					}
+					break;
 				case "X":
 					System.out.println("\nGoodbye!");
 					//Write to all txt files
@@ -164,33 +201,43 @@ public class UserInterface {
 					System.out.println("\nInvalid menu option."
 							+ " Please enter A-D or X to exit.");
 					break;
+				}
 			}
 		}
-	}
-	
-	public static void createAccount(Scanner input, Customer currentC) {
-		System.out.print("Enter your first name: ");
-		fName = input.nextLine();
-		System.out.print("Enter your last name: ");
-		lName = input.nextLine();
-		System.out.print("Enter your email: ");
-		email = input.nextLine();
-		System.out.print("Enter your address: ");
-		addr = input.nextLine();
-		System.out.print("Enter your city: ");
-		city = input.nextLine();
-		System.out.print("Enter your state: ");
-		state = input.nextLine();
-		System.out.print("Enter your zipcode: ");
-		zip = input.nextInt();
-		input.nextLine(); // clear buffer
-	}
 
+		public static void empLogin(Scanner input, HashTable<Employee> empHT) {
+			System.out.println("\n[Employee Login Menu]");
+	    	System.out.println("\nWelcome back! Please login here");
+	    	System.out.println("-------------------------------\n");
+	    	System.out.print("Enter your email address: ");
+			email = input.nextLine();
+			System.out.print("Enter your password: ");
+			pw = input.nextLine();
+			currentEmp = new Employee(email, pw);
+			while (!(empHT.contains(currentEmp))) { // only works based on email
+													// and password, one HT
+				System.out.println("\nPlease make sure you entered your correct"
+						+ " case sensitive email and password!"); 
+				// TODO: extra, give them X tries, count with a num,
+				//if they exceed X tries the program will terminate.
+				System.out.print("Enter your email address: ");
+				email = input.nextLine();
+				System.out.print("\nEnter your password: ");
+				pw = input.nextLine();
+				currentEmp = new Employee(email, pw);
+			}
+			currentEmp = empHT.get(currentEmp);
+			System.out.println("\nWelcome back, " + currentEmp.getFirstName()
+					+ " " + currentEmp.getLastName() + "!\n");
+		}
+	  
 	public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate, HashTable<Customer> custHT) {
-		String choice = ""; // TODO: EXTRA: access cust email, if price == 0,
+			BST<VideoGame> vgByDate, HashTable<Customer> custHT,
+			HashTable<Employee> empHT) {
+		String choice = "", ans; // TODO: EXTRA: access cust email, if price == 0,
 							// then print out f2p games with seperate for loop
 		input.nextLine(); // clear buffer from reading an Int
+		empLogin(input, empHT);
 		while (!choice.equalsIgnoreCase("X")) {
 			displayEmpMenu();
 			System.out.print("Enter your choice: ");
@@ -212,7 +259,7 @@ public class UserInterface {
 					Customer cust = Employee.searchCustomer(firstName, lastName, custHT);
 					if(cust == null) {
 						System.out.println("Customer doesn't exist!");
-					}else {
+					} else {
 						System.out.println("Customer has been found:\n"
 								+ cust);
 					}
@@ -229,6 +276,14 @@ public class UserInterface {
 				case "7":
 					//Remove a Product
 					break;
+				case "8":
+					System.out.println("\nWould you like to sign out?\n");
+					System.out.print("Enter (Y/N): ");
+					ans = input.nextLine();
+					if (ans.equalsIgnoreCase("Y")) {
+						empLogin(input, empHT);
+					}
+					break;
 				case "X":
 					System.out.println("\nGoodbye!");
 					//Write to all txt files
@@ -241,7 +296,7 @@ public class UserInterface {
 		}
 	}
 
-    public static void placeOrder(Scanner input, Customer currentC, BST<VideoGame> vgByTitle) {
+    public static void placeOrder(Scanner input, BST<VideoGame> vgByTitle) {
     	TitleComparator tc = new TitleComparator(); //TODO: pass in TC?
     	String title;
     	//Long cTimestamp = null; 
@@ -276,8 +331,7 @@ public class UserInterface {
     	//remove this from the user? remove vg
     }
     
-	public static void searchVG(Scanner input, Customer currentC,
-			BST<VideoGame> vgByTitle) {
+	public static void searchVG(Scanner input, BST<VideoGame> vgByTitle) {
 		String title;
 		VideoGame searchVG;
 		System.out.println("\nWhich video game would you like to search for?");
@@ -306,16 +360,17 @@ public class UserInterface {
     			+ "2. By Release Date");
     	System.out.print("\nEnter your choice: ");
 		choice = input.nextLine();
-		//while (!(choice.equals("1") && choice.equals("2"))) {
-		//TODO: Why did this infinite loop? how to fix
+		while (!(choice.equals("1") || choice.equals("2"))) {
+			// TODO: Is this fixed now?
 			if (choice.equals("1")) {
 				vgByTitle.inOrderPrint();
-			} else if (choice.equals("2")) { //for typos
+			} else if (choice.equals("2")) { // for typos
 				vgByDate.inOrderPrint();
 			} else {
-				System.out.println("Invalid Input, Please enter only 1 or 2 next time!");
+				System.out.println("Invalid Input, Please enter only 1 or 2!");
 			}
 		}
+	}
     
     public static void addVG(BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
 
@@ -332,6 +387,7 @@ public class UserInterface {
 				+ "2. List Video Games\n"
 				+ "3. Search for Video Game\n"
 				+ "4. View Unshipped and Shipped Orders\n"
+				+ "5. Sign Out of Your Acount\n"
 				+ "X. Exit\n"); // TODO: finalize output
 
     }
@@ -346,6 +402,7 @@ public class UserInterface {
                 + "5. List Video Games\n"
                 + "6. Add New Product\n"
                 + "7. Remove a Product\n"
+                + "8. Sign Out of Your Acount\n"
                 + "X. Exit\n"); //TODO: finalize output
     }
 
@@ -357,7 +414,6 @@ public class UserInterface {
 		Long uTimestamp, sTimestamp;
     	File file = new File(custFile);
 		input = new Scanner(file);
-		
 		while (input.hasNextLine()) {
 			username = input.nextLine();
 			fName = input.nextLine();
@@ -416,7 +472,6 @@ public class UserInterface {
 		int accNum;
     	File file = new File(empFile);
 		input = new Scanner(file);
-		
 		while (input.hasNextLine()) {
 			fName = input.nextLine();
 			lName = input.nextLine();
@@ -442,7 +497,6 @@ public class UserInterface {
 		DateComparator dComp = new DateComparator();
 		File file = new File(vgFile);
 		input = new Scanner(file);
-		
 		while (input.hasNextLine()) {
 			title = input.nextLine();
 			dev = input.nextLine();
