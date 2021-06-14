@@ -70,7 +70,8 @@ public class UserInterface {
 		 	System.out.print("\nPlease enter 1, 2, or 3: ");
 	        ans = input.nextLine();
 	        if (ans.equals("1")) {
-	        	System.out.println("\nPlease start by filling out your contact info!\n");
+				System.out.println("\nPlease start by filling out"
+						+ "your contact info!\n");
 	        	createAccount(input, currentC);
 				currentC = new Customer(fName, lName, email, addr,
 						city, state, zip);
@@ -94,7 +95,8 @@ public class UserInterface {
 	    		pw = input.nextLine();
 	    		Customer tempC = new Customer(email, pw);
 	    		if (!(custHT.contains(tempC))) {
-	    			System.out.println("\nIt appears we don't have your account on file...\n");
+					System.out.println("\nIt appears we don't have "
+							+ "your account on file...\n");
 	    			System.out.println(cAcc);
 	    			System.out.print(enU);
 	    			username = input.nextLine();
