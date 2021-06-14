@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class UserInterface {
 	private static final String vgFile = ("product.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
-	private static String fName, lName, email, addr, city, state;
+	private static String fName, lName, email, addr, city, state, pw;
 	private static int zip;
 	public static Customer currentC = null; //TODO: do we want a guest to be declared here
 	//maybe change to videoGames.txt, once we decide on a String txt
@@ -50,13 +50,13 @@ public class UserInterface {
         if (userType == 1) {
             custInterface(input, custHT, vgByTitle, vgByDate);
         } else {
-            empInterface(input, vgByDate, vgByDate, custHT);
+            empInterface(input, vgByDate, vgByDate, custHT, empHT);
         }
     }
     
-    public static void accountSetup(Scanner input, HashTable<Customer> custHT,
+    public static void custAccSetup(Scanner input, HashTable<Customer> custHT,
 			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
-    	String username, pw, choice = "", ans; //TODO: should username and pw also be member var
+    	String username, ans; //TODO: should username and pw also be member var
     	String cAcc ="Let's create an account for you!\n";
 		String enU = "Enter your username: ";
 		String cPW = "Create a password:";
@@ -113,15 +113,33 @@ public class UserInterface {
 	    			currentC = custHT.get(tempC);
 	    			System.out.println("\nWelcome back, " + currentC.getFirstName()
 	    					+ " " + currentC.getLastName() + "!\n");
-	    			System.out.println(currentC);
+	    			//System.out.println(currentC); /proof that reading in cust's orders works
 	    		}
 	        }
     }
     
+    public static void createAccount(Scanner input) {
+		System.out.print("Enter your first name: ");
+		fName = input.nextLine();
+		System.out.print("Enter your last name: ");
+		lName = input.nextLine();
+		System.out.print("Enter your email: ");
+		email = input.nextLine();
+		System.out.print("Enter your address: ");
+		addr = input.nextLine();
+		System.out.print("Enter your city: ");
+		city = input.nextLine();
+		System.out.print("Enter your state: ");
+		state = input.nextLine();
+		System.out.print("Enter your zipcode: ");
+		zip = input.nextInt();
+		input.nextLine(); // clear buffer
+	}
+  
 	public static void custInterface(Scanner input, HashTable<Customer> custHT,
 			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
 		String choice = "", ans;
-		accountSetup(input, custHT, vgByTitle, vgByDate); 
+		custAccSetup(input, custHT, vgByTitle, vgByDate); 
 		while (!choice.equalsIgnoreCase("X")) {
 			displayCustMenu();
 			System.out.print("Enter your choice: "); //TODO: will convert this to a member string
@@ -171,7 +189,7 @@ public class UserInterface {
 					System.out.print("Enter (Y/N): ");
 					ans = input.nextLine();
 					if (ans.equalsIgnoreCase("Y")) {
-						accountSetup(input, custHT, vgByTitle, vgByDate);
+						custAccSetup(input, custHT, vgByTitle, vgByDate);
 					}
 					break;
 				case "X":
@@ -185,30 +203,37 @@ public class UserInterface {
 			}
 		}
 	}
-	
-	public static void createAccount(Scanner input) {
-		System.out.print("Enter your first name: ");
-		fName = input.nextLine();
-		System.out.print("Enter your last name: ");
-		lName = input.nextLine();
-		System.out.print("Enter your email: ");
-		email = input.nextLine();
-		System.out.print("Enter your address: ");
-		addr = input.nextLine();
-		System.out.print("Enter your city: ");
-		city = input.nextLine();
-		System.out.print("Enter your state: ");
-		state = input.nextLine();
-		System.out.print("Enter your zipcode: ");
-		zip = input.nextInt();
-		input.nextLine(); // clear buffer
-	}
-
+	  public static void empLogin(Scanner input, HashTable<Employee> empHT) {
+	    	System.out.println("\nWelcome back! Please login here");
+	    	System.out.println("-------------------------------\n");
+	    	System.out.print("Enter your email address: ");
+			email = input.nextLine();
+			System.out.print("Enter your password: ");
+			pw = input.nextLine();
+			Employee currentEmp = new Employee(email, pw);
+			while (!(empHT.contains(currentEmp))) { //only works based on email and password
+				//one HT
+				System.out.println("\nPlease make sure you entered your correct case sensitive"
+						+ " email and password!"); //TODO: extra, give them X tries
+				//count with a num, if they exceed X tries the program will terminate.
+				System.out.print("Enter your email address: ");
+				email = input.nextLine();
+				System.out.print("\nEnter your password: ");
+				pw = input.nextLine();
+				currentEmp = new Employee(email, pw);
+			} 
+				currentEmp = empHT.get(currentEmp);
+				System.out.println("\nWelcome back, " + currentEmp.getFirstName()
+						+ " " + currentEmp.getLastName() + "!\n");
+	    }
+	  
 	public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate, HashTable<Customer> custHT) {
+			BST<VideoGame> vgByDate, HashTable<Customer> custHT,
+			HashTable<Employee> empHT) {
 		String choice = ""; // TODO: EXTRA: access cust email, if price == 0,
 							// then print out f2p games with seperate for loop
 		input.nextLine(); // clear buffer from reading an Int
+		empLogin(input, empHT);
 		while (!choice.equalsIgnoreCase("X")) {
 			displayEmpMenu();
 			System.out.print("Enter your choice: ");
