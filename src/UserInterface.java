@@ -16,10 +16,10 @@ public class UserInterface {
 	//(if we don't want to end up changing it later on)
 	
     public static void main(String[] args) {
-        final int customerSize = 5, employeeSize = 3;
+        final int custSize = 5, empSize = 3;
         int userType;
-        HashTable<Customer> customersHT = new HashTable<>(customerSize * 2);
-        HashTable<Employee> employeesHT = new HashTable<>(employeeSize * 2);
+        HashTable<Customer> custHT = new HashTable<>(custSize * 2);
+        HashTable<Employee> empHT = new HashTable<>(empSize * 2);
         BST<VideoGame> vgByTitle = new BST<>();
         BST<VideoGame> vgByDate = new BST<>();
         //Heap<Order> shippedOrders = new Heap<>();
@@ -27,14 +27,14 @@ public class UserInterface {
         Scanner input = new Scanner(System.in);
 		try {
 			fileToVG(input, vgByTitle, vgByDate);
-			fileToCust(input, customersHT, vgByTitle);
-			fileToEmp(input, employeesHT);
+			fileToCust(input, custHT, vgByTitle);
+			fileToEmp(input, empHT);
+			//fileToOrders(input, orderHeap);
 		} catch (FileNotFoundException e) {
 			System.out.println("File(s) not found, please make sure it is in the project"
 					+ "folder and rereun the program.");
 		}
        
-        //fileToOrders(input, orderHeap);
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
         //System.out.println("Please note that we don't offer refunds after you place your orders!");
         //maybe mention credit/debit card only
@@ -44,9 +44,9 @@ public class UserInterface {
         System.out.print("\nPlease enter 1 or 2: ");
         userType = input.nextInt();
         if (userType == 1) {
-            custInterface(input, customersHT, vgByTitle, vgByDate);
+            custInterface(input, custHT, vgByTitle, vgByDate);
         } else {
-            empInterface(input, vgByDate, vgByDate, customersHT);
+            empInterface(input, vgByDate, vgByDate, custHT);
         }
     }
 
@@ -146,7 +146,7 @@ public class UserInterface {
 	}
 
 	public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate, HashTable<Customer> customersHT) {
+			BST<VideoGame> vgByDate, HashTable<Customer> custHT) {
 		String choice = ""; // TODO: EXTRA: access cust email, if price == 0,
 							// then print out f2p games with seperate for loop
 		input.nextLine(); // clear buffer from reading an Int
@@ -159,7 +159,7 @@ public class UserInterface {
 					//View Orders by Priority
 					break;
 				case "2":
-					System.out.println(customersHT); //Display unsorted customer information
+					System.out.println(custHT); //Display unsorted customer information
 					//TODO: add customers phone numbers, need to format individual printing fields
 					//(avoid printing passwords)
 					break;
@@ -186,7 +186,6 @@ public class UserInterface {
 					System.out.println("\nInvalid menu option."
 							+ " Please enter A-D or X to exit.");
 					break;
-
 			}
 		}
 	}
@@ -243,7 +242,6 @@ public class UserInterface {
 			System.out.println("Sorry, we don't have this "
 					+ "video game in our system yet!");
 		}
-
 	}
 
     public static void listVG(Scanner input, BST<VideoGame> vgByTitle,
