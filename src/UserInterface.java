@@ -186,7 +186,7 @@ public class UserInterface {
 					}
 					break;
 				case "5": //TODO: this works but requires to enter for some reason, buffer issue?
-					System.out.println("Would you like to sign out?\n");
+					System.out.println("\nWould you like to sign out?\n");
 					System.out.print("Enter (Y/N): ");
 					ans = input.nextLine();
 					if (ans.equalsIgnoreCase("Y")) {
@@ -259,7 +259,7 @@ public class UserInterface {
 					Customer cust = Employee.searchCustomer(firstName, lastName, custHT);
 					if(cust == null) {
 						System.out.println("Customer doesn't exist!");
-					}else {
+					} else {
 						System.out.println("Customer has been found:\n"
 								+ cust);
 					}
@@ -277,7 +277,7 @@ public class UserInterface {
 					//Remove a Product
 					break;
 				case "8":
-					System.out.println("Would you like to sign out?\n");
+					System.out.println("\nWould you like to sign out?\n");
 					System.out.print("Enter (Y/N): ");
 					ans = input.nextLine();
 					if (ans.equalsIgnoreCase("Y")) {
@@ -402,6 +402,7 @@ public class UserInterface {
                 + "5. List Video Games\n"
                 + "6. Add New Product\n"
                 + "7. Remove a Product\n"
+                + "8. Sign Out of Your Acount\n"
                 + "X. Exit\n"); //TODO: finalize output
     }
 
