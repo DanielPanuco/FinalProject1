@@ -55,7 +55,11 @@ public class UserInterface {
 	public static void custInterface(Scanner input, HashTable<Customer> custHT,
 			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
 		String username, pw, choice = "", ans;
-		int numChoice;
+		String cAcc ="Let's create an account for you!\n";
+		String enU = "Enter your username: ";
+		String cPW = "Create a password:";
+		String success = "\nYou have succesfully created an account,"
+							+ fName + " " + lName + "!\n";
 		Customer currentC = null; //do we want a guest to be declared here
 		input.nextLine(); // clear buffer from reading
 		System.out.println("\nWelcome to our store, please login here!");
@@ -71,20 +75,18 @@ public class UserInterface {
 				currentC = new Customer(fName, lName, email, addr,
 						city, state, zip);
 				custHT.insert(currentC);
-				System.out.println("\nYou have succesfully logged in as a guest, "
-						+ fName + " " + lName + "!\n");
+				System.out.println(success);
 	        } else if (ans.equals("2")) {
 				createAccount(input, currentC);
-				System.out.println("Let's create an account for you!");
-    			System.out.print("Enter your username: ");
+				System.out.println(cAcc);
+    			System.out.print(enU);
     			username = input.nextLine();
-    			System.out.print("Create a password: ");
+    			System.out.println(cPW);
     			pw = input.nextLine();
 				currentC = new Customer(username, fName, lName, email, pw, addr,
 						city, state, zip);
 				custHT.insert(currentC);
-				System.out.println("\nYou have succesfully created an account, "
-						+ fName + " " + lName + "!\n");
+				
 	        } else if (ans.equals("3")){
 	        	System.out.print("Enter your email address: ");
 	    		email = input.nextLine();
@@ -92,18 +94,17 @@ public class UserInterface {
 	    		pw = input.nextLine();
 	    		Customer tempC = new Customer(email, pw);
 	    		if (!(custHT.contains(tempC))) {
-	    			System.out.println("\nWe don't have your account on file...\n");
-	    			System.out.println("Let's create an account for you!");
-	    			System.out.print("Enter your username: ");
+	    			System.out.println("\nIt appears we don't have your account on file...\n");
+	    			System.out.println(cAcc);
+	    			System.out.print(enU);
 	    			username = input.nextLine();
-	    			System.out.print("Create a password: ");
+	    			System.out.println(cPW);
 	    			pw = input.nextLine();
 					createAccount(input, currentC);
 	    			currentC = new Customer(username, fName, lName, email, pw, addr,
 	    					city, state, zip);
 	    			custHT.insert(currentC);
-	    			System.out.println("\nYou have succesfully created an account, "
-	    					+ fName + " " + lName + "!\n");
+	    			System.out.println(success);
 	    		} else {
 	    			currentC = custHT.get(tempC);
 	    			System.out.println("\nWelcome back, " + currentC.getFirstName()
