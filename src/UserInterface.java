@@ -40,7 +40,7 @@ public class UserInterface {
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
         //System.out.println("Please note that we don't offer refunds after you place your orders!");
         //maybe mention credit/debit card only
-        System.out.println("What type of user are you?\n"
+        System.out.println("[Please select your user type]\n"
         		+ "1. Customer\n"
         		+ "2. Employee");
         System.out.print("\nPlease enter 1 or 2: ");

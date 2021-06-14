@@ -5,7 +5,8 @@ public class Order {
     private Customer customer;
     private int shippingSpeed, priority; //TODO: ask her about how we calculate priority
     //TODO: Also is it required to associate some shipping speeds with a cost, or is that extra?
-    //and how do we do this? prob need to pass in a total variable somewhere.
+    //and how do we do this? prob need to pass in a total variable somewhere. 
+    //stand shipping would be free if the user cart/order's total is >= $35.00.
     private long date;
     private List<VideoGame> orderContents;
     private boolean shippingStatus;
