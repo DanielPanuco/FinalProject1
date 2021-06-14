@@ -209,11 +209,9 @@ public class Heap<T> {
             T temp = heap.get(1);
             heap.set(1, heap.get(i));
             heap.set(i, temp);
-
-            heapSize--; // consider your heap to be one smaller
-
+            heapSize--;
             heapify(1); // restore max heap property
-        } //TODO: should we return a new arraylist or return heap and why is index 1 a null object?
+        } //TODO: We need to maintain the heap after sort
         return heap;
     }
 }
