@@ -11,6 +11,8 @@ import java.util.Scanner;
 public class UserInterface {
 	private static final String vgFile = ("product.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
+	public static String fName, lName, email, addr, city, state;
+	public static int zip;
 	//maybe change to videoGames.txt, once we decide on a String txt
 	//name it's good to make it final (taught in 36B)
 	//(if we don't want to end up changing it later on)
@@ -52,48 +54,63 @@ public class UserInterface {
 
 	public static void custInterface(Scanner input, HashTable<Customer> custHT,
 			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
-		String username = "", fName, lName, email, pw, addr, city, state,
-				choice = "", ans;
-		int zip;
+		String username, pw, choice = "", ans;
+		int numChoice;
+		Customer currentC = null; //do we want a guest to be declared here
 		input.nextLine(); // clear buffer from reading
 		System.out.println("\nWelcome to our store, please login here!");
-		System.out.print("Enter your email address: ");
-		email = input.nextLine();
-		System.out.print("Enter your password: ");
-		pw = input.nextLine();
-		Customer tempC = new Customer(email, pw);
-		Customer currentC;
-		if (!(custHT.contains(tempC))) {
-			System.out.println("\nWe don't have your account on file...\n");
-			System.out.println("Let's create an account for you!");
-			System.out.print("Enter your username: ");
-			username = input.nextLine();
-			System.out.print("Enter your first name: ");
-			fName = input.nextLine();
-			System.out.print("Enter your last name: ");
-			lName = input.nextLine();
-			System.out.print("Enter your email: ");
-			email = input.nextLine();
-			System.out.print("Enter your address: ");
-			addr = input.nextLine();
-			System.out.print("Enter your city: ");
-			city = input.nextLine();
-			System.out.print("Enter your state: ");
-			state = input.nextLine();
-			System.out.print("Enter your zipcode: ");
-			zip = input.nextInt();
-			input.nextLine(); // clear buffer
-			System.out.println("\nYou have succesfully created an account, "
-					+ fName + " " + lName + "!\n");
-			currentC = new Customer(username, fName, lName, email, pw, addr,
-					city, state, zip);
-			custHT.insert(currentC);
-		} else {
-			currentC = custHT.get(tempC);
-			System.out.println("\nWelcome back, " + currentC.getFirstName()
-					+ " " + currentC.getLastName() + "!\n");
-		}
-
+		System.out.println("\n[Choose your customer type]\n"
+	        		+ "1. Guest\n"
+	        		+ "2. New Customer\n"
+	        		+ "3. Existing Customer");
+		 	System.out.print("\nPlease enter 1, 2, or 3: ");
+	        ans = input.nextLine();
+	        if (ans.equals("1")) {
+	        	System.out.println("\nPlease start by filling out your contact info!\n");
+	        	createAccount(input, currentC);
+				currentC = new Customer(fName, lName, email, addr,
+						city, state, zip);
+				custHT.insert(currentC);
+				System.out.println("\nYou have succesfully logged in as a guest, "
+						+ fName + " " + lName + "!\n");
+	        } else if (ans.equals("2")) {
+				createAccount(input, currentC);
+				System.out.println("Let's create an account for you!");
+    			System.out.print("Enter your username: ");
+    			username = input.nextLine();
+    			System.out.print("Create a password: ");
+    			pw = input.nextLine();
+				currentC = new Customer(username, fName, lName, email, pw, addr,
+						city, state, zip);
+				custHT.insert(currentC);
+				System.out.println("\nYou have succesfully created an account, "
+						+ fName + " " + lName + "!\n");
+	        } else if (ans.equals("3")){
+	        	System.out.print("Enter your email address: ");
+	    		email = input.nextLine();
+	    		System.out.print("Enter your password: ");
+	    		pw = input.nextLine();
+	    		Customer tempC = new Customer(email, pw);
+	    		if (!(custHT.contains(tempC))) {
+	    			System.out.println("\nWe don't have your account on file...\n");
+	    			System.out.println("Let's create an account for you!");
+	    			System.out.print("Enter your username: ");
+	    			username = input.nextLine();
+	    			System.out.print("Create a password: ");
+	    			pw = input.nextLine();
+					createAccount(input, currentC);
+	    			currentC = new Customer(username, fName, lName, email, pw, addr,
+	    					city, state, zip);
+	    			custHT.insert(currentC);
+	    			System.out.println("\nYou have succesfully created an account, "
+	    					+ fName + " " + lName + "!\n");
+	    		} else {
+	    			currentC = custHT.get(tempC);
+	    			System.out.println("\nWelcome back, " + currentC.getFirstName()
+	    					+ " " + currentC.getLastName() + "!\n");
+	    		}
+	        }
+		
 		while (!choice.equalsIgnoreCase("X")) {
 			displayCustMenu();
 			System.out.print("Enter your choice: ");
@@ -146,6 +163,24 @@ public class UserInterface {
 					break;
 			}
 		}
+	}
+	
+	public static void createAccount(Scanner input, Customer currentC) {
+		System.out.print("Enter your first name: ");
+		fName = input.nextLine();
+		System.out.print("Enter your last name: ");
+		lName = input.nextLine();
+		System.out.print("Enter your email: ");
+		email = input.nextLine();
+		System.out.print("Enter your address: ");
+		addr = input.nextLine();
+		System.out.print("Enter your city: ");
+		city = input.nextLine();
+		System.out.print("Enter your state: ");
+		state = input.nextLine();
+		System.out.print("Enter your zipcode: ");
+		zip = input.nextInt();
+		input.nextLine(); // clear buffer
 	}
 
 	public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
