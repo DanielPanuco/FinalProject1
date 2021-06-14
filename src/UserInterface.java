@@ -17,7 +17,6 @@ public class UserInterface {
 	
     public static void main(String[] args) {
         final int customerSize = 5, employeeSize = 3;
-        String email;
         int userType;
         HashTable<Customer> customersHT = new HashTable<>(customerSize * 2);
         HashTable<Employee> employeesHT = new HashTable<>(employeeSize * 2);
@@ -106,10 +105,10 @@ public class UserInterface {
 					//Priority attribute for each video game order? or overall?
 					break;
 				case "2":
-					listVideoGames(input, vgByTitle, vgByDate);
+					listVG(input, vgByTitle, vgByDate);
 					break;
 				case "3":
-					searchVideoGame(input, currentC, vgByTitle);
+					searchVG(input, currentC, vgByTitle);
 					break;
 				case "4":
 					//check if they don't have any orders, else
@@ -148,8 +147,9 @@ public class UserInterface {
 
 	public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate, HashTable<Customer> customersHT) {
-		String choice = "";
-		input.nextLine(); //clear buffer from reading an Int
+		String choice = ""; // TODO: EXTRA: access cust email, if price == 0,
+							// then print out f2p games with seperate for loop
+		input.nextLine(); // clear buffer from reading an Int
 		while (!choice.equalsIgnoreCase("X")) {
 			displayEmpMenu();
 			System.out.print("Enter your choice: ");
@@ -159,8 +159,7 @@ public class UserInterface {
 					//View Orders by Priority
 					break;
 				case "2":
-					System.out.println(customersHT); //Display unsorted customer information, 
-					//including first and last name, address, phone number, order history
+					System.out.println(customersHT); //Display unsorted customer information
 					//TODO: add customers phone numbers, need to format individual printing fields
 					//(avoid printing passwords)
 					break;
@@ -171,7 +170,7 @@ public class UserInterface {
 					//Ship an Order (Remove from Heap) 
 					break;
 				case "5":
-					listVideoGames(input, vgByTitle, vgByDate);
+					listVG(input, vgByTitle, vgByDate);
 					break;
 				case "6":
 					//Add New Product
@@ -209,8 +208,25 @@ public class UserInterface {
 			unshippedVG.addLast(tempVG);
 		}
     }
+    
+    public static void viewSC(Scanner input, Customer currentC) {
+    	//TODO: EXTRA: will use for shopping cart instead
+		String viewChoice;
+    	System.out.println("1 to view unshipped orders | 2 to view shipped orders");
+		viewChoice = input.nextLine();
+		if (viewChoice.equals("1")) {
+			// System.out.println(customer.getShipped); no getter for shipped or unshipped list
+		} else {
 
-	public static void searchVideoGame(Scanner input, Customer currentC,
+		}
+    }
+    
+    public static void shipOrder() {
+    	//emp calls this, based on heap
+    	//remove this from the user? remove vg
+    }
+    
+	public static void searchVG(Scanner input, Customer currentC,
 			BST<VideoGame> vgByTitle) {
 		TitleComparator tc = new TitleComparator();
 		String userSearch;
@@ -230,19 +246,7 @@ public class UserInterface {
 
 	}
 
-    public static void viewShoppingCart(Scanner input, Customer currentC) {
-    	//TODO: EXTRA: will use for shopping cart instead
-		String viewChoice;
-    	System.out.println("1 to view unshipped orders | 2 to view shipped orders");
-		viewChoice = input.nextLine();
-		if (viewChoice.equals("1")) {
-			// System.out.println(customer.getShipped); no getter for shipped or unshipped list
-		} else {
-
-		}
-    }
-
-    public static void listVideoGames(Scanner input, BST<VideoGame> vgByTitle,
+    public static void listVG(Scanner input, BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate) {
     	String choice = "";
     	System.out.println("\nHow would you like to sort the avaliable video games?\n"
@@ -260,12 +264,6 @@ public class UserInterface {
 			}
 		}
     
-
-    public static void shipOrder() {
-    	//emp calls this, based on heap
-    	//remove this from the user? remove vg
-    }
-
     public static void addVG(BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
 
 	}
