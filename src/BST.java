@@ -360,12 +360,12 @@ public class BST<T> {
 		}
 	}
 	
-	private void inOrderPrintTitle(Node node) {
-		if (node == null) {
+	private void inOrderTraversal(Node node) { //passing to an AL
+		if (node == null) { //in order traversal
 			return;
 		} else {
 			inOrderPrint(node.left);
-			System.out.println(node.data);
+			System.out.println(node.data); //al.add(node.data)
 			inOrderPrint(node.right);
 		}
 	}

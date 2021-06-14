@@ -36,7 +36,9 @@ public class Customer extends User {
 	
 	public Customer(String firstName, String lastName, String email, 
 			String address, String city, String state, int zip) { //Guest Constructor
-		super(firstName, lastName, email);
+		//good constructor should assign to every var in calss
+		super(firstName, lastName, email, "NA");
+		this.username = "NA";
 		this.address = address;
 		this.city = city;
 		this.state = state;
@@ -55,8 +57,8 @@ public class Customer extends User {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.unshippedOrders = new List<Order>(unshippedOrders); //TODO: this const is unnecess now?
-		this.shippedOrders = new List<Order>(shippedOrders);
+		this.unshippedOrders = unshippedOrders; //we're actually using this constructor for cust w/orders
+		this.shippedOrders = shippedOrders; //addorder or setter if we don't use this
 	}
 	
 	public String getUsername() {
@@ -117,10 +119,9 @@ public class Customer extends User {
 		System.out.println("You have already logged in as a guest");
 	}
 	
-	public static VideoGame searchGameByTitle(String title, BST<VideoGame> byTitle,
-			TitleComparator tc) { //TODO OK to have abbrev w/ camelcase? (VGL)
+	public static VideoGame searchVGLByTitle(String title, BST<VideoGame> byTitle) { //VGL = Video Game List
+		TitleComparator tc = new TitleComparator();
 		return byTitle.search(new VideoGame(title), tc);
-
 	}
 	
 	public void placeUnshippedOrder(Order order) {
