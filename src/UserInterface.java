@@ -167,7 +167,17 @@ public class UserInterface {
 					//(avoid printing passwords)
 					break;
 				case "3":
-					//Search for Customer
+					System.out.print("Please type in the first name of the person you are searching for: ");
+					String firstName = input.next();
+					System.out.print("Please type in the last name of the person you are searching for: ");
+					String lastName = input.next();
+					Customer cust = Employee.searchCustomer(firstName, lastName, custHT);
+					if(cust == null) {
+						System.out.println("Customer doesn't exist!");
+					}else {
+						System.out.println("Customer has been found:\n"
+								+ cust);
+					}
 					break;
 				case "4":
 					//Ship an Order (Remove from Heap) 
