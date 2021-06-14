@@ -10,6 +10,7 @@ public class HashTable<T> {
 
     private int numElements;
     private ArrayList<List<T>> Table;
+    private ArrayList<List<T>> TableByKeys;
 
     /**
      * Constructor for the hash 
@@ -29,14 +30,23 @@ public class HashTable<T> {
     }
 
     /**Accessors*/
-
+    
+    private int hashByKeys(T t, String key1, String key2) {
+    	String temp = key1 + key2;
+        int key = 0;
+        for (int i = 0; i < temp.length(); i++) {
+            key += (int) temp.charAt(i);
+        }
+        return key;
+    }
+    
     /**
      * returns the hash value in the Table
      * for a given Object 
      * @param t the Object
      * @return the index in the Table
      */
-    private int hash(T t) {
+    private int hash(T t) {//pass in some new parameters
         int code = t.hashCode();
         return code % Table.size();
     }
@@ -87,6 +97,22 @@ public class HashTable<T> {
             }
         }
     }
+    
+    public T getByKeys(T t, String key1, String key2) throws NullPointerException{
+        if(t == null) {
+            throw new NullPointerException("get: cannot get null");
+        }else {
+            int bucket = hashByKeys(t, key1, key2);
+            List<T> list = TableByKeys.get(bucket);
+            int position = list.linearSearch(t);
+            if(position == -1) {
+                return null;
+            }else {
+                list.iteratorToIndex(position);
+                return list.getIterator();
+            }
+        }
+    }
 
     /**
      * Determines whether a specified key is in 
@@ -102,6 +128,15 @@ public class HashTable<T> {
         }else {
             int bucket = hash(t);
             return Table.get(bucket).linearSearch(t) == -1 ? false : true;
+        }
+    }
+    
+    public boolean contains(T t, String key1, String key2) throws NullPointerException{
+        if(t == null) {
+            throw new NullPointerException("contains: cannot contain null");
+        }else {
+            int bucket = hashByKeys(t, key1, key2);
+            return TableByKeys.get(bucket).linearSearch(t) == -1 ? false : true;
         }
     }
 
@@ -121,6 +156,16 @@ public class HashTable<T> {
         }else {
             int bucket = hash(t);
             Table.get(bucket).addLast(t);
+            numElements++;
+        }
+    }
+    
+    public void insertByKeys(T t, String key1, String key2) throws NullPointerException{
+        if(t == null) {
+            throw new NullPointerException("insert: cannot insert null");
+        }else {
+            int bucket = hashByKeys(t, key1, key2);
+            TableByKeys.get(bucket).addLast(t);
             numElements++;
         }
 
@@ -143,6 +188,22 @@ public class HashTable<T> {
         }else {
             int bucket = hash(t);
             List<T> list = Table.get(bucket);
+            int position = list.linearSearch(t);
+            if(position != -1) {
+                list.iteratorToIndex(position);
+                list.removeIterator();
+                numElements--;
+            }
+        }
+    }
+    
+    public void removeByKeys(T t, String key1, String key2) throws NullPointerException {
+        if(t == null) {
+            throw new NullPointerException("remove: object to be removed is null, "
+                    + "cannot remove");
+        }else {
+            int bucket = hashByKeys(t, key1, key2);
+            List<T> list = TableByKeys.get(bucket);
             int position = list.linearSearch(t);
             if(position != -1) {
                 list.iteratorToIndex(position);
@@ -223,4 +284,6 @@ public class HashTable<T> {
         }
         return result;
     }
+    
+    
 }
