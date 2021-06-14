@@ -14,7 +14,7 @@ public class UserInterface {
 	public static String fName, lName, email, addr, city, state;
 	public static int zip;
 	//maybe change to videoGames.txt, once we decide on a String txt
-	//name it's good to make it final (taught in 36B)
+	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
 	
     public static void main(String[] args) {

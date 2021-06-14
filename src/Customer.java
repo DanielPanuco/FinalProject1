@@ -1,7 +1,7 @@
 import java.text.DecimalFormat;
 
 public class Customer extends User {
-	//TODO: Are we @Overriding equals? If not it should not be
+	//TODO: Are we @Overriding equals? If not it shouldn't be
 	//in the abstract user parent class
 	private String address, city, state, username;
 	private int zip;
