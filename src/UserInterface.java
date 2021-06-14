@@ -461,6 +461,8 @@ public class UserInterface {
     	//a boolean if they have a username or password. similiar to the 36b review
     	//but basically have a guest txt file is easier (no need to add booleans)
     	//and then we can just insert it to the customersHT still.
+    	//if we had guests have an username and pw (but it's just null) then i guess we could have
+    	//one less constructor. but that may trigger a nullPointerException
     	//I have an idea to have a member variable called numGuests, we can we write and save it
     	//so based on that num each guest would be "Guest #" + (numGuests + 1)convertToString
     	//OR this is unnecess. having their email and contact info is enough?
