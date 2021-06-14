@@ -274,7 +274,8 @@ public class UserInterface {
 	}
 
     public static void displayCustMenu() {
-		System.out.println("\nPlease select from the following options:\n\n"
+		System.out.println("\n[Customer Main Menu]\n"
+				+ "Please select from the following options:\n\n"
 				+ "1. Place Order\n"
 				+ "2. List Video Games\n"
 				+ "3. Search for Video Game\n"
@@ -284,7 +285,8 @@ public class UserInterface {
     }
 
     public static void displayEmpMenu() {
-        System.out.println("\nPlease select from the following options:\n\n"
+        System.out.println("\n[Employee Main Menu]\n"
+				+ "Please select from the following options:\n\n"
                 + "1. View Orders by Priority\n"
                 + "2. Display Customer Info\n"
                 + "3. Search for Customer\n"
