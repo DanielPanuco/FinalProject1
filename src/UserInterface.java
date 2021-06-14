@@ -196,7 +196,7 @@ public class UserInterface {
     	//Long cTimestamp = null; 
     	//int uShipSpeed = 1; //TODO: need to figure out how to get timestamp, ship speed
     	List<VideoGame> unshippedVG = new List<>();
-    	System.out.println("Enter the title of the video game you would like to buy: ");
+    	System.out.println("Enter the case sensitive title of the video game you would like to buy: ");
 		title = input.nextLine();
 		VideoGame tempVG = new VideoGame(title);
 		tempVG = vgByTitle.search(tempVG, tc);
