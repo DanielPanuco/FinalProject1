@@ -118,14 +118,9 @@ public class Customer extends User {
 	}
 	
 	public static VideoGame searchGameByTitle(String title, BST<VideoGame> byTitle,
-			TitleComparator tc) { //TODO :OK to have abbrev w/ camelcase? (VGL)
+			TitleComparator tc) { //TODO OK to have abbrev w/ camelcase? (VGL)
 		return byTitle.search(new VideoGame(title), tc);
 
-	}
-	
-	public static VideoGame searchGameByDate(String title, BST<VideoGame> byDate,
-			DateComparator dc) {
-		return byDate.search(new VideoGame(title), dc);
 	}
 	
 	public void placeUnshippedOrder(Order order) {
