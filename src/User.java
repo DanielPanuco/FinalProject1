@@ -12,11 +12,11 @@ abstract class User {
 
     }
     
-    public User(String email, String password) {
-    	this.email = email;
-    	this.password = password;
-    	this.firstName = " first name unknown";
-        this.lastName = "last name unknown";
+    public User(String firstName, String lastName) {
+    	this.email = "email unknow";
+    	this.password = "password unknown";
+    	this.firstName = firstName;
+        this.lastName = lastName;
     	this.accountNum = ++accountSeed;
     }
     
@@ -104,7 +104,7 @@ abstract class User {
 
 
     public int hashCode() {
-        String name = email + password;
+        String name = firstName + lastName;
         int key = 0;
         for (int i = 0; i < name.length(); i++) {
             key += (int) name.charAt(i);
