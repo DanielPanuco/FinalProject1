@@ -255,6 +255,7 @@ public class UserInterface {
     	System.out.print("\nEnter your choice: ");
 		choice = input.nextLine();
 		//while (!(choice.equals("1") && choice.equals("2"))) {
+		//TODO: Why did this infinite loop? how to fix
 			if (choice.equals("1")) {
 				vgByTitle.inOrderPrint();
 			} else if (choice.equals("2")) { //for typos
