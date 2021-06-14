@@ -230,7 +230,8 @@ public class UserInterface {
 
 	}
 
-    public static void viewPurchases(Scanner input, Customer customerC) { //shopping cart?
+    public static void viewShoppingCart(Scanner input, Customer currentC) {
+    	//TODO: EXTRA: will use for shopping cart instead
 		String viewChoice;
     	System.out.println("1 to view unshipped orders | 2 to view shipped orders");
 		viewChoice = input.nextLine();
