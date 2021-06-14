@@ -9,7 +9,7 @@ public class Customer extends User {
 	private List<Order> unshippedOrders, shippedOrders;
 	DecimalFormat df = new DecimalFormat("$###,##0.00");
 	
-	Customer() { //ask prof parrish if this is necessary
+	Customer() { //TODO: ask prof parrish if this is necessary
 
 	}
 
@@ -113,12 +113,12 @@ public class Customer extends User {
     	}
     }	
 	
-	public static void loginAsGuest() {
+	public static void loginAsGuest() { //TODO: What is the purpose of this?
 		System.out.println("You have already logged in as a guest");
 	}
 	
 	public static VideoGame searchGameByTitle(String title, BST<VideoGame> byTitle,
-			TitleComparator tc) {
+			TitleComparator tc) { //TODO :OK to have abbrev w/ camelcase? (VGL)
 		return byTitle.search(new VideoGame(title), tc);
 
 	}
@@ -137,6 +137,10 @@ public class Customer extends User {
     }
 	
 	public void viewUnshippedOrders() {
+		double totalP = 0;
+		String divider = "---------------------------------------------------------";
+		String t2 = "\t\t", t3 = "\t\t\t";
+		//TODO: Can I make these be member var b/c I use them more than once
 		if (unshippedOrders.isEmpty()) {
 			System.out.println("You don't have any unshipped orders!");
 		} else {
@@ -144,42 +148,46 @@ public class Customer extends User {
 			for (int i = 0; i < unshippedOrders.getLength(); i++) {
 				List<VideoGame> vgList = unshippedOrders.getIterator()
 						.getOrderContents();
+				VideoGame currVG = vgList.getIterator();
 				vgList.placeIterator();
-				System.out.println("\t\t[Order #" + (i + 1) + "]\n"
-						+ " Qty\tPrice\t\t\tTitle\n"
-						+ "---------------------------------------------------------");
+				System.out.println(t2 + "[Order #" + (i + 1) + "]\n"
+						+ " Qty\tPrice" + t3 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
 					System.out.println((j + 1) + ":\t"
-							+ df.format(vgList.getIterator().getPrice())
-							+ "\t\t" + vgList.getIterator().getTitle() + " ("
-							+ vgList.getIterator().getPlatform() + ")\t\t\t");
+							+ df.format(currVG.getPrice()) + t2 + currVG.getTitle() 
+							+ " (" + currVG.getPlatform() + ")" +t3);
+					totalP += currVG.getPrice();
 					vgList.advanceIterator();
 				}
 				unshippedOrders.advanceIterator();
 			}
+			System.out.println("\n" + divider +"\nTotal: " + df.format(totalP));
 		}
 	}
 
 	public void viewShippedOrders() {
+		double totalP = 0;
+		String divider = "---------------------------------------------------------";
+		String t2 = "\t\t", t3 = "\t\t\t";
 		if (shippedOrders.isEmpty()) {
 			System.out.println("You don't have any shipped orders!");
 		} else {
 			shippedOrders.placeIterator();
 			for (int i = 0; i < shippedOrders.getLength(); i++) {
-				List<VideoGame> vgList = shippedOrders.getIterator()
-						.getOrderContents();
+				List<VideoGame> vgList = shippedOrders.getIterator().getOrderContents();
+				VideoGame currVG = vgList.getIterator();
 				vgList.placeIterator();
-				System.out.println("\t\t[Order #" + (i + 1) + "]\n"
-						+ " Qty\tPrice\t\t\tTitle\n"
-						+ "---------------------------------------------------------");
+				System.out.println(t2 + "[Order #" + (i + 1) + "]\n"
+						+ " Qty\tPrice" + t3 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
 					System.out.println((j + 1) + ":\t"
-							+ df.format(vgList.getIterator().getPrice())
-							+ "\t\t" + vgList.getIterator().getTitle() + " ("
-							+ vgList.getIterator().getPlatform() + ")");
+							+ df.format(currVG.getPrice()) + t2 + currVG.getTitle() 
+							+ " (" + currVG.getPlatform() + ")" +t3);
+					totalP += currVG.getPrice();
 					vgList.advanceIterator();
 				}
 				shippedOrders.advanceIterator();
+				System.out.println("\n" + divider +"\nTotal: " + df.format(totalP));
 			}
 		}
 	}

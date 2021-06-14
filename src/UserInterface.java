@@ -112,9 +112,10 @@ public class UserInterface {
 					break;
 				case "4":
 					//check if they don't have any orders, else
-					System.out.println("[Viewing Order(s) Submenu]");
-					System.out.println("Would you like to view your unshipped orders or"
-							+ "your shipped orders?\n Please only enter U or S to choose:");
+					System.out.println("[\nViewing Order(s) Submenu]");
+					System.out.println("Which would you like to view?\n"
+							+ "U: My Unshipped Orders\n"
+							+ "S: My Shipped Orders");
 					ans = input.nextLine();
 					if (ans.equalsIgnoreCase("U")) {
 						System.out.println("\n\t[" + currentC.getUsername()
@@ -230,13 +231,15 @@ public class UserInterface {
 	public static void searchVG(Scanner input, Customer currentC,
 			BST<VideoGame> vgByTitle) {
 		TitleComparator tc = new TitleComparator();
-		String userSearch;
+		String title;
 		VideoGame searchVG;
 		System.out.println("\nWhich video game would you like to search for?");
 		System.out.print("\nEnter the title: ");
-		userSearch = input.nextLine();
-		searchVG = new VideoGame(userSearch);
-		searchVG = vgByTitle.search(searchVG, tc);
+		title = input.nextLine();
+		searchVG = Customer.searchGameByTitle(title, vgByTitle, tc);
+		//TODO:is it better to have it a method in customer or here?
+		//searchVG = new VideoGame(userSearch);
+		//searchVG = vgByTitle.search(searchVG, tc);
 		if (searchVG != null) {
 			System.out.println("\nWe were able to find this video game: \n\n"
 					+ searchVG);
@@ -274,7 +277,7 @@ public class UserInterface {
 	}
 
     public static void displayCustMenu() {
-		System.out.println("\n[Customer Main Menu]\n"
+		System.out.println("\n[Customer Main Menu]\n\n"
 				+ "Please select from the following options:\n\n"
 				+ "1. Place Order\n"
 				+ "2. List Video Games\n"
@@ -285,7 +288,7 @@ public class UserInterface {
     }
 
     public static void displayEmpMenu() {
-        System.out.println("\n[Employee Main Menu]\n"
+        System.out.println("\n[Employee Main Menu]\n\n"
 				+ "Please select from the following options:\n\n"
                 + "1. View Orders by Priority\n"
                 + "2. Display Customer Info\n"
