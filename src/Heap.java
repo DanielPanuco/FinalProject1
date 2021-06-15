@@ -205,13 +205,13 @@ public class Heap<T> {
      */
     public ArrayList<T> sort() {
         int n = heapSize;
+        ArrayList<T> tempHeap = new ArrayList<>(heap);
         for (int i = n; i >= 2; i--) {
-            T temp = heap.get(1);
-            heap.set(1, heap.get(i));
-            heap.set(i, temp);
-            heapSize--;
-            heapify(1); // restore max heap property
-        } //TODO: We need to maintain the heap after sort
-        return heap;
+            T temp = tempHeap.get(1);
+            tempHeap.set(1, tempHeap.get(i));
+            tempHeap.set(i, temp);
+            heapify(1);
+        }
+        return tempHeap;
     }
 }
