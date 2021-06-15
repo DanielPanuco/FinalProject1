@@ -10,7 +10,6 @@ public class HashTable<T> {
 
     private int numElements;
     private ArrayList<List<T>> Table;
-    private ArrayList<List<T>> TableByKeys;
 
     /**
      * Constructor for the hash 
@@ -23,10 +22,8 @@ public class HashTable<T> {
      */
     public HashTable(int size) {
         Table = new ArrayList<>();
-        TableByKeys = new ArrayList<>();
         for(int i = 0; i < size; i++) {
             Table.add(new List<T>());
-            TableByKeys.add(new List<T>());
         }
         numElements = 0;
     }
@@ -105,7 +102,7 @@ public class HashTable<T> {
             throw new NullPointerException("get: cannot get null");
         }else {
             int bucket = hashByKeys(t, key1, key2);
-            List<T> list = TableByKeys.get(bucket);
+            List<T> list = Table.get(bucket);
             int position = list.linearSearch(t);
             if(position == -1) {
                 return null;
@@ -138,7 +135,7 @@ public class HashTable<T> {
             throw new NullPointerException("contains: cannot contain null");
         }else {
             int bucket = hashByKeys(t, key1, key2);
-            return TableByKeys.get(bucket).linearSearch(t) == -1 ? false : true;
+            return Table.get(bucket).linearSearch(t) == -1 ? false : true;
         }
     }
 
@@ -167,7 +164,8 @@ public class HashTable<T> {
             throw new NullPointerException("insert: cannot insert null");
         }else {
             int bucket = hashByKeys(t, key1, key2);
-            TableByKeys.get(bucket).addLast(t);
+            Table.get(bucket).addLast(t);
+            numElements++;
         }
 
     }
@@ -204,11 +202,12 @@ public class HashTable<T> {
                     + "cannot remove");
         }else {
             int bucket = hashByKeys(t, key1, key2);
-            List<T> list = TableByKeys.get(bucket);
+            List<T> list = Table.get(bucket);
             int position = list.linearSearch(t);
             if(position != -1) {
                 list.iteratorToIndex(position);
                 list.removeIterator();
+                numElements--;
             }
         }
     }
