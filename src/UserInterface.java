@@ -13,8 +13,8 @@ public class UserInterface {
 			custFile = ("customers.txt"), empFile = ("employees.txt");
 	private static String fName, lName, email, addr, city, state, pw;
 	private static int zip;
-	private static Customer currentC = null; //TODO: do we want a guest to be declared here
-	private static Employee currentEmp = null;
+	public static Customer currentC = null; //TODO: do we want a guest to be declared here
+	public static Employee currentEmp = null;
 	//maybe change to videoGames.txt, once we decide on a String txt
 	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
@@ -90,6 +90,7 @@ public class UserInterface {
 				currentC = new Customer(username, fName, lName, email, pw, addr,
 						city, state, zip);
 				custHT.insert(currentC);
+				System.out.println(success);
 	        } else if (ans.equals("3")){
 	        	System.out.print("Enter your email address: ");
 	    		email = input.nextLine();
@@ -408,6 +409,7 @@ public class UserInterface {
 
 	public static void fileToCust(Scanner input,
 			HashTable<Customer> customersHT, BST<VideoGame> vgByTitle) throws FileNotFoundException {
+		//TODO: add booleans for the amount of orders they have
 		TitleComparator tc = new TitleComparator();
     	String username, fName, lName, email, pw, address, city, state, title;
 		int zip, numGames, uShipSpeed, sShipSpeed;
