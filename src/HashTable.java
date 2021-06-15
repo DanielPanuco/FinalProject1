@@ -30,7 +30,7 @@ public class HashTable<T> {
 
     /**Accessors*/
     
-    private int hashByKeys(T t, String key1, String key2) {
+    private int hashByKeys(String key1, String key2) {
     	String temp = key1 + key2;
         int key = 0;
         for (int i = 0; i < temp.length(); i++) {
@@ -101,7 +101,7 @@ public class HashTable<T> {
         if(t == null) {
             throw new NullPointerException("get: cannot get null");
         }else {
-            int bucket = hashByKeys(t, key1, key2);
+            int bucket = hashByKeys(key1, key2);
             List<T> list = Table.get(bucket);
             int position = list.linearSearch(t);
             if(position == -1) {
@@ -134,7 +134,7 @@ public class HashTable<T> {
         if(t == null) {
             throw new NullPointerException("contains: cannot contain null");
         }else {
-            int bucket = hashByKeys(t, key1, key2);
+            int bucket = hashByKeys(key1, key2);
             return Table.get(bucket).linearSearch(t) == -1 ? false : true;
         }
     }
@@ -163,7 +163,7 @@ public class HashTable<T> {
         if(t == null) {
             throw new NullPointerException("insert: cannot insert null");
         }else {
-            int bucket = hashByKeys(t, key1, key2);
+            int bucket = hashByKeys(key1, key2);
             Table.get(bucket).addLast(t);
             numElements++;
         }
@@ -201,7 +201,7 @@ public class HashTable<T> {
             throw new NullPointerException("remove: object to be removed is null, "
                     + "cannot remove");
         }else {
-            int bucket = hashByKeys(t, key1, key2);
+            int bucket = hashByKeys(key1, key2);
             List<T> list = Table.get(bucket);
             int position = list.linearSearch(t);
             if(position != -1) {

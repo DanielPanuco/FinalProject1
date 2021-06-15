@@ -20,8 +20,8 @@ public class Employee extends User {
 	}
 	
 	public static Customer searchCustomer(String firstName,
-			String lastName, HashTable<Customer> customers) {
-		return customers.get(new Customer(firstName, lastName));
+			String lastName, HashTable<Customer> customersByName) {
+		return customersByName.get(new Customer(firstName, lastName), firstName, lastName);
 	}
 
 	public static void displayCustomer(Customer customer) {
