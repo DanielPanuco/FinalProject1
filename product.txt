@@ -2,7 +2,7 @@ Halo 5: Guardians
 343 Industries
 20070925
 20.00
-Shooter
+First-person shooter
 T
 84
 Xbox One
@@ -11,7 +11,7 @@ Halo 3
 Bungie
 20200714
 5
-Shooter
+First-person shooter
 M
 94
 PC
@@ -20,7 +20,7 @@ Valorant
 Riot Games
 20200602
 0
-Tactical shooter
+Tactical FPS
 T
 80
 PC
@@ -29,7 +29,7 @@ Genshin Impact
 Mihoyo
 20200928
 0
-RPG
+Action RPG
 T
 84
 PC
@@ -108,9 +108,9 @@ PC
 
 Halo Infinite
 343 Industries
-20210901
+20211225
 59.99
-Shooter
+First-person shooter
 M
 80
 PC
