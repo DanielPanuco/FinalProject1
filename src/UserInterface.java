@@ -304,7 +304,7 @@ public class UserInterface {
     public static void placeOrder(Scanner input, BST<VideoGame> vgByTitle) {
     	TitleComparator tc = new TitleComparator(); //TODO: pass in TC?
     	String title;
-    	//Long cTimestamp = null; 
+    	//Long cTimestamp = null;
     	//int uShipSpeed = 1; //TODO: need to figure out how to get timestamp, ship speed
     	List<VideoGame> unshippedVG = new List<>();
     	System.out.println("Enter the case sensitive title of the video game you would like to buy: ");
