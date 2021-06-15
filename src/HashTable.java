@@ -36,7 +36,7 @@ public class HashTable<T> {
         for (int i = 0; i < temp.length(); i++) {
             key += (int) temp.charAt(i);
         }
-        return key;
+        return key % Table.size();
     }
     
     /**
