@@ -257,7 +257,7 @@ public class UserInterface {
 					String firstName = input.next();
 					System.out.print("Please type in the last name of the person you are searching for: ");
 					String lastName = input.next();
-					Customer cust = Employee.searchCustomer(firstName, lastName, custHT);
+					Customer cust = Employee.searchCustomer(custByName, firstName, lastName);//need a new HashTable<Customer> which is encoded my names
 					if(cust == null) {
 						System.out.println("Customer doesn't exist!");
 					} else {
@@ -272,10 +272,27 @@ public class UserInterface {
 					listVG(input, vgByTitle, vgByDate);
 					break;
 				case "6":
-					//Add New Product
+					System.out.print("Please type in the Video Game you want to add: ");
+					String title = input.next();
+					TitleComparator tc = new TitleComparator();
+					DateComparator dc = new DateComparator();
+					VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
+					if(vg != null){
+						Employee.addProduct(vgByTitle, vgByDate, vg, tc, dc);
+					}else {
+						System.out.println("\nCannot find the Video Game you typed in, try again");
+					}
+					
 					break;
 				case "7":
-					//Remove a Product
+					System.out.print("Please type in the Video Game you want to remove: ");
+					title = input.next();
+					vg = vgByTitle.search(new VideoGame(title), tc);
+					if(vg != null){
+						Employee.removeProduct(vgByTitle, vgByDate, vg, tc, dc);
+					}else {
+						System.out.println("\nCannot find the Video Game you typed in, try again");
+					}
 					break;
 				case "8":
 					System.out.println("\nWould you like to sign out?\n");
