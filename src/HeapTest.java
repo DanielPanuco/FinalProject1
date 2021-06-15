@@ -52,7 +52,6 @@ public class HeapTest {
 
         System.out.println(h.sort());*/
         ArrayList<Peen> B = new ArrayList<Peen>();
-        B.add(null);
         B.add(new Peen("1", 1));
         B.add(new Peen("3", 3));
         B.add(new Peen("5", 5));
@@ -61,6 +60,7 @@ public class HeapTest {
         B.add(new Peen("12", 12));
         B.add(new Peen("14", 14));
         B.add(new Peen("16", 16));
+        System.out.println(B.get(0));
         Heap<Peen> h2 = new Heap<Peen>(B, c);
 
         System.out.println(h2.toString());
@@ -70,6 +70,9 @@ public class HeapTest {
         System.out.println(h2.toString());
         h2.remove(2);
         System.out.println(h2.toString());
+        System.out.println(h2.getHeapSize());
+        System.out.println(h2.sort());
+
         //System.out.print(h.toString());
     }
 }
