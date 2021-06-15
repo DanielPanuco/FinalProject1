@@ -11,9 +11,11 @@ import java.util.Scanner;
 public class UserInterface {
 	private static final String vgFile = ("product.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
-	public static String fName, lName, email, addr, city, state, pw;
+	public static String fName, lName, email, addr, city, state, pw, title,
+			username;
 	public static int zip;
-	public static Customer currentC = null; //TODO: do we want a guest to be declared here
+	public static Customer currentC = null; // TODO: do we want a guest to be
+											// declared here
 	public static Employee currentEmp = null;
 	public static final TitleComparator tc = new TitleComparator();
 	public static final DateComparator dc = new DateComparator();
@@ -60,10 +62,10 @@ public class UserInterface {
     
     public static void custAccSetup(Scanner input, HashTable<Customer> custHT,
 			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
-    	String username, ans; //TODO: should username and pw also be member var
-    	String cAcc ="Let's create an account for you!\n";
-		String enU = "Enter your username: ";
-		String cPW = "Create a password:";
+    	String ans; //TODO: should username and pw also be member var
+    	String createAcc ="Let's create an account for you!\n";
+		String enterUsername = "Enter your username: "; //only do this if it's clear
+		String createPW = "Create a password:";
 		String success = "\nYou have succesfully created an account,"
 							+ fName + " " + lName + "!\n";
 		//Customer currentC = null; 
@@ -84,10 +86,10 @@ public class UserInterface {
 				System.out.println(success);
 	        } else if (ans.equals("2")) {
 				createAccount(input);
-				System.out.println(cAcc);
-    			System.out.print(enU);
+				System.out.println(createAcc);
+    			System.out.print(enterUsername);
     			username = input.nextLine();
-    			System.out.println(cPW);
+    			System.out.println(createPW);
     			pw = input.nextLine();
 				currentC = new Customer(username, fName, lName, email, pw, addr,
 						city, state, zip);
@@ -103,10 +105,10 @@ public class UserInterface {
 	    			//one HT
 					System.out.println("\nIt appears we don't have "
 							+ "your account on file...\n");
-	    			System.out.println(cAcc);
-	    			System.out.print(enU);
+	    			System.out.println(createAcc);
+	    			System.out.print(enterUsername);
 	    			username = input.nextLine();
-	    			System.out.println(cPW);
+	    			System.out.println(createPW);
 	    			pw = input.nextLine();
 					createAccount(input);
 	    			currentC = new Customer(username, fName, lName, email, pw, addr,
@@ -301,7 +303,6 @@ public class UserInterface {
 
     public static void placeOrder(Scanner input, BST<VideoGame> vgByTitle) {
     	TitleComparator tc = new TitleComparator(); //TODO: pass in TC?
-    	String title;
     	//Long cTimestamp = null;
     	//int uShipSpeed = 1; //TODO: need to figure out how to get timestamp, ship speed
     	List<VideoGame> unshippedVG = new List<>();
@@ -336,7 +337,6 @@ public class UserInterface {
     }
     
 	public static void searchVG(Scanner input, BST<VideoGame> vgByTitle) {
-		String title;
 		VideoGame searchVG;
 		System.out.println("\nWhich video game would you like to search for?");
 		System.out.print("\nEnter the title: ");
@@ -379,7 +379,6 @@ public class UserInterface {
     
 	public static void addVG(Scanner input, BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate, TitleComparator tc, DateComparator dc) {
-    	String title;
     	System.out.print("Please type in the Video Game you want to add: ");
 		title = input.nextLine();
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
@@ -393,7 +392,6 @@ public class UserInterface {
 
 	public static void removeVG(Scanner input, BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate, TitleComparator tc, DateComparator dc) {
-		String title;
 		System.out.print("Please type in the Video Game you want to remove: ");
 		title = input.nextLine();
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
@@ -434,8 +432,8 @@ public class UserInterface {
 			HashTable<Customer> customersHT, BST<VideoGame> vgByTitle,
 			TitleComparator tc) throws FileNotFoundException {
 		//TODO: add booleans for the amount of orders they have
-		String username, fName, lName, email, pw, address, city, state, title;
-		int zip, numGames, uShipSpeed, sShipSpeed;
+		String address;
+		int numGames, uShipSpeed, sShipSpeed;
 		Long uTimestamp, sTimestamp;
     	File file = new File(custFile);
 		input = new Scanner(file);
@@ -493,8 +491,7 @@ public class UserInterface {
     }
 
 	public static void fileToEmp(Scanner input, HashTable<Employee> empHT)
-			throws FileNotFoundException {
-		String fName, lName, email, pw;
+			throws FileNotFoundException {;
 		int accNum;
     	File file = new File(empFile);
 		input = new Scanner(file);
@@ -517,7 +514,7 @@ public class UserInterface {
 	public static void fileToVG(Scanner input, BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate, TitleComparator tc, DateComparator dc)
 			throws FileNotFoundException {
-		String title, dev, genre, ESRB, pform;
+		String dev, genre, ESRB, pform;
 		double price;
 		int rDate, mcScore;
 		File file = new File(vgFile);

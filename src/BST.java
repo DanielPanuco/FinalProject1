@@ -359,7 +359,8 @@ public class BST<T> {
 			inOrderPrint(node.right);
 		}
 	}
-	
+	//TODO: extra mcRating: certain rating: add to al
+	//take in comparator == 0, al is just an an object (memory address)
 	private void inOrderTraversal(Node node) { //passing to an AL
 		if (node == null) { //in order traversal
 			return;
