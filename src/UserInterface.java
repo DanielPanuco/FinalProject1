@@ -11,13 +11,13 @@ import java.util.Scanner;
 public class UserInterface {
 	private static final String vgFile = ("product.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
-	private static String fName, lName, email, addr, city, state, pw;
-	private static int zip;
+	public static String fName, lName, email, addr, city, state, pw;
+	public static int zip;
 	public static Customer currentC = null; //TODO: do we want a guest to be declared here
-	public static Employee currentEmp = null; //TODO: should line 16-line 20 be final?
-	public static TitleComparator tc = new TitleComparator();
-	public static DateComparator dc = new DateComparator();
-	//maybe change to videoGames.txt, once we decide on a String txt
+	public static Employee currentEmp = null;
+	public static final TitleComparator tc = new TitleComparator();
+	public static final DateComparator dc = new DateComparator();
+	//TODO: maybe change to videoGames.txt, once we decide on a String txt
 	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
 	
@@ -29,11 +29,12 @@ public class UserInterface {
         BST<VideoGame> vgByTitle = new BST<>();
         BST<VideoGame> vgByDate = new BST<>();
         //Heap<Order> shippedOrders = new Heap<>();
-        //Heap<Order> orderHeap = new Heap<>(); //need to finish some methods in heap to call this
+        //Heap<Order> orderHeap = new Heap<>();
+        //TODO: need to finish some methods in heap to call this
         Scanner input = new Scanner(System.in);
 		try {
-			fileToVG(input, vgByTitle, vgByDate);
-			fileToCust(input, custHT, vgByTitle);
+			fileToVG(input, vgByTitle, vgByDate, tc, dc);
+			fileToCust(input, custHT, vgByTitle, tc);
 			fileToEmp(input, empHT);
 			//fileToOrders(input, orderHeap);
 		} catch (FileNotFoundException e) {
@@ -80,7 +81,6 @@ public class UserInterface {
 	        	createAccount(input);
 				currentC = new Customer(fName, lName, email, addr,
 						city, state, zip);
-				custHT.insert(currentC);
 				System.out.println(success);
 	        } else if (ans.equals("2")) {
 				createAccount(input);
@@ -112,16 +112,15 @@ public class UserInterface {
 	    			currentC = new Customer(username, fName, lName, email, pw, addr,
 	    					city, state, zip);
 	    			custHT.insert(currentC);
-	    			System.out.println(success);
-	    		} else {
-	    			currentC = custHT.get(tempC);
-	    			System.out.println("\nWelcome back, " + currentC.getFirstName()
-	    					+ " " + currentC.getLastName() + "!\n");
-	    			//System.out.println(currentC); /proof that reading in cust's orders works
-	    		}
-	        }
-    }
-    
+					System.out.println(success);
+				} else {
+					currentC = custHT.get(tempC);
+					System.out.println("\nWelcome back, " + currentC.getFirstName() + " "
+									+ currentC.getLastName() + "!\n");
+				}
+			}
+		}
+
     public static void createAccount(Scanner input) {
 		System.out.print("Enter your first name: ");
 		fName = input.nextLine();
@@ -162,7 +161,6 @@ public class UserInterface {
 					break;
 				case "4":
 					//check if they don't have any orders, else
-					//TODO: the method called to view orders are broken now somehow
 					System.out.println("\n[Viewing Order(s) Submenu]");
 					System.out.println("Which would you like to view?\n\n"
 							+ "U: My Unshipped Orders\n"
@@ -237,7 +235,7 @@ public class UserInterface {
 	public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate, HashTable<Customer> custHT,
 			HashTable<Employee> empHT) {
-		String choice = "", ans; // TODO: EXTRA: access cust email, if price == 0,
+		String choice = "", ans; // TODO: EXTRA: access cust email, if title = val/gen imp,
 							// then print out f2p games with seperate for loop
 		input.nextLine(); // clear buffer from reading an Int
 		empLogin(input, empHT);
@@ -322,14 +320,15 @@ public class UserInterface {
     public static void viewSC(Scanner input, Customer currentC) {
     	//TODO: EXTRA: will use for shopping cart instead
 		String viewChoice;
-    	System.out.println("1 to view unshipped orders | 2 to view shipped orders");
+		System.out.println("1 to view unshipped orders | 2 to view shipped orders");
 		viewChoice = input.nextLine();
 		if (viewChoice.equals("1")) {
-			// System.out.println(customer.getShipped); no getter for shipped or unshipped list
+			// System.out.println(customer.getShipped); no getter for shipped or
+			// unshipped list
 		} else {
 
 		}
-    }
+	}
     
     public static void shipOrder() {
     	//emp calls this, based on heap
@@ -382,7 +381,7 @@ public class UserInterface {
 			BST<VideoGame> vgByDate, TitleComparator tc, DateComparator dc) {
     	String title;
     	System.out.print("Please type in the Video Game you want to add: ");
-		title = input.next();
+		title = input.nextLine();
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
 		if (vg != null) {
 			Employee.addProduct(vgByTitle, vgByDate, vg, tc, dc);
@@ -396,7 +395,7 @@ public class UserInterface {
 			BST<VideoGame> vgByDate, TitleComparator tc, DateComparator dc) {
 		String title;
 		System.out.print("Please type in the Video Game you want to remove: ");
-		title = input.next();
+		title = input.nextLine();
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
 		if (vg != null) {
 			Employee.removeProduct(vgByTitle, vgByDate, vg, tc, dc);
@@ -432,10 +431,10 @@ public class UserInterface {
     }
 
 	public static void fileToCust(Scanner input,
-			HashTable<Customer> customersHT, BST<VideoGame> vgByTitle) throws FileNotFoundException {
+			HashTable<Customer> customersHT, BST<VideoGame> vgByTitle,
+			TitleComparator tc) throws FileNotFoundException {
 		//TODO: add booleans for the amount of orders they have
-		TitleComparator tc = new TitleComparator();
-    	String username, fName, lName, email, pw, address, city, state, title;
+		String username, fName, lName, email, pw, address, city, state, title;
 		int zip, numGames, uShipSpeed, sShipSpeed;
 		Long uTimestamp, sTimestamp;
     	File file = new File(custFile);
@@ -452,6 +451,7 @@ public class UserInterface {
 			zip = input.nextInt();
 			List<VideoGame> unshippedVG = new List<>();
 			List<VideoGame> shippedVG = new List<>();
+			//TODO: unshippedVG.length() + unshippedVG.length() as conditions
 			numGames = input.nextInt();
 			//System.out.println(numGames);
 			input.nextLine();
@@ -515,12 +515,11 @@ public class UserInterface {
     }
 
 	public static void fileToVG(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate) throws FileNotFoundException {
+			BST<VideoGame> vgByDate, TitleComparator tc, DateComparator dc)
+			throws FileNotFoundException {
 		String title, dev, genre, ESRB, pform;
 		double price;
 		int rDate, mcScore;
-		TitleComparator tComp = new TitleComparator();
-		DateComparator dComp = new DateComparator();
 		File file = new File(vgFile);
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
@@ -539,8 +538,8 @@ public class UserInterface {
 			}
 			VideoGame newVG = new VideoGame(title, dev, rDate, price, genre,
 					ESRB, mcScore, pform);
-			vgByTitle.insert(newVG, tComp);
-			vgByDate.insert(newVG, dComp);
+			vgByTitle.insert(newVG, tc);
+			vgByDate.insert(newVG, dc);
 		}
 		input.close();
 	}
@@ -550,17 +549,7 @@ public class UserInterface {
     }
 
     public static void customerToFile(HashTable<Customer> customers) {
-    	//TODO: it's ok to write the guest(s) to the same file right?
-    	//technically they are also a customer. if we want to do it in the same file, we can just readin
-    	//a boolean if they have a username or password. similiar to the 36b review
-    	//but basically have a guest txt file is easier (no need to add booleans)
-    	//and then we can just insert it to the customersHT still.
-    	//if we had guests have an username and pw (but it's just null) then i guess we could have
-    	//one less constructor. but that may trigger a nullPointerException
-    	//I have an idea to have a member variable called numGuests, we can we write and save it
-    	//so based on that num each guest would be "Guest #" + (numGuests + 1)convertToString
-    	//OR this is unnecess. having their email and contact info is enough?
-    	//A:Don't save guest info (doesn't make sense), only save it in orders
+    	
     }
 
     public static void ordersToFile(Heap<Order> orderHeap) {

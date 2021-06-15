@@ -1,8 +1,8 @@
 /**
+ * List.java
+ * @author Henry Choy, Mario Panuco, Nigel Erlund, Weifeng Bai, Thanyared Wong
+ * CIS 22C, Final Project
  * Defines a doubly-linked list class
- * @author Henry Choy
- * @author Mario Panuco
- * CIS 22C Lab 6
  */
 
 import java.util.NoSuchElementException;

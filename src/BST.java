@@ -1,8 +1,8 @@
 /**
-* BST.java
-* @author Thanyared Wong
-* CIS 22C Final Project
-*/
+ * BST.java
+ * @author Henry Choy, Mario Panuco, Nigel Erlund, Weifeng Bai, Thanyared Wong
+ * CIS 22C, Final Project
+ */
 
 import java.util.NoSuchElementException;
 import java.util.Comparator;

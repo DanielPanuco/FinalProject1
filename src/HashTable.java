@@ -1,7 +1,6 @@
 /**
  * HashTable.java
- * @author
- * @author
+ * @author Henry Choy, Mario Panuco, Nigel Erlund, Weifeng Bai, Thanyared Wong
  * CIS 22C, Final Project
  */
 import java.util.ArrayList;
@@ -29,7 +28,8 @@ public class HashTable<T> {
     }
 
     /**Accessors*/
-    
+    //one string only necess
+    //TODO: put this method in hash (need to call hashcode!!)
     private int hashByKeys(String key1, String key2) {
     	String temp = key1 + key2;
         int key = 0;
@@ -45,7 +45,7 @@ public class HashTable<T> {
      * @param t the Object
      * @return the index in the Table
      */
-    private int hash(T t) {//pass in some new parameters
+    private int hash(T t) { //pass in some new parameters (take in a string key parameter)
         int code = t.hashCode();
         return code % Table.size();
     }
@@ -73,14 +73,7 @@ public class HashTable<T> {
         return numElements;
     }
 
-    /**
-     * Accesses a specified element in the Table
-     * @param t the element to search for
-     * @return the element stored in the Table, 
-     * or null if this Table does not contain t. 
-     * @precondition t != null
-     * @throws NullPointerException when t is null
-     */
+    
     public T get(T t) throws NullPointerException{
         if(t == null) {
             throw new NullPointerException("get: cannot get null");
@@ -96,7 +89,15 @@ public class HashTable<T> {
             }
         }
     }
-    
+    /**
+     * Accesses a specified element in the Table
+     * @param t the element to search for //updated @Param
+     * @return the element stored in the Table, 
+     * or null if this Table does not contain t. 
+     * @precondition t != null
+     * @throws NullPointerException when t is null
+     */
+    //TODO: pass in the same single key (concatenate in other class, have only one get method)
     public T get(T t, String key1, String key2) throws NullPointerException{
         if(t == null) {
             throw new NullPointerException("get: cannot get null");
@@ -129,7 +130,7 @@ public class HashTable<T> {
             return Table.get(bucket).linearSearch(t) == -1 ? false : true;
         }
     }
-    
+    //TODO: one contains, same thing. just have one key after prior concat
     public boolean contains(T t, String key1, String key2) throws NullPointerException{
         if(t == null) {
             throw new NullPointerException("contains: cannot contain null");
@@ -142,13 +143,7 @@ public class HashTable<T> {
 
     /**Mutators*/
 
-    /**
-     * Inserts a new element in the Table
-     * at the end of the chain in the bucket
-     * @param t the element to insert
-     * @precondition t != null
-     * @throws NullPointerException when t is null
-     */
+    
     public void insert(T t) throws NullPointerException{
         if(t == null) {
             throw new NullPointerException("insert: cannot insert null");
@@ -159,6 +154,14 @@ public class HashTable<T> {
         }
     }
     
+    /**
+     * Inserts a new element in the Table
+     * at the end of the chain in the bucket
+     * @param t the element to insert
+     * @precondition t != null
+     * @throws NullPointerException when t is null
+     */
+    //TODO:one insert, same thing. just have one key after prior concat
     public void insert(T t, String key1, String key2) throws NullPointerException{
         if(t == null) {
             throw new NullPointerException("insert: cannot insert null");
@@ -169,7 +172,6 @@ public class HashTable<T> {
         }
 
     }
-
 
     /**
      * removes the key t from the Table
@@ -195,7 +197,7 @@ public class HashTable<T> {
             }
         }
     }
-    
+    //TODO:same thing here, one string key passed. one method
     public void remove(T t, String key1, String key2) throws NullPointerException {
         if(t == null) {
             throw new NullPointerException("remove: object to be removed is null, "

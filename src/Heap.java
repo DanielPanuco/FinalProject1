@@ -203,7 +203,7 @@ public class Heap<T> {
      * @return an ArrayList of sorted elements
      * @postcondition heap remains a valid heap
      */
-    public ArrayList<T> sort() {
+    public ArrayList<T> sort() { //TODO: convert to minheap for earliest timestamp
         int n = heapSize;
         ArrayList<T> tempHeap = new ArrayList<>(heap);
         for (int i = n; i >= 2; i--) {

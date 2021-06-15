@@ -1,3 +1,9 @@
+/**
+ * Order.java
+ * @author Henry Choy, Mario Panuco, Nigel Erlund, Weifeng Bai, Thanyared Wong
+ * CIS 22C, Final Project
+ */
+
 import java.util.Comparator;
 
 public class Order {
@@ -19,7 +25,8 @@ public class Order {
     //shipping speed can be a 1,2,3 int
     //pirority will be complicated based on timestamp
     //pirority queue in the form of a heap -triority queue future
-    public Order(Customer customer, long date, List<VideoGame> orderContents, int shippingSpeed, boolean shippingStatus) {
+	public Order(Customer customer, long date, List<VideoGame> orderContents,
+			int shippingSpeed, boolean shippingStatus) {
         this.customer = customer;
         this.date = date;
         this.orderContents = orderContents;
@@ -77,17 +84,17 @@ public class Order {
     }
     
     @Override public String toString() {
-		return "" + getOrderContents(); //TODO: why are there 2 extra /n before shipped orders?
+		return "" + getOrderContents(); 
+		//TODO: why are there 2 extra /n before shipped orders?
 		//"Before here: Here are your shipped orders: "
     }
-
-
+    
 }
 
+//Should also contain a Comparator class with a compare method to determine priority
 class OrderComparator implements Comparator<Order> {
     public int compare(Order order1, Order order2) {
         return order1.getPriority() - order2.getPriority();
         //Integer.compare is ideal
     }
 }
-//Should also contain a Comparator class with a compare method to determine priority

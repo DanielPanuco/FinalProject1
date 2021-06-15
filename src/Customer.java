@@ -1,3 +1,9 @@
+/**
+ * Customer.java
+ * @author Henry Choy, Mario Panuco, Nigel Erlund, Weifeng Bai, Thanyared Wong
+ * CIS 22C, Final Project
+ */
+
 import java.text.DecimalFormat;
 
 public class Customer extends User {
