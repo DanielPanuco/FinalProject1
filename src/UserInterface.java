@@ -14,7 +14,9 @@ public class UserInterface {
 	private static String fName, lName, email, addr, city, state, pw;
 	private static int zip;
 	public static Customer currentC = null; //TODO: do we want a guest to be declared here
-	public static Employee currentEmp = null;
+	public static Employee currentEmp = null; //TODO: should line 16-line 20 be final?
+	public static TitleComparator tc = new TitleComparator();
+	public static DateComparator dc = new DateComparator();
 	//maybe change to videoGames.txt, once we decide on a String txt
 	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
@@ -254,16 +256,18 @@ public class UserInterface {
 					break;
 				case "3":
 					System.out.print("Please type in the first name of the person you are searching for: ");
-					String firstName = input.next();
+					fName = input.next();
 					System.out.print("Please type in the last name of the person you are searching for: ");
-					String lastName = input.next();
-					Customer cust = Employee.searchCustomer(custByName, firstName, lastName);//need a new HashTable<Customer> which is encoded my names
+					lName = input.next();
+					/* //TODO: need a new HashTable<Customer> which is encoded my names
+					Customer cust = Employee.searchCustomer(custByName, firstName, lastName);
 					if(cust == null) {
 						System.out.println("Customer doesn't exist!");
 					} else {
 						System.out.println("Customer has been found:\n"
 								+ cust);
 					}
+					*/
 					break;
 				case "4":
 					//Ship an Order (Remove from Heap) 
@@ -272,27 +276,10 @@ public class UserInterface {
 					listVG(input, vgByTitle, vgByDate);
 					break;
 				case "6":
-					System.out.print("Please type in the Video Game you want to add: ");
-					String title = input.next();
-					TitleComparator tc = new TitleComparator();
-					DateComparator dc = new DateComparator();
-					VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
-					if(vg != null){
-						Employee.addProduct(vgByTitle, vgByDate, vg, tc, dc);
-					}else {
-						System.out.println("\nCannot find the Video Game you typed in, try again");
-					}
-					
+					addVG(input, vgByTitle, vgByDate, tc, dc);
 					break;
 				case "7":
-					System.out.print("Please type in the Video Game you want to remove: ");
-					title = input.next();
-					vg = vgByTitle.search(new VideoGame(title), tc);
-					if(vg != null){
-						Employee.removeProduct(vgByTitle, vgByDate, vg, tc, dc);
-					}else {
-						System.out.println("\nCannot find the Video Game you typed in, try again");
-					}
+					removeVG(input, vgByTitle, vgByDate, tc, dc);
 					break;
 				case "8":
 					System.out.println("\nWould you like to sign out?\n");
@@ -369,13 +356,14 @@ public class UserInterface {
 	}
 
     public static void listVG(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate) { //TODO: is there a way to access the variables of an object
-    	//in a BST? b/c if we have time, it would be nice to not 
-    	//spam our console with the info of 20ish+ games
+			BST<VideoGame> vgByDate) {
+    	//TODO: EXTRA: follow inOrderPrint traversal, pass in an AL
+    	//and print this AL to print like around 10ish games each time max or just less
     	String choice = "";
-    	System.out.println("\nHow would you like to sort the avaliable video games?\n"
-    			+ "1. By Title\n"
-    			+ "2. By Release Date");
+    	System.out.println("\nHow would you like to sort the"
+    						+ "avaliable video games?\n"
+    						+ "1. By Title\n"
+    						+ "2. By Release Date");
     	System.out.print("\nEnter your choice: ");
 		choice = input.nextLine();
 		while (!(choice.equals("1") || choice.equals("2"))) {
@@ -390,12 +378,32 @@ public class UserInterface {
 		}
 	}
     
-    public static void addVG(BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
-
+	public static void addVG(Scanner input, BST<VideoGame> vgByTitle,
+			BST<VideoGame> vgByDate, TitleComparator tc, DateComparator dc) {
+    	String title;
+    	System.out.print("Please type in the Video Game you want to add: ");
+		title = input.next();
+		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
+		if (vg != null) {
+			Employee.addProduct(vgByTitle, vgByDate, vg, tc, dc);
+		} else {
+			System.out.println(
+					"\nCannot find the Video Game you typed in, try again");
+		}
 	}
 
-	public static void removeVG(BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
-
+	public static void removeVG(Scanner input, BST<VideoGame> vgByTitle,
+			BST<VideoGame> vgByDate, TitleComparator tc, DateComparator dc) {
+		String title;
+		System.out.print("Please type in the Video Game you want to remove: ");
+		title = input.next();
+		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
+		if (vg != null) {
+			Employee.removeProduct(vgByTitle, vgByDate, vg, tc, dc);
+		} else {
+			System.out.println(
+					"\nCannot find the Video Game you typed in, try again");
+		}
 	}
 
     public static void displayCustMenu() {
@@ -407,7 +415,6 @@ public class UserInterface {
 				+ "4. View Unshipped and Shipped Orders\n"
 				+ "5. Sign Out of Your Acount\n"
 				+ "X. Exit\n"); // TODO: finalize output
-
     }
 
     public static void displayEmpMenu() {
