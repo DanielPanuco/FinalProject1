@@ -39,16 +39,11 @@ public class HashTable<User> {
      */
 
     private int hash(User t, String key) { //pass in some new parameters (take in a string key parameter)
-        int code = t.hashCode(key);
-        return code % Table.size();
-    }
-    
-    private int hash(T t) {
-        int code = t.hashCode();
-        return code % Table.size();
-    }
-    
 
+    	int code = t.hashCode(key);
+        return code % Table.size();
+    }
+    
     /**
      * counts the number of elements at this index
      * @param index the index in the Table
