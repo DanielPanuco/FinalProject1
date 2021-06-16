@@ -38,9 +38,11 @@ public class HashTable<User> {
      * @return the index in the Table
      */
 
-    private int hash(User t, String key) { //pass in some new parameters (take in a string key parameter)
-
-    	int code = t.hashCode(key);
+    private int hash(String key) { //pass in some new parameters (take in a string key parameter)
+    	int code = 0;
+    	for (int i = 0; i < key.length(); i++) {
+            code += (int) key.charAt(i);
+        }
         return code % Table.size();
     }
     
@@ -92,11 +94,11 @@ public class HashTable<User> {
      * @throws NullPointerException when t is null
      */
     //TODO: pass in the same single key (concatenate in other class, have only one get method)
-    public User get(User t, String key) throws NullPointerException{
+    public T get(T t, String key) throws NullPointerException{
         if(t == null) {
             throw new NullPointerException("get: cannot get null");
         }else {
-            int bucket = hash(t, key);
+            int bucket = hash(key);
             List<User> list = Table.get(bucket);
             int position = list.linearSearch(t);
             if(position == -1) {
