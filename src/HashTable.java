@@ -136,6 +136,10 @@ public class HashTable<T> {
             return Table.get(bucket).linearSearch(t) == -1 ? false : true;
         }
     }
+    
+    public ArrayList<List<T>> getTable(){
+    	return Table;
+    }
 
 
     /**Mutators*/
