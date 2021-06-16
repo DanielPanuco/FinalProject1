@@ -51,7 +51,7 @@ public class Heap<T> {
             // AND compare heap[i] to its left child
             index_of_min = l; // update index_of_max if left is bigger
         }
-        if (r <= getHeapSize() && comparator.compare(getElement(r), getElement(index_of_max)) < 0) { // Check if r is off the end of the array (heap)
+        if (r <= getHeapSize() && comparator.compare(getElement(r), getElement(index_of_min)) < 0) { // Check if r is off the end of the array (heap)
             // AND compare heap[i] to its right child
             index_of_min = r; // update index_of_max if right is bigger
         }
