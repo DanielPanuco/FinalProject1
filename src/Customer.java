@@ -107,20 +107,6 @@ public class Customer extends User {
 		this.zip = zip;
 	}
 	
-	public static User login(String username, String email, String password,
-			HashTable<User> users) throws NullPointerException {
-		if (users == null) { //move to userInterface
-			throw new NullPointerException("Customer login(): cannot find customer list\n");
-		}
-		if(!users.contains(new Customer(email, password))) {
-    		System.out.println("Invalid email or password!\nPlease type again\n");
-    		return null;
-    	} else {
-    		System.out.println("Successfully login!\n");
-    		return users.get(new Customer(email, password));
-    	}
-    }	
-	
 	public static VideoGame searchVGLByTitle(String title, BST<VideoGame> byTitle) { //VGL = Video Game List
 		TitleComparator tc = new TitleComparator();
 		return byTitle.search(new VideoGame(title), tc);
