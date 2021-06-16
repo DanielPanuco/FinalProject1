@@ -108,13 +108,12 @@ abstract class User {
 	}
 
 
-    public int hashCode() {
-        String name = email + password;
-        int key = 0;
-        for (int i = 0; i < name.length(); i++) {
-            key += (int) name.charAt(i);
+    public int hashCode(String key) {
+        int code = 0;
+        for (int i = 0; i < key.length(); i++) {
+            key += (int) key.charAt(i);
         }
-        return key;
+        return code;
     }
  
 }
