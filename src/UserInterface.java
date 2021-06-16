@@ -94,7 +94,7 @@ public class UserInterface {
     			pw = input.nextLine();
 				currentC = new Customer(username, fName, lName, email, pw, addr,
 						city, state, zip);
-				custHT.insert(currentC);
+				custHT.insert(currentC);//custHT.insert(currentC, email + pw);
 				System.out.println(success);
 	        } else if (ans.equals("3")){
 	        	System.out.print("Enter your email address: ");
