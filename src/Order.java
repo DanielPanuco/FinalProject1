@@ -9,12 +9,11 @@ import java.util.Comparator;
 public class Order {
 
     private Customer customer;
-    private int shippingSpeed, priority; //TODO: ask her about how we calculate priority
+    private int date, shippingSpeed, priority; //TODO: ask her about how we calculate priority
     //TODO: Also is it required to associate some shipping speeds with a cost, or is that extra?
     //and how do we do this? prob need to pass in a total variable somewhere. 
     //stand shipping would be free if the user cart/order's total is >= $35.00.
     //look at lab 1 block.class
-    private long date;
     private List<VideoGame> orderContents;
     private boolean shippingStatus;
     //one element larger  than the other in the heap
@@ -25,13 +24,13 @@ public class Order {
     //shipping speed can be a 1,2,3 int
     //pirority will be complicated based on timestamp
     //pirority queue in the form of a heap -triority queue future
-	public Order(Customer customer, long date, List<VideoGame> orderContents,
+	public Order(Customer customer, int date, List<VideoGame> orderContents,
 			int shippingSpeed, boolean shippingStatus) {
         this.customer = customer;
         this.date = date;
         this.orderContents = orderContents;
         this.shippingSpeed = shippingSpeed;
-        this.priority = (int) (date / shippingSpeed);
+        this.priority = date / shippingSpeed;
         this.shippingStatus = shippingStatus;
     }
 
@@ -43,7 +42,7 @@ public class Order {
         this.customer = customer;
     }
 
-    public long getDate() {
+    public int getDate() {
         return date;
     }
 

@@ -434,10 +434,10 @@ public class UserInterface {
 	public static void fileToCust(Scanner input,
 			HashTable<Customer> custHT, HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
 			TitleComparator tc) throws FileNotFoundException {
-		//TODO: add booleans for the amount of orders they have
+		//TODO: add booleans for the amount of orders they have?
 		String address;
-		int numGames, uShipSpeed, sShipSpeed;
-		Long uTimestamp, sTimestamp;
+		int numGames, uShipSpeed = 0, sShipSpeed = 0;
+		int uTimestamp = 0, sTimestamp = 0;
     	File file = new File(custFile);
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
@@ -452,35 +452,38 @@ public class UserInterface {
 			zip = input.nextInt();
 			List<VideoGame> unshippedVG = new List<>();
 			List<VideoGame> shippedVG = new List<>();
-			//TODO: unshippedVG.length() + unshippedVG.length() as conditions
-			numGames = input.nextInt();
-			//System.out.println(numGames);
-			input.nextLine();
-			for (int i = 0; i < numGames; i++) {
-				title = input.nextLine();
-				VideoGame tempVG = new VideoGame(title);
-				tempVG = vgByTitle.search(tempVG, tc);
-				unshippedVG.addLast(tempVG);
-			}
-			uTimestamp = input.nextLong();
-			//System.out.println(uTimestamp);
-			uShipSpeed = input.nextInt();
-			//System.out.println(uShipSpeed);
-			numGames = input.nextInt();
-			input.nextLine();
-			for (int i = 0; i < numGames; i++) {
-				title = input.nextLine();
-				//System.out.println("title: " +title);
-				VideoGame tempVG = new VideoGame(title);
-				tempVG = vgByTitle.search(tempVG, tc);
-				shippedVG.addLast(tempVG);
-			}
-			sTimestamp = input.nextLong();
-			input.nextLine();
-			sShipSpeed = input.nextInt();
-			if (input.hasNextLine()) {
+			for (int i = 0; i < unshippedVG.getLength(); i++) {
+				numGames = input.nextInt();
+				//System.out.println(numGames);
 				input.nextLine();
+				for (int j = 0; j < numGames; j++) {
+					title = input.nextLine();
+					VideoGame tempVG = new VideoGame(title);
+					tempVG = vgByTitle.search(tempVG, tc);
+					unshippedVG.addLast(tempVG);
+				}
+				uTimestamp = input.nextInt();
+				//System.out.println(uTimestamp);
+				uShipSpeed = input.nextInt();
+				//System.out.println(uShipSpeed);
+			}
+			for (int i = 0; i < shippedVG.getLength(); i++) {
+				numGames = input.nextInt();
 				input.nextLine();
+				for (int j = 0; j < numGames; j++) {
+					title = input.nextLine();
+					//System.out.println("title: " +title);
+					VideoGame tempVG = new VideoGame(title);
+					tempVG = vgByTitle.search(tempVG, tc);
+					shippedVG.addLast(tempVG);
+				}
+				sTimestamp = input.nextInt();
+				input.nextLine();
+				sShipSpeed = input.nextInt();
+				if (input.hasNextLine()) {
+					input.nextLine();
+					input.nextLine();
+				}
 			}
 			Customer newC = new Customer(username, fName, lName, email, pw,
 					address, city, state, zip);
@@ -495,7 +498,7 @@ public class UserInterface {
     }
 
 	public static void fileToEmp(Scanner input, HashTable<Employee> empHT)
-			throws FileNotFoundException {;
+			throws FileNotFoundException {
 		int accNum;
     	File file = new File(empFile);
 		input = new Scanner(file);

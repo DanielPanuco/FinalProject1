@@ -13,9 +13,10 @@ public class Customer extends User {
 	private int zip;
 	//private double card; //credit card/debit card
 	private List<Order> unshippedOrders, shippedOrders;
+	//TODO: might add getters to move placeOrders method to Employee class
 	DecimalFormat df = new DecimalFormat("$###,##0.00");
 	
-	Customer() { //TODO: ask prof parrish if this is necessary
+	Customer() { //TODO: ask prof parrish if default construct is necessary
 
 	}
 
