@@ -436,8 +436,8 @@ public class UserInterface {
 			TitleComparator tc) throws FileNotFoundException {
 		//TODO: add booleans for the amount of orders they have?
 		String address;
-		int numGames, uShipSpeed = 0, sShipSpeed = 0, uTimestamp = 0, sTimestamp = 0,
-		    uNumOrders, sNumOrders;
+		int numGames, uShipSpeed = 0, sShipSpeed = 0, uNumOrders, sNumOrders;
+		long uTimestamp = 0, sTimestamp = 0;
     	File file = new File(custFile);
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
@@ -461,7 +461,7 @@ public class UserInterface {
 					tempVG = vgByTitle.search(tempVG, tc);
 					unshippedVG.addLast(tempVG);
 				}
-				uTimestamp = input.nextInt();
+				uTimestamp = input.nextLong();
 				//System.out.println(uTimestamp);
 				uShipSpeed = input.nextInt();
 				//System.out.println(uShipSpeed);
@@ -474,7 +474,7 @@ public class UserInterface {
 					tempVG = vgByTitle.search(tempVG, tc);
 					shippedVG.addLast(tempVG);
 				}
-				sTimestamp = input.nextInt();
+				sTimestamp = input.nextLong();
 				input.nextLine();
 				sShipSpeed = input.nextInt();
 				if (input.hasNextLine()) {
