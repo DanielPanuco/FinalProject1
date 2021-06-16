@@ -102,18 +102,18 @@ abstract class User {
     @Override public String toString() {
 		String result = "Name: " + firstName + " " + lastName + "\n"
 				+ "Email: " + email + "\n"
-    		    + "Password: " + password + "\n"
     		    + "Account Number: " +accountNum + "\n";
 		return result;
 	}
 
 
-    public int hashCode(String key) {
-        int code = 0;
-        for (int i = 0; i < key.length(); i++) {
-            key += (int) key.charAt(i);
+    public int hashCode() {
+        int key = 0;
+        String temp = email + password;
+        for (int i = 0; i < temp.length(); i++) {
+            key += (int) temp.charAt(i);
         }
-        return code;
+        return key;
     }
  
 }

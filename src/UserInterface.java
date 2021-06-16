@@ -27,6 +27,7 @@ public class UserInterface {
         final int custSize = 5, empSize = 3;
         int userType;
         HashTable<Customer> custHT = new HashTable<>(custSize * 2);
+        HashTable<Customer> custByName = new HashTable<>(custSize * 2);
         HashTable<Employee> empHT = new HashTable<>(empSize * 2);
         BST<VideoGame> vgByTitle = new BST<>();
         BST<VideoGame> vgByDate = new BST<>();
