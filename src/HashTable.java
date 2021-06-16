@@ -5,10 +5,10 @@
  */
 import java.util.ArrayList;
 
-public class HashTable<User> {
+public class HashTable<T> {
 
     private int numElements;
-    private ArrayList<List<User>> Table;
+    private ArrayList<List<T>> Table;
 
     /**
      * Constructor for the hash 
@@ -22,7 +22,7 @@ public class HashTable<User> {
     public HashTable(int size) {
         Table = new ArrayList<>();
         for(int i = 0; i < size; i++) {
-            Table.add(new List<User>());
+            Table.add(new List<T>());
         }
         numElements = 0;
     }
@@ -99,7 +99,7 @@ public class HashTable<User> {
             throw new NullPointerException("get: cannot get null");
         }else {
             int bucket = hash(key);
-            List<User> list = Table.get(bucket);
+            List<T> list = Table.get(bucket);
             int position = list.linearSearch(t);
             if(position == -1) {
                 return null;
@@ -127,11 +127,11 @@ public class HashTable<User> {
 //        }
 //    }
     //TODO: one contains, same thing. just have one key after prior concat
-    public boolean contains(User t, String key) throws NullPointerException{
+    public boolean contains(T t, String key) throws NullPointerException{
         if(t == null) {
             throw new NullPointerException("contains: cannot contain null");
         }else {
-            int bucket = hash(t, key);
+            int bucket = hash(key);
             return Table.get(bucket).linearSearch(t) == -1 ? false : true;
         }
     }
@@ -157,11 +157,11 @@ public class HashTable<User> {
      * @throws NullPointerException when t is null
      */
     //TODO:one insert, same thing. just have one key after prior concat
-    public void insert(User t, String key) throws NullPointerException{
+    public void insert(T t, String key) throws NullPointerException{
         if(t == null) {
             throw new NullPointerException("insert: cannot insert null");
         }else {
-            int bucket = hash(t, key);
+            int bucket = hash(key);
             Table.get(bucket).addLast(t);
             numElements++;
         }
@@ -193,13 +193,13 @@ public class HashTable<User> {
 //        }
 //    }
     //TODO:same thing here, one string key passed. one method
-    public void remove(User t, String key) throws NullPointerException {
+    public void remove(T t, String key) throws NullPointerException {
         if(t == null) {
             throw new NullPointerException("remove: object to be removed is null, "
                     + "cannot remove");
         }else {
-            int bucket = hash(t, key);
-            List<User> list = Table.get(bucket);
+            int bucket = hash(key);
+            List<T> list = Table.get(bucket);
             int position = list.linearSearch(t);
             if(position != -1) {
                 list.iteratorToIndex(position);
@@ -216,7 +216,7 @@ public class HashTable<User> {
         int size = Table.size();
         Table = new ArrayList<>();
         for(int i = 0; i < size; i++) {
-            Table.add(new List<User>());
+            Table.add(new List<T>());
         }
         numElements = 0;
     }
