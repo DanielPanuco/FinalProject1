@@ -12,10 +12,11 @@ public class UserInterface {
 	private static final String vgFile = ("product.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
 	public static String fName, lName, email, addr, city, state, pw, title,
-			username;
+						 username;
+	public static String fullNameKey = fName + lName;
+	public static String emailPWKey = email + pw; 
 	public static int zip;
-	public static Customer currentC = null; // TODO: do we want a guest to be
-											// declared here
+	public static Customer currentC = null;
 	public static Employee currentEmp = null;
 	public static final TitleComparator tc = new TitleComparator();
 	public static final DateComparator dc = new DateComparator();
@@ -37,7 +38,7 @@ public class UserInterface {
         Scanner input = new Scanner(System.in);
 		try {
 			fileToVG(input, vgByTitle, vgByDate, tc, dc);
-			fileToCust(input, custHT, vgByTitle, tc);
+			fileToCust(input, custHT, custByName, vgByTitle, tc);
 			fileToEmp(input, empHT);
 			//fileToOrders(input, orderHeap);
 		} catch (FileNotFoundException e) {
@@ -55,21 +56,21 @@ public class UserInterface {
         System.out.print("\nPlease enter 1 or 2: ");
         userType = input.nextInt();
         if (userType == 1) {
-            custInterface(input, custHT, vgByTitle, vgByDate);
+            custInterface(input, custHT, custByName, vgByTitle, vgByDate);
         } else {
-            empInterface(input, vgByDate, vgByDate, custHT, empHT);
+            empInterface(input, vgByDate, vgByDate, custHT, custByName, empHT);
         }
     }
     
-    public static void custAccSetup(Scanner input, HashTable<Customer> custHT,//HashTable<Customer> custByName,
-			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
-    	String ans; //TODO: should username and pw also be member var
+	public static void custAccSetup(Scanner input, HashTable<Customer> custHT,
+			HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
+			BST<VideoGame> vgByDate) {
+    	String ans;
     	String createAcc ="Let's create an account for you!\n";
 		String enterUsername = "Enter your username: "; //only do this if it's clear
 		String createPW = "Create a password:";
 		String success = "\nYou have succesfully created an account,"
 							+ fName + " " + lName + "!\n";
-		//Customer currentC = null; 
 		input.nextLine(); // clear buffer from reading
 		System.out.println("\nWelcome to our store, please login here!");
 		System.out.println("\n[Choose your customer type]\n"
@@ -94,8 +95,8 @@ public class UserInterface {
     			pw = input.nextLine();
 				currentC = new Customer(username, fName, lName, email, pw, addr,
 						city, state, zip);
-				custHT.insert(currentC);//custHT.insert(currentC, email + pw);
-				//custByName.insert(currentC, fName + lname)
+				custHT.insert(currentC, emailPWKey);//custHT.insert(currentC, email + pw);
+				custByName.insert(currentC, emailPWKey);
 				System.out.println(success);
 	        } else if (ans.equals("3")){
 	        	System.out.print("Enter your email address: ");
@@ -103,7 +104,7 @@ public class UserInterface {
 	    		System.out.print("Enter your password: ");
 	    		pw = input.nextLine();
 	    		Customer tempC = new Customer(email, pw);
-	    		if (!(custHT.contains(tempC))) { //only works based on email and password
+	    		if (!(custHT.contains(tempC, success))) { //only works based on email and password
 	    			//one HT
 					System.out.println("\nIt appears we don't have "
 							+ "your account on file...\n");
@@ -115,10 +116,11 @@ public class UserInterface {
 					createAccount(input);
 	    			currentC = new Customer(username, fName, lName, email, pw, addr,
 	    					city, state, zip);
-	    			custHT.insert(currentC);
+	    			custHT.insert(currentC, emailPWKey);
+	    			custByName.insert(currentC, emailPWKey);
 					System.out.println(success);
 				} else {
-					currentC = custHT.get(tempC);
+					currentC = custHT.get(currentC, emailPWKey);
 					System.out.println("\nWelcome back, " + currentC.getFirstName() + " "
 									+ currentC.getLastName() + "!\n");
 				}
@@ -144,9 +146,10 @@ public class UserInterface {
 	}
   
 	public static void custInterface(Scanner input, HashTable<Customer> custHT,
-			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
+			HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
+			BST<VideoGame> vgByDate) {
 		String choice = "", ans;
-		custAccSetup(input, custHT, vgByTitle, vgByDate); 
+		custAccSetup(input, custHT, custByName, vgByTitle, vgByDate); 
 		while (!choice.equalsIgnoreCase("X")) {
 			displayCustMenu();
 			System.out.print("Enter your choice: "); //TODO: will convert this to a member string
@@ -195,7 +198,7 @@ public class UserInterface {
 					System.out.print("Enter (Y/N): ");
 					ans = input.nextLine();
 					if (ans.equalsIgnoreCase("Y")) {
-						custAccSetup(input, custHT, vgByTitle, vgByDate);
+						custAccSetup(input, custHT, custByName, vgByTitle, vgByDate);
 					}
 					break;
 				case "X":
@@ -219,7 +222,7 @@ public class UserInterface {
 			System.out.print("Enter your password: ");
 			pw = input.nextLine();
 			currentEmp = new Employee(email, pw);
-			while (!(empHT.contains(currentEmp))) { // only works based on email
+			while (!(empHT.contains(currentEmp, emailPWKey))) { // only works based on email
 													// and password, one HT
 				System.out.println("\nPlease make sure you entered your correct"
 						+ " case sensitive email and password!"); 
@@ -231,14 +234,14 @@ public class UserInterface {
 				pw = input.nextLine();
 				currentEmp = new Employee(email, pw);
 			}
-			currentEmp = empHT.get(currentEmp);
+			currentEmp = empHT.get(currentEmp, emailPWKey); 
 			System.out.println("\nWelcome back, " + currentEmp.getFirstName()
 					+ " " + currentEmp.getLastName() + "!\n");
 		}
 	  
-	public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate, HashTable<Customer> custHT,
-			HashTable<Employee> empHT) {
+		public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
+				BST<VideoGame> vgByDate, HashTable<Customer> custHT,
+				HashTable<Customer> custByName, HashTable<Employee> empHT) {
 		String choice = "", ans; // TODO: EXTRA: access cust email, if title = val/gen imp,
 							// then print out f2p games with seperate for loop
 		input.nextLine(); // clear buffer from reading an Int
@@ -258,11 +261,11 @@ public class UserInterface {
 					break;
 				case "3":
 					System.out.print("Please type in the first name of the person you are searching for: ");
-					fName = input.next();
+					fName = input.nextLine();
 					System.out.print("Please type in the last name of the person you are searching for: ");
-					lName = input.next();
-					/* //TODO: need a new HashTable<Customer> which is encoded my names
-					Customer cust = Employee.searchCustomer(custByName, firstName+lastName);
+					lName = input.nextLine();
+					/*
+					Customer cust = Employee.searchCustomer(custByName, fullNameKey);
 					if(cust == null) {
 						System.out.println("Customer doesn't exist!");
 					} else {
@@ -343,10 +346,8 @@ public class UserInterface {
 		System.out.println("\nWhich video game would you like to search for?");
 		System.out.print("\nEnter the title: ");
 		title = input.nextLine();
-		searchVG = Customer.searchVGLByTitle(title, vgByTitle);
-		//TODO:is it better to have it a method in customer or here?
-		//searchVG = new VideoGame(userSearch);
-		//searchVG = vgByTitle.search(searchVG, tc);
+		searchVG = new VideoGame(title);
+		searchVG = vgByTitle.search(searchVG, tc);
 		if (searchVG != null) {
 			System.out.println("\nWe were able to find this video game: \n\n"
 					+ searchVG);
@@ -431,7 +432,7 @@ public class UserInterface {
     }
 
 	public static void fileToCust(Scanner input,
-			HashTable<Customer> customersHT, BST<VideoGame> vgByTitle,
+			HashTable<Customer> custHT, HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
 			TitleComparator tc) throws FileNotFoundException {
 		//TODO: add booleans for the amount of orders they have
 		String address;
@@ -487,7 +488,8 @@ public class UserInterface {
 			Order shippedOrder = new Order(newC, sTimestamp, shippedVG, sShipSpeed, true);
 			newC.placeUnshippedOrder(unshippedOrder);
 			newC.placeShippedOrder(shippedOrder);
-			customersHT.insert(newC);
+			custHT.insert(newC, emailPWKey);
+			custByName.insert(newC, fullNameKey);
 		}
 		input.close();
     }
@@ -508,7 +510,7 @@ public class UserInterface {
 				input.nextLine();
 			}
 			Employee newE = new Employee(fName, lName, email, pw, accNum);
-			empHT.insert(newE);
+			empHT.insert(newE, emailPWKey);
 		}
 		input.close();
     }

@@ -91,6 +91,8 @@ public class Order {
     
 }
 
+//TODO: write single order here PW equivalent of calling toString (prof suggestion)
+
 //Should also contain a Comparator class with a compare method to determine priority
 class OrderComparator implements Comparator<Order> {
     public int compare(Order order1, Order order2) {

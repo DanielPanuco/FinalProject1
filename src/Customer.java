@@ -107,11 +107,6 @@ public class Customer extends User {
 		this.zip = zip;
 	}
 	
-	public static VideoGame searchVGLByTitle(String title, BST<VideoGame> byTitle) { //VGL = Video Game List
-		TitleComparator tc = new TitleComparator();
-		return byTitle.search(new VideoGame(title), tc);
-	}
-	
 	public void placeUnshippedOrder(Order order) {
         this.unshippedOrders.addLast(order);
     }
