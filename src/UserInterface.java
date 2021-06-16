@@ -61,7 +61,7 @@ public class UserInterface {
         }
     }
     
-    public static void custAccSetup(Scanner input, HashTable<Customer> custHT,
+    public static void custAccSetup(Scanner input, HashTable<Customer> custHT,//HashTable<Customer> custByName,
 			BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
     	String ans; //TODO: should username and pw also be member var
     	String createAcc ="Let's create an account for you!\n";
@@ -95,6 +95,7 @@ public class UserInterface {
 				currentC = new Customer(username, fName, lName, email, pw, addr,
 						city, state, zip);
 				custHT.insert(currentC);//custHT.insert(currentC, email + pw);
+				//custByName.insert(currentC, fName + lname)
 				System.out.println(success);
 	        } else if (ans.equals("3")){
 	        	System.out.print("Enter your email address: ");
