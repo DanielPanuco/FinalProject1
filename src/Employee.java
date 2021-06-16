@@ -26,7 +26,7 @@ public class Employee extends User {
 	
 	public static Customer searchCustomer(String firstName,
 			String lastName, HashTable<Customer> customersByName) {
-		return customersByName.get(new Customer(firstName, lastName), firstName, lastName);
+		return customersByName.get(new Customer(firstName, lastName), firstName+lastName);
 	}
 
 	public static void displayCustomer(Customer customer) {
@@ -69,18 +69,18 @@ public class Employee extends User {
 		byDate.remove(videogame, dc);
 	}
 
-	public static User login(String email, String password, HashTable<User> users) throws NullPointerException {
-		if(users == null) {
-			throw new NullPointerException("Employee login(): cannot find employee list\n");
-		}
-		if(!(users.contains(new Employee(email, password)))) {
-			System.out.println("Invalid email or password!\nPlease type again\n");
-			return null;
-		} else {
-			System.out.println("Successfully login!\n");
-			return users.get(new Employee(email, password));
-		}
-	}	
+//	public static User login(String email, String password, HashTable<User> users) throws NullPointerException {
+//		if(users == null) {
+//			throw new NullPointerException("Employee login(): cannot find employee list\n");
+//		}
+//		if(!(users.contains(new Employee(email, password)))) {
+//			System.out.println("Invalid email or password!\nPlease type again\n");
+//			return null;
+//		} else {
+//			System.out.println("Successfully login!\n");
+//			return users.get(new Employee(email, password));
+//		}
+//	}	
 
 	public String toString() {
 		return super.toString();

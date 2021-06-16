@@ -260,7 +260,7 @@ public class UserInterface {
 					System.out.print("Please type in the last name of the person you are searching for: ");
 					lName = input.next();
 					/* //TODO: need a new HashTable<Customer> which is encoded my names
-					Customer cust = Employee.searchCustomer(custByName, firstName, lastName);
+					Customer cust = Employee.searchCustomer(custByName, firstName+lastName);
 					if(cust == null) {
 						System.out.println("Customer doesn't exist!");
 					} else {
