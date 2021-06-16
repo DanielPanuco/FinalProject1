@@ -5,10 +5,10 @@
  */
 import java.util.ArrayList;
 
-public class HashTable<T> {
+public class HashTable<User> {
 
     private int numElements;
-    private ArrayList<List<T>> Table;
+    private ArrayList<List<User>> Table;
 
     /**
      * Constructor for the hash 
@@ -22,7 +22,7 @@ public class HashTable<T> {
     public HashTable(int size) {
         Table = new ArrayList<>();
         for(int i = 0; i < size; i++) {
-            Table.add(new List<T>());
+            Table.add(new List<User>());
         }
         numElements = 0;
     }
@@ -37,14 +37,16 @@ public class HashTable<T> {
      * @param t the Object
      * @return the index in the Table
      */
-    private int hash(String key) { //pass in some new parameters (take in a string key parameter)
-        int code = 0;
-        for (int i = 0; i < key.length(); i++) {
-            code += (int) key.charAt(i);
-        }
+
+    private int hash(User t, String key) { //pass in some new parameters (take in a string key parameter)
+        int code = t.hashCode(key);
         return code % Table.size();
     }
     
+    private int hash(T t) {
+        int code = t.hashCode();
+        return code % Table.size();
+    }
     
 
     /**
