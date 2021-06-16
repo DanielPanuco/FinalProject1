@@ -9,11 +9,7 @@ import java.util.Comparator;
 public class Order {
 
     private Customer customer;
-    private int shippingSpeed; //TODO: ask her about how we calculate priority
-    //TODO: Also is it required to associate some shipping speeds with a cost, or is that extra?
-    //and how do we do this? prob need to pass in a total variable somewhere. 
-    //stand shipping would be free if the user cart/order's total is >= $35.00.
-    //look at lab 1 block.class
+    private int shippingSpeed;
     private long date;
     private List<VideoGame> orderContents;
     private boolean shippingStatus;
@@ -75,15 +71,12 @@ public class Order {
         this.shippingStatus = shippingStatus;
     }
 
-    @Override public String toString() {
+    @Override public String toString() { // return string in the format that we are writing out to the file
         return "" + getOrderContents();
-        //TODO: why are there 2 extra /n before shipped orders?
-        //"Before here: Here are your shipped orders: "
+
     }
 
 }
-
-//TODO: write single order here PW equivalent of calling toString (prof suggestion)
 
 //Should also contain a Comparator class with a compare method to determine priority
 class OrderComparator implements Comparator<Order> {
