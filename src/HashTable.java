@@ -137,11 +137,6 @@ public class HashTable<T> {
         }
     }
     
-    public ArrayList<List<T>> getTable(){
-    	return Table;
-    }
-
-
     /**Mutators*/
 
     
