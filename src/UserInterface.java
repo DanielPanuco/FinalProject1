@@ -46,7 +46,9 @@ public class UserInterface {
 					+ "folder and rereun the program.");
 		} //TODO: ask about IOException for file corruption implementation, 
 		//need to be called for it to happen
-       
+        //System.out.println(custHT); //test printing
+        //System.out.println(custByName);
+        //System.out.println(empHT);
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
         //System.out.println("Please note that we don't offer refunds after you place your orders!");
         //maybe mention credit/debit card only
@@ -117,7 +119,7 @@ public class UserInterface {
 	    			currentC = new Customer(username, fName, lName, email, pw, addr,
 	    					city, state, zip);
 	    			custHT.insert(currentC, emailPWKey);
-	    			custByName.insert(currentC, emailPWKey);
+	    			custByName.insert(currentC, fullNameKey);
 					System.out.println(success);
 				} else {
 					currentC = custHT.get(currentC, emailPWKey);
@@ -436,8 +438,8 @@ public class UserInterface {
 			TitleComparator tc) throws FileNotFoundException {
 		//TODO: add booleans for the amount of orders they have?
 		String address;
-		int numGames, uShipSpeed = 0, sShipSpeed = 0;
-		int uTimestamp = 0, sTimestamp = 0;
+		int numGames, uShipSpeed = 0, sShipSpeed = 0, uNumOrders, sNumOrders;
+		long uTimestamp = 0, sTimestamp = 0;
     	File file = new File(custFile);
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
@@ -452,7 +454,6 @@ public class UserInterface {
 			zip = input.nextInt();
 			List<VideoGame> unshippedVG = new List<>();
 			List<VideoGame> shippedVG = new List<>();
-			for (int i = 0; i < unshippedVG.getLength(); i++) {
 				numGames = input.nextInt();
 				//System.out.println(numGames);
 				input.nextLine();
@@ -462,12 +463,10 @@ public class UserInterface {
 					tempVG = vgByTitle.search(tempVG, tc);
 					unshippedVG.addLast(tempVG);
 				}
-				uTimestamp = input.nextInt();
+				uTimestamp = input.nextLong();
 				//System.out.println(uTimestamp);
 				uShipSpeed = input.nextInt();
 				//System.out.println(uShipSpeed);
-			}
-			for (int i = 0; i < shippedVG.getLength(); i++) {
 				numGames = input.nextInt();
 				input.nextLine();
 				for (int j = 0; j < numGames; j++) {
@@ -477,14 +476,14 @@ public class UserInterface {
 					tempVG = vgByTitle.search(tempVG, tc);
 					shippedVG.addLast(tempVG);
 				}
-				sTimestamp = input.nextInt();
+				sTimestamp = input.nextLong();
 				input.nextLine();
 				sShipSpeed = input.nextInt();
 				if (input.hasNextLine()) {
 					input.nextLine();
 					input.nextLine();
 				}
-			}
+			
 			Customer newC = new Customer(username, fName, lName, email, pw,
 					address, city, state, zip);
 			Order unshippedOrder = new Order(newC, uTimestamp, unshippedVG, uShipSpeed, false);
@@ -494,6 +493,7 @@ public class UserInterface {
 			custHT.insert(newC, emailPWKey);
 			custByName.insert(newC, fullNameKey);
 		}
+		
 		input.close();
     }
 
