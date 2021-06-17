@@ -119,7 +119,7 @@ public class UserInterface {
 	    			currentC = new Customer(username, fName, lName, email, pw, addr,
 	    					city, state, zip);
 	    			custHT.insert(currentC, emailPWKey);
-	    			custByName.insert(currentC, emailPWKey);
+	    			custByName.insert(currentC, fullNameKey);
 					System.out.println(success);
 				} else {
 					currentC = custHT.get(currentC, emailPWKey);
