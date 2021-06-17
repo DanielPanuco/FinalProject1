@@ -87,7 +87,7 @@ public class UserInterface {
 	        	createAccount(input);
 				currentC = new Customer(fName, lName, email, addr,
 						city, state, zip);
-				System.out.println(success);
+				System.out.println("\nYou have succesfully created an account!");
 	        } else if (ans.equals("2")) {
 				createAccount(input);
 				System.out.println(createAcc);
@@ -106,7 +106,7 @@ public class UserInterface {
 	    		System.out.print("Enter your password: ");
 	    		pw = input.nextLine();
 	    		Customer tempC = new Customer(email, pw);
-	    		if (!(custHT.contains(tempC, success))) { //only works based on email and password
+	    		if (!(custHT.contains(tempC, emailPWKey))) { //only works based on email and password
 	    			//one HT
 					System.out.println("\nIt appears we don't have "
 							+ "your account on file...\n");
