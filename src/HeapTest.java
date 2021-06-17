@@ -105,8 +105,12 @@ public class HeapTest {
             System.out.println(e.getMessage());
         }
         Order tempOrder3 = new Order(tempC, 20210616, tempVG, 2, false);
+
         orderArrayList.add(null);
         orderArrayList.add(tempOrder2);
+        tempC.placeUnshippedOrder(tempOrder3);
+        tempC.placeUnshippedOrder(tempOrder1);
+        tempC.placeShippedOrder(tempOrder2);
         orderArrayList.add(tempOrder1);
         orderArrayList.add(tempOrder3);
 
@@ -117,9 +121,7 @@ public class HeapTest {
         System.out.println(oc.compare(tempOrder2, tempOrder3));
         System.out.println(oc.compare(tempOrder3, tempOrder2));
         System.out.println(oc.compare(tempOrder2, tempOrder1));*/
-
-
-        System.out.println(orderHeap);
+        System.out.println(tempC);
 
         // tempC.placeUnshippedOrder();
     }

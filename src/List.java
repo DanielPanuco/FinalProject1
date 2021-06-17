@@ -296,7 +296,7 @@ public class List<T> {
         StringBuilder s = new StringBuilder();
         Node temp = first;
         while (temp != null) {
-            s.append(temp.data).append("\n");
+            s.append(temp.data);
             temp = temp.next;
         }
         return s.toString();

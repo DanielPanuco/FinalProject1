@@ -173,12 +173,16 @@ public class Customer extends User {
 	}
 
 	@Override public String toString() {
-		String result = super.toString() + "\nAddress: " + address + "\n"
-				+ "City: " + city + "\n"
-    		    + "State: " + state + "\n"
-    		    + "Zip: " + zip + "\n"
-    		    + "Unshipped Orders: " + unshippedOrders + "\n"
-    		    + "Shipped Orders: " + shippedOrders + "\n";
+		String result = username + "\n"
+				+ super.toString()
+				+ address + "\n"
+				+ city + "\n"
+    		    + state + "\n"
+    		    + zip + "\n"
+				+ unshippedOrders.getLength() + "\n"
+    		    + unshippedOrders
+				+ shippedOrders.getLength() + "\n"
+    		    + shippedOrders;
 		return result;
 	}
 }
