@@ -46,7 +46,9 @@ public class UserInterface {
 					+ "folder and rereun the program.");
 		} //TODO: ask about IOException for file corruption implementation, 
 		//need to be called for it to happen
-       
+        //System.out.println(custHT); //test printing
+        //System.out.println(custByName);
+        //System.out.println(empHT);
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
         //System.out.println("Please note that we don't offer refunds after you place your orders!");
         //maybe mention credit/debit card only
