@@ -94,9 +94,9 @@ public class Order {
 class OrderComparator implements Comparator<Order> {
     public int compare(Order order1, Order order2) {
         if (order1.getPriority() < order2.getPriority()) {
-            return -1;
-        } else if (order1.getPriority() > order2.getPriority()) {
             return 1;
+        } else if (order1.getPriority() > order2.getPriority()) {
+            return -1;
         } else {
             return 0;
         }

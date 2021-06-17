@@ -553,9 +553,9 @@ public class UserInterface {
     	//do this after order is finished
     }
 
-    public static void customerToFile(HashTable<Customer> customers) {
-    	
-    }
+	public static void customerToFile(HashTable<Customer> customers) {
+
+	}
 
     public static void ordersToFile(Heap<Order> orderHeap) {
 

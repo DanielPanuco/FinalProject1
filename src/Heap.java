@@ -9,7 +9,6 @@ public class Heap<T> {
 
 
     /**Constructors/
-
      /**
      * Constructor for the Heap class
      * @param data an unordered ArrayList
@@ -43,23 +42,24 @@ public class Heap<T> {
      * @param index an index in the heap
      */
     private void heapify(int index) {
-        int index_of_min = index;
+        int index_of_max = index;
         int l = get_left(index); // get the index of the left child of A[i] and store as l
         int r = get_right(index); // get the index of the right child of A[i] and store r
 
-        if (l <= getHeapSize() && comparator.compare(getElement(l), getElement(index)) < 0) { // Check if l is off the end of the array (heap)
+        if (l <= getHeapSize() && comparator.compare(getElement(l), getElement(index)) > 0) { // Check if l is off the end of the array (heap)
             // AND compare heap[i] to its left child
-            index_of_min = l; // update index_of_max if left is bigger
+            index_of_max = l; // update index_of_max if left is bigger
         }
-        if (r <= getHeapSize() && comparator.compare(getElement(r), getElement(index_of_min)) < 0) { // Check if r is off the end of the array (heap)
+        if (r <= getHeapSize() && comparator.compare(getElement(r), getElement(index_of_max)) > 0) { // Check if r is off the end of the array (heap)
             // AND compare heap[i] to its right child
-            index_of_min = r; // update index_of_max if right is bigger
+            index_of_max = r; // update index_of_max if right is bigger
         }
-        if (index != index_of_min) {
-            T temp = heap.get(index_of_min);
-            heap.set(index_of_min,getElement(index));
+        if (index != index_of_max) {
+            T temp = heap.get(index_of_max);
+            heap.set(index_of_max,getElement(index));
             heap.set(index, temp);
-            heapify(index_of_min);
+            heapify(index_of_max);
+
         }
     }
 
@@ -81,7 +81,7 @@ public class Heap<T> {
      */
     private void heapIncreaseKey(int index, T key) {
         heap.add(index, key);// write over existing value at i with key
-        while (index > 1 && comparator.compare(heap.get(getParent(index)), heap.get(index)) > 0) { // while the																					// node
+        while (index > 1 && comparator.compare(heap.get(getParent(index)), heap.get(index)) < 0) { // while the																					// node
             T temp = heap.get(getParent(index));
             heap.set(getParent(index), heap.get(index));
             heap.set(index, temp);
@@ -98,7 +98,7 @@ public class Heap<T> {
         heapSize--;
         heap.remove(index);
         for (int i = index; i >= 1; i--) { // start at floor(n/2); we can ignore leaf nodes
-            heapify(i);
+            heapify(i); //TODO: ask in office hours if we can use buildHeap
         }
     }
 
@@ -206,11 +206,13 @@ public class Heap<T> {
         int n = heapSize;
         ArrayList<T> tempHeap = new ArrayList<>(heap);
         for (int i = n; i >= 2; i--) {
-            T temp = tempHeap.get(1);
-            tempHeap.set(1, tempHeap.get(i));
-            tempHeap.set(i, temp);
+            T temp = heap.get(1);
+            heap.set(1, heap.get(i));
+            heap.set(i, temp);
             heapify(1);
         }
-        return tempHeap;
+        ArrayList<T> tempHeap2 = heap;
+        heap = tempHeap;
+        return tempHeap2;
     }
 }
