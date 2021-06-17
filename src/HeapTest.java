@@ -19,7 +19,7 @@ class HeapTester {
 
 class NumberComparator implements Comparator<HeapTester> {
     public int compare(HeapTester heapTester1, HeapTester heapTester2) {
-        return heapTester1.number - heapTester2.number;
+        return Integer.compare(heapTester1.number, heapTester2.number);
     }
 }
 
@@ -47,8 +47,13 @@ public class HeapTest {
         System.out.println(h.toString());
         h.insert(new HeapTester("3", 3));
         System.out.println(h.toString());
-
-        System.out.println(h.sort());
+        h.remove(1);
+        System.out.println(h.toString());
+        ArrayList<HeapTester> tempAL = h.sort();
+        for (int i = tempAL.size() - 1; i > 0; i--) {
+            System.out.println(tempAL.get(i));
+        }
+        System.out.println();
 /*        ArrayList<Peen> B = new ArrayList<Peen>();
         B.add(new Peen("1", 1));
         B.add(new Peen("3", 3));
@@ -112,12 +117,10 @@ public class HeapTest {
 
         OrderComparator oc = new OrderComparator();
         Heap<Order> orderHeap = new Heap<>(orderArrayList, oc);
-        System.out.println(orderHeap.toString());
 /*        System.out.println(oc.compare(tempOrder1, tempOrder3));
         System.out.println(oc.compare(tempOrder2, tempOrder3));
         System.out.println(oc.compare(tempOrder3, tempOrder2));
         System.out.println(oc.compare(tempOrder2, tempOrder1));*/
-        System.out.println(tempC);
         // tempC.placeUnshippedOrder();
     }
 }

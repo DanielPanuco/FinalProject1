@@ -59,7 +59,6 @@ public class Heap<T> {
             heap.set(index_of_max,getElement(index));
             heap.set(index, temp);
             heapify(index_of_max);
-
         }
     }
 
@@ -209,10 +208,12 @@ public class Heap<T> {
             T temp = heap.get(1);
             heap.set(1, heap.get(i));
             heap.set(i, temp);
+            heapSize--;
             heapify(1);
         }
         ArrayList<T> tempHeap2 = heap;
         heap = tempHeap;
+        heapSize = n;
         return tempHeap2;
     }
 }
