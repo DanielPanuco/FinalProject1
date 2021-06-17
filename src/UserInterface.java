@@ -486,12 +486,12 @@ public class UserInterface {
 			
 			Customer newC = new Customer(username, fName, lName, email, pw,
 					address, city, state, zip);
-			Order unshippedOrder = new Order(newC, uTimestamp, unshippedVG, uShipSpeed, false);
+/*			Order unshippedOrder = new Order(newC, uTimestamp, unshippedVG, uShipSpeed, false);
 			Order shippedOrder = new Order(newC, sTimestamp, shippedVG, sShipSpeed, true);
 			newC.placeUnshippedOrder(unshippedOrder);
 			newC.placeShippedOrder(shippedOrder);
 			custHT.insert(newC, emailPWKey);
-			custByName.insert(newC, fullNameKey);
+			custByName.insert(newC, fullNameKey);*/
 		}
 		
 		input.close();
