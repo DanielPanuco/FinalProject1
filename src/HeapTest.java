@@ -1,6 +1,9 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.PrimitiveIterator;
+import java.util.concurrent.TimeUnit;
 
 class Peen {
     String identifier;
@@ -51,7 +54,7 @@ public class HeapTest {
         System.out.println(h.toString());
 
         System.out.println(h.sort());*/
-        ArrayList<Peen> B = new ArrayList<Peen>();
+/*        ArrayList<Peen> B = new ArrayList<Peen>();
         B.add(new Peen("1", 1));
         B.add(new Peen("3", 3));
         B.add(new Peen("5", 5));
@@ -71,8 +74,53 @@ public class HeapTest {
         h2.remove(2);
         System.out.println(h2.toString());
         System.out.println(h2.getHeapSize());
-        System.out.println(h2.sort());
+        System.out.println(h2.sort());*/
+         //String username, String firstName, String lastName, String email, String password,
+        //			String address, String city, String state, int zip
+        Customer tempC = new Customer("Vich1944", "Courtney", "Reinhardt",
+                "CourtneyRReinhardt@gmail.com", "Tie7Chae2r",
+                "7203 W. Rosewood Ave", "Chardon", "Ohio", 44024);
+        ArrayList<Order> orderArrayList = new ArrayList<>();
+        List<VideoGame> tempVG = new List<>();
+        tempVG.addLast(new VideoGame("Halo", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox"));
 
-        //System.out.print(h.toString());
+        List<VideoGame> tempVG2 = new List<>();
+        tempVG2.addLast(new VideoGame("Halo 3", "Bungie", 20081026, 7.00, "Shooter", "M", 86, "Xbox"));
+        tempVG2.addLast(new VideoGame("Halo 2", "Bungie", 20081003, 5.00, "Shooter", "M", 86, "Xbox"));
+
+        List<VideoGame> tempVG3 = new List<>();
+        tempVG3.addLast(new VideoGame("Halo CE", "Bungie", 2008107, 5.00, "Shooter", "M", 86, "Xbox"));
+
+        Order tempOrder1 = new Order(tempC, 20210616, tempVG3, 2, false);
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        Order tempOrder2 = new Order(tempC, 20210616, tempVG2, 2, true);
+
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        Order tempOrder3 = new Order(tempC, 20210616, tempVG, 2, false);
+        orderArrayList.add(null);
+        orderArrayList.add(tempOrder2);
+        orderArrayList.add(tempOrder1);
+        orderArrayList.add(tempOrder3);
+
+        OrderComparator oc = new OrderComparator();
+        Heap<Order> orderHeap = new Heap<>(orderArrayList, oc);
+
+/*        System.out.println(oc.compare(tempOrder1, tempOrder3));
+        System.out.println(oc.compare(tempOrder2, tempOrder3));
+        System.out.println(oc.compare(tempOrder3, tempOrder2));
+        System.out.println(oc.compare(tempOrder2, tempOrder1));*/
+
+
+        System.out.println(orderHeap);
+
+        // tempC.placeUnshippedOrder();
     }
 }

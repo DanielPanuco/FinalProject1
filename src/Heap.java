@@ -51,16 +51,15 @@ public class Heap<T> {
             // AND compare heap[i] to its left child
             index_of_min = l; // update index_of_max if left is bigger
         }
-        if (r <= getHeapSize() && comparator.compare(getElement(r), getElement(index_of_max)) < 0) { // Check if r is off the end of the array (heap)
+        if (r <= getHeapSize() && comparator.compare(getElement(r), getElement(index_of_min)) < 0) { // Check if r is off the end of the array (heap)
             // AND compare heap[i] to its right child
             index_of_min = r; // update index_of_max if right is bigger
         }
         if (index != index_of_min) {
             T temp = heap.get(index_of_min);
-            heap.set(index_of_min, getElement(index));
+            heap.set(index_of_min,getElement(index));
             heap.set(index, temp);
             heapify(index_of_min);
-
         }
     }
 
@@ -99,7 +98,7 @@ public class Heap<T> {
         heapSize--;
         heap.remove(index);
         for (int i = index; i >= 1; i--) { // start at floor(n/2); we can ignore leaf nodes
-            heapify(i); //TODO: ask in office hours if we can use buildHeap
+            heapify(i);
         }
     }
 
@@ -109,7 +108,7 @@ public class Heap<T> {
      * returns the maximum element (highest priority)
      * @return the max value
      */
-    public T getMin(){
+    public T getMax(){
         return heap.get(1);
     }
 
@@ -203,7 +202,7 @@ public class Heap<T> {
      * @return an ArrayList of sorted elements
      * @postcondition heap remains a valid heap
      */
-    public ArrayList<T> sort() { //TODO: convert to minheap for earliest timestamp
+    public ArrayList<T> sort() {
         int n = heapSize;
         ArrayList<T> tempHeap = new ArrayList<>(heap);
         for (int i = n; i >= 2; i--) {

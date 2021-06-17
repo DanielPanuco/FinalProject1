@@ -10,13 +10,14 @@ public class Order {
 
     private Customer customer;
     private int shippingSpeed;
-    private long date;
+    private int date;
     private List<VideoGame> orderContents;
     private boolean shippingStatus;
     private long priority;
 
     public Order(Customer customer, int date, List<VideoGame> orderContents, int shippingSpeed, boolean shippingStatus) {
         this.customer = customer;
+        this.date = date;
         this.orderContents = orderContents;
         this.shippingSpeed = shippingSpeed;
         this.priority = (System.currentTimeMillis() - (shippingSpeed * 86400000));
@@ -71,9 +72,20 @@ public class Order {
         this.shippingStatus = shippingStatus;
     }
 
-    @Override public String toString() { // return string in the format that we are writing out to the file
-        return "" + getOrderContents();
-
+    @Override
+    public String toString() { // return string in the format that we are writing out to the file
+        String temp = "";
+        temp += shippingSpeed + "\n";
+        temp += Boolean.toString(shippingStatus) + "\n";
+        temp += date + "\n";
+        temp += priority + "\n";
+        temp += orderContents.getLength() + "\n"; // Number of video games in the order
+        orderContents.placeIterator();
+        for (int i = 0; i < orderContents.getLength(); i++) {
+            temp += orderContents.getIterator().getTitle() + "\n";
+            orderContents.advanceIterator();
+        }
+        return temp;
     }
 
 }
