@@ -100,7 +100,8 @@ abstract class User {
 	}
     
     @Override public String toString() {
-		String result = "Name: " + firstName + " " + lastName + "\n"
+		String result = firstName + "\n" 
+				+ lastName + "\n"
 				+ "Email: " + email + "\n"
     		    + "Account Number: " +accountNum + "\n";
 		return result;
