@@ -5,17 +5,25 @@
  */
 
 import java.util.Comparator;
+import java.util.Calendar;
+import java.text.DecimalFormat;
 
 public class Order {
 
     private Customer customer;
     private int shippingSpeed;
     private int date;
+    private String dateS;
+    private String timeS;
     private List<VideoGame> orderContents;
     private boolean shippingStatus;
     private long priority;
 
     public Order(Customer customer, int date, List<VideoGame> orderContents, int shippingSpeed, boolean shippingStatus) {
+        Calendar rightNow = Calendar.getInstance();
+        DecimalFormat ft = new DecimalFormat("00");
+        this.dateS = "" + rightNow.get(Calendar.MONTH) + "/" + rightNow.get(Calendar.DATE) + "/" + rightNow.get(Calendar.YEAR);
+        this.timeS = "" + rightNow.get(Calendar.HOUR) +  ":" + ft.format(rightNow.get(Calendar.MINUTE));
         this.customer = customer;
         this.date = date;
         this.orderContents = orderContents;
@@ -34,6 +42,14 @@ public class Order {
 
     public long getDate() {
         return date;
+    }
+    
+    public String getDateS() {
+        return dateS;
+    }
+    
+    public String getTimeS() {
+        return timeS;
     }
 
     public void setDate(int date) {

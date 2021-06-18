@@ -5,9 +5,9 @@
  */
 
 import java.io.*;
-import java.lang.reflect.Array;
+import java.lang.reflect.Array; //TODO: unused?
 import java.util.ArrayList;
-import java.util.PriorityQueue;
+import java.util.PriorityQueue; //TODO: unused?
 import java.util.Scanner;
 
 public class UserInterface {
@@ -23,6 +23,7 @@ public class UserInterface {
 	public static final TitleComparator tc = new TitleComparator();
 	public static final DateComparator dc = new DateComparator();
 	public static final OrderComparator oc = new OrderComparator();
+	private static Scanner input;
 	//TODO: maybe change to videoGames.txt, once we decide on a String txt
 	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
@@ -37,12 +38,12 @@ public class UserInterface {
         BST<VideoGame> vgByDate = new BST<>();
 		ArrayList<Order> tempOrderAl = new ArrayList<>();
 		Heap<Order> priorityQueue = new Heap<>(tempOrderAl, oc);
-        Scanner input = new Scanner(System.in);
+        input = new Scanner(System.in);
 
 		try {
-			fileToVG(input, vgByTitle, vgByDate);
-			fileToCust(input, custHT, custByName, vgByTitle, priorityQueue);
-			fileToEmp(input, empHT);
+			fileToVG(vgByTitle, vgByDate);
+			fileToCust(custHT, custByName, vgByTitle, priorityQueue);
+			fileToEmp(empHT);
 			//fileToOrders(input, orderHeap);
 		} catch (FileNotFoundException e) {
 			System.out.println("File(s) not found, please make sure it is in the project"
@@ -61,13 +62,13 @@ public class UserInterface {
         System.out.print("\nPlease enter 1 or 2: ");
         userType = input.nextInt();
         if (userType == 1) {
-            custInterface(input, custHT, custByName, vgByTitle, vgByDate);
+            custInterface(custHT, custByName, vgByTitle, vgByDate);
         } else {
-            empInterface(input, vgByDate, vgByDate, custHT, custByName, empHT, priorityQueue);
+            empInterface(vgByDate, vgByDate, custHT, custByName, empHT, priorityQueue);
         }
     }
     
-	public static void custAccSetup(Scanner input, HashTable<Customer> custHT,
+	public static void custAccSetup(HashTable<Customer> custHT,
 			HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate) {
     	String ans;
@@ -87,12 +88,12 @@ public class UserInterface {
 	        if (ans.equals("1")) {
 				System.out.println("\nPlease start by filling out"
 						+ "your contact info!\n");
-	        	createAccount(input);
+	        	createAccount();
 				currentC = new Customer(fName, lName, email, addr,
 						city, state, zip);
 				System.out.println("\nYou have succesfully created an account!");
 	        } else if (ans.equals("2")) {
-				createAccount(input);
+				createAccount();
 				System.out.println(createAcc);
     			System.out.print(enterUsername);
     			username = input.nextLine();
@@ -118,7 +119,7 @@ public class UserInterface {
 	    			username = input.nextLine();
 	    			System.out.println(createPW);
 	    			pw = input.nextLine();
-					createAccount(input);
+					createAccount();
 	    			currentC = new Customer(username, fName, lName, email, pw, addr,
 	    					city, state, zip);
 	    			custHT.insert(currentC, emailPWKey);
@@ -132,7 +133,7 @@ public class UserInterface {
 			}
 		}
 
-    public static void createAccount(Scanner input) {
+    public static void createAccount() {
 		System.out.print("Enter your first name: ");
 		fName = input.nextLine();
 		System.out.print("Enter your last name: ");
@@ -150,36 +151,36 @@ public class UserInterface {
 		input.nextLine(); // clear buffer
 	}
   
-	public static void custInterface(Scanner input, HashTable<Customer> custHT,
+	public static void custInterface(HashTable<Customer> custHT,
 			HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate) {
 		String choice = "", ans;
-		custAccSetup(input, custHT, custByName, vgByTitle, vgByDate); 
+		custAccSetup(custHT, custByName, vgByTitle, vgByDate); 
 		while (!choice.equalsIgnoreCase("X")) {
 			displayCustMenu();
 			System.out.print("Enter your choice: "); //TODO: will convert this to a member string
 			choice = input.nextLine();
 			switch (choice.toUpperCase()) {
 				case "1":
-					placeOrder(input, vgByTitle);
+					placeOrder(vgByTitle);
 					//OverniDght Shipping, Rush Shipping, Standard Shipping
 					//Priority attribute for each video game order? or overall?
 					break;
 				case "2":
-					listVG(input, vgByTitle, vgByDate);
+					listVG(vgByTitle, vgByDate);
 					break;
 				case "3":
-					searchVG(input, vgByTitle);
+					searchVG(vgByTitle);
 					break;
 				case "4":
-					viewOrders(input);
+					viewOrders();
 					break;
 				case "5": //TODO: this works but requires to enter for some reason, buffer issue?
 					System.out.println("\nWould you like to sign out?\n");
 					System.out.print("Enter (Y/N): ");
 					ans = input.nextLine();
 					if (ans.equalsIgnoreCase("Y")) {
-						custAccSetup(input, custHT, custByName, vgByTitle, vgByDate);
+						custAccSetup(custHT, custByName, vgByTitle, vgByDate);
 					}
 					break;
 				case "X":
@@ -194,7 +195,7 @@ public class UserInterface {
 			}
 		}
 
-		public static void empLogin(Scanner input, HashTable<Employee> empHT) {
+		public static void empLogin(HashTable<Employee> empHT) {
 			System.out.println("\n[Employee Login Menu]");
 	    	System.out.println("\nWelcome back! Please login here");
 	    	System.out.println("-------------------------------\n");
@@ -220,20 +221,20 @@ public class UserInterface {
 					+ " " + currentEmp.getLastName() + "!\n");
 		}
 	  
-		public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
+		public static void empInterface(BST<VideoGame> vgByTitle,
 				BST<VideoGame> vgByDate, HashTable<Customer> custHT,
 				HashTable<Customer> custByName, HashTable<Employee> empHT, Heap<Order> priorityQueue) {
 		String choice = "", ans; // TODO: EXTRA: access cust email, if title = val/gen imp,
 							// then print out f2p games with seperate for loop
 		input.nextLine(); // clear buffer from reading an Int
-		empLogin(input, empHT);
+		empLogin(empHT);
 		while (!choice.equalsIgnoreCase("X")) {
 			displayEmpMenu();
 			System.out.print("Enter your choice: ");
 			choice = input.nextLine();
 			switch (choice.toUpperCase()) {
 				case "1":
-					viewPriorityQueue(input, priorityQueue);
+					viewPriorityQueue(priorityQueue);
 					break;
 				case "2":
 					System.out.println(custHT); //Display unsorted customer information
@@ -241,26 +242,26 @@ public class UserInterface {
 					//(avoid printing passwords)
 					break;
 				case "3":
-					searchingCus(input, custByName);
+					searchingCus(custByName);
 					break;
 				case "4":
 					//Ship an Order (Remove from Heap) 
 					break;
 				case "5":
-					listVG(input, vgByTitle, vgByDate);
+					listVG(vgByTitle, vgByDate);
 					break;
 				case "6":
-					addVG(input, vgByTitle, vgByDate);
+					addVG(vgByTitle, vgByDate);
 					break;
 				case "7":
-					removeVG(input, vgByTitle, vgByDate);
+					removeVG(vgByTitle, vgByDate);
 					break;
 				case "8":
 					System.out.println("\nWould you like to sign out?\n");
 					System.out.print("Enter (Y/N): ");
 					ans = input.nextLine();
 					if (ans.equalsIgnoreCase("Y")) {
-						empLogin(input, empHT);
+						empLogin(empHT);
 					}
 					break;
 				case "X":
@@ -275,7 +276,7 @@ public class UserInterface {
 		}
 	}
 
-	public static void searchingCus(Scanner input, HashTable<Customer> custByName) {
+	public static void searchingCus(HashTable<Customer> custByName) {
 		System.out.print("Please type in the first name of the person you are searching for: ");
 		fName = input.nextLine();
 		System.out.print("Please type in the last name of the person you are searching for: ");
@@ -288,7 +289,7 @@ public class UserInterface {
 					+ cust);
 		}
 	}
-    public static void placeOrder(Scanner input, BST<VideoGame> vgByTitle) {
+    public static void placeOrder(BST<VideoGame> vgByTitle) {
     	//TODO: (Nigel) should rewrite this to just create the order and call the place order method
     	List<VideoGame> unshippedVG = new List<>();
     	System.out.println("Enter the case sensitive title of the video game you would like to buy: ");
@@ -303,7 +304,7 @@ public class UserInterface {
 		}
     }
     
-    public static void viewOrders(Scanner input) {
+    public static void viewOrders() {
 		String ans = "";
 		System.out.println("\n[Viewing Order(s) Submenu]");
 		System.out.println("Which would you like to view?\n\n"
@@ -330,7 +331,7 @@ public class UserInterface {
     	//remove this from the user? remove vg
     }
     
-	public static void searchVG(Scanner input, BST<VideoGame> vgByTitle) {
+	public static void searchVG(BST<VideoGame> vgByTitle) {
 		VideoGame searchVG;
 		System.out.println("\nWhich video game would you like to search for?");
 		System.out.print("\nEnter the title: ");
@@ -346,7 +347,7 @@ public class UserInterface {
 		}
 	}
 
-    public static void listVG(Scanner input, BST<VideoGame> vgByTitle,
+    public static void listVG(BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate) {
     	//TODO: EXTRA: follow inOrderPrint traversal, pass in an AL
     	//and print this AL to print like around 10ish games each time max or just less
@@ -369,7 +370,7 @@ public class UserInterface {
 		}
 	}
     
-	public static void addVG(Scanner input, BST<VideoGame> vgByTitle,
+	public static void addVG(BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate) {
     	System.out.print("Please type in the Video Game you want to add: ");
 		title = input.nextLine();
@@ -382,7 +383,7 @@ public class UserInterface {
 		}
 	}
 
-	public static void removeVG(Scanner input, BST<VideoGame> vgByTitle,
+	public static void removeVG(BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate) {
 		System.out.print("Please type in the Video Game you want to remove: ");
 		title = input.nextLine();
@@ -420,8 +421,7 @@ public class UserInterface {
                 + "X. Exit\n"); //TODO: finalize output
     }
 
-	public static void fileToCust(Scanner input,
-			HashTable<Customer> custHT, HashTable<Customer> custByName, BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) throws FileNotFoundException {
+	public static void fileToCust(HashTable<Customer> custHT, HashTable<Customer> custByName, BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) throws FileNotFoundException {
 		String address;
 		int numGames, uShipSpeed = 0, sShipSpeed = 0, uNumOrders, sNumOrders;
 		String date; // for orders
@@ -481,7 +481,7 @@ public class UserInterface {
 		input.close();
     }
 
-	public static void fileToEmp(Scanner input, HashTable<Employee> empHT)
+	public static void fileToEmp(HashTable<Employee> empHT)
 			throws FileNotFoundException {
 		int accNum;
     	File file = new File(empFile);
@@ -502,7 +502,7 @@ public class UserInterface {
 		input.close();
     }
 
-	public static void fileToVG(Scanner input, BST<VideoGame> vgByTitle,
+	public static void fileToVG(BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate)
 			throws FileNotFoundException {
 		String dev, genre, ESRB, pform;
@@ -532,7 +532,7 @@ public class UserInterface {
 		input.close();
 	}
 
-	public static void viewPriorityQueue(Scanner input, Heap<Order> priorityQueue) { //TODO viewPriorityQueue needs testing
+	public static void viewPriorityQueue(Heap<Order> priorityQueue) { //TODO viewPriorityQueue needs testing
 		ArrayList<Order> tempOrder = priorityQueue.sort();
 		System.out.println("Printing orders in order of priority: \n\n");
 		for (int i = tempOrder.size() - 1; i > 0; i--) {
