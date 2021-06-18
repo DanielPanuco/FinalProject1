@@ -10,9 +10,7 @@ abstract class User {
     private String lastName;
     private String email;
     private String password;
-    private int accountNum;
-    private static int accountSeed = 10000000;
-
+    
      public User() {
 
     }
@@ -22,14 +20,12 @@ abstract class User {
     	this.password = password;
     	this.firstName = "firstName unknown";
         this.lastName = "lastName unknown";
-    	this.accountNum = ++accountSeed;
     }
     
     public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.accountNum = ++accountSeed;
     }
     
     public User(String firstName, String lastName, String email, String password) {
@@ -37,7 +33,6 @@ abstract class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.accountNum = ++accountSeed;
     }
     
     public String getFirstName() {
@@ -71,10 +66,7 @@ abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public void setAccountNum(int accountNum) {
-        this.accountNum = accountNum;
-    }
+   
     
     public static User login(String email, String password, HashTable<User> users) {
 		return null;
@@ -102,8 +94,7 @@ abstract class User {
     @Override public String toString() {
 		String result = firstName + "\n" 
 				+ lastName + "\n"
-				+ "Email: " + email + "\n"
-    		    + "Account Number: " +accountNum + "\n";
+				+ "Email: " + email + "\n";
 		return result;
 	}
 
@@ -116,5 +107,4 @@ abstract class User {
         }
         return key;
     }
- 
 }
