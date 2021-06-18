@@ -4,8 +4,7 @@
  * CIS 22C, Final Project
  */
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -32,9 +31,9 @@ public class UserInterface {
         HashTable<Employee> empHT = new HashTable<>(empSize * 2);
         BST<VideoGame> vgByTitle = new BST<>();
         BST<VideoGame> vgByDate = new BST<>();
-        //Heap<Order> shippedOrders = new Heap<>();
-        //Heap<Order> orderHeap = new Heap<>();
-        //TODO: need to finish some methods in heap to call this
+
+        Heap<Order> priorityQueue; // TODO: going to create object when we also read in customers
+
         Scanner input = new Scanner(System.in);
 		try {
 			fileToVG(input, vgByTitle, vgByDate, tc, dc);
@@ -44,7 +43,7 @@ public class UserInterface {
 		} catch (FileNotFoundException e) {
 			System.out.println("File(s) not found, please make sure it is in the project"
 					+ "folder and rereun the program.");
-		} //TODO: ask about IOException for file corruption implementation, 
+		}
 		//need to be called for it to happen
         //System.out.println(custHT); //test printing
         //System.out.println(custByName);
@@ -159,7 +158,7 @@ public class UserInterface {
 			switch (choice.toUpperCase()) {
 				case "1":
 					placeOrder(input, vgByTitle);
-					//Overnight Shipping, Rush Shipping, Standard Shipping
+					//OverniDght Shipping, Rush Shipping, Standard Shipping
 					//Priority attribute for each video game order? or overall?
 					break;
 				case "2":
@@ -169,31 +168,7 @@ public class UserInterface {
 					searchVG(input, vgByTitle);
 					break;
 				case "4":
-					//check if they don't have any orders, else
-					System.out.println("\n[Viewing Order(s) Submenu]");
-					System.out.println("Which would you like to view?\n\n"
-							+ "U: My Unshipped Orders\n"
-							+ "S: My Shipped Orders\n");
-					System.out.print("Enter your choice: "); //TODO: extra add while loop
-					ans = input.nextLine();
-					if (ans.equalsIgnoreCase("U")) {
-						System.out.println("\n\t[" + currentC.getUsername()
-								+ "'s Unshipped Orders]\n");
-						currentC.viewUnshippedOrders();
-						//TODO: EXTRA: will call a future cust method that iterates and just prints
-						//the toString for the selected video game or by matching the title
-						//TODO: EXTRA: Remove video game from unshippedorderlist
-						//this is essentially offering refunds
-						//System.out.println("Would you like a refund on an unshipped video game? 
-						//+ (Y/N)");
-					} else if (ans.equalsIgnoreCase("S")) { // for typos
-						System.out.println("\n\t[" + currentC.getUsername()
-								+ "'s Shipped Orders]\n");
-						currentC.viewShippedOrders();
-					} else {
-						System.out.println(
-								"Invalid Input, Please enter only U or S next time!");
-					}
+					viewOrders(input);
 					break;
 				case "5": //TODO: this works but requires to enter for some reason, buffer issue?
 					System.out.println("\nWould you like to sign out?\n");
@@ -310,9 +285,7 @@ public class UserInterface {
 		}
 	}
     public static void placeOrder(Scanner input, BST<VideoGame> vgByTitle) {
-    	TitleComparator tc = new TitleComparator(); //TODO: pass in TC?
-    	//Long cTimestamp = null;
-    	//int uShipSpeed = 1; //TODO: need to figure out how to get timestamp, ship speed
+    	//TODO: (Nigel) should rewrite this to just create the order and call the place order method
     	List<VideoGame> unshippedVG = new List<>();
     	System.out.println("Enter the case sensitive title of the video game you would like to buy: ");
 		title = input.nextLine();
@@ -326,16 +299,25 @@ public class UserInterface {
 		}
     }
     
-    public static void viewSC(Scanner input, Customer currentC) {
-    	//TODO: EXTRA: will use for shopping cart instead
-		String viewChoice;
-		System.out.println("1 to view unshipped orders | 2 to view shipped orders");
-		viewChoice = input.nextLine();
-		if (viewChoice.equals("1")) {
-			// System.out.println(customer.getShipped); no getter for shipped or
-			// unshipped list
+    public static void viewOrders(Scanner input) {
+		String ans = "";
+		System.out.println("\n[Viewing Order(s) Submenu]");
+		System.out.println("Which would you like to view?\n\n"
+				+ "U: My Unshipped Orders\n"
+				+ "S: My Shipped Orders\n");
+		System.out.print("Enter your choice: "); //TODO: extra add while loop
+		ans = input.nextLine();
+		if (ans.equalsIgnoreCase("U")) {
+			System.out.println("\n\t[" + currentC.getUsername()
+					+ "'s Unshipped Orders]\n");
+			currentC.viewUnshippedOrders();
+		} else if (ans.equalsIgnoreCase("S")) { // for typos
+			System.out.println("\n\t[" + currentC.getUsername()
+					+ "'s Shipped Orders]\n");
+			currentC.viewShippedOrders();
 		} else {
-
+			System.out.println(
+					"Invalid Input, Please enter only U or S next time!");
 		}
 	}
     
@@ -437,10 +419,9 @@ public class UserInterface {
 	public static void fileToCust(Scanner input,
 			HashTable<Customer> custHT, HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
 			TitleComparator tc) throws FileNotFoundException {
-		//TODO: add booleans for the amount of orders they have?
 		String address;
 		int numGames, uShipSpeed = 0, sShipSpeed = 0, uNumOrders, sNumOrders;
-		long uTimestamp = 0, sTimestamp = 0;
+		String date; // for orders
     	File file = new File(custFile);
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
@@ -452,8 +433,8 @@ public class UserInterface {
 			address = input.nextLine();
 			city = input.nextLine();
 			state = input.nextLine();
-			zip = input.nextInt();
-			List<VideoGame> unshippedVG = new List<>();
+			zip = input.nextInt(); // TODO: this commented out section needs to be reworked for the order format we have
+/*			List<VideoGame> unshippedVG = new List<>();
 			List<VideoGame> shippedVG = new List<>();
 				numGames = input.nextInt();
 				//System.out.println(numGames);
@@ -483,8 +464,7 @@ public class UserInterface {
 				if (input.hasNextLine()) {
 					input.nextLine();
 					input.nextLine();
-				}
-			
+				}*/
 			Customer newC = new Customer(username, fName, lName, email, pw,
 					address, city, state, zip);
 /*			Order unshippedOrder = new Order(newC, uTimestamp, unshippedVG, uShipSpeed, false);
@@ -494,7 +474,6 @@ public class UserInterface {
 			custHT.insert(newC, emailPWKey);
 			custByName.insert(newC, fullNameKey);*/
 		}
-		
 		input.close();
     }
 
@@ -549,16 +528,9 @@ public class UserInterface {
 		input.close();
 	}
 
-    public static void fileToOrders(Scanner input, Heap<Order> orderHeap) {
-    	//do this after order is finished
-    }
-
-	public static void customerToFile(HashTable<Customer> customers) {
-
+	public static void customerToFile(HashTable<Customer> customers) throws IOException {
+		FileWriter myWriter = new FileWriter("customers.txt");
+		myWriter.write(customers.toString());
+		myWriter.close();
 	}
-
-    public static void ordersToFile(Heap<Order> orderHeap) {
-
-	}
-
 }

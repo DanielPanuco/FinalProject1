@@ -97,7 +97,7 @@ public class Heap<T> {
         heapSize--;
         heap.remove(index);
         for (int i = index; i >= 1; i--) { // start at floor(n/2); we can ignore leaf nodes
-            heapify(i); //TODO: ask in office hours if we can use buildHeap
+            heapify(i);
         }
     }
 

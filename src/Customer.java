@@ -7,18 +7,11 @@
 import java.text.DecimalFormat;
 
 public class Customer extends User {
-	//TODO: Are we @Overriding equals? If not it shouldn't be
-	//in the abstract user parent class
 	private String address, city, state, username;
 	private int zip;
-	//private double card; //credit card/debit card
 	private List<Order> unshippedOrders, shippedOrders;
 	//TODO: might add getters to move placeOrders method to Employee class
 	DecimalFormat df = new DecimalFormat("$###,##0.00");
-	
-	Customer() { //TODO: ask prof parrish if default construct is necessary
-
-	}
 
 	public Customer(String email, String password) {
 		super(email, password);
@@ -37,7 +30,7 @@ public class Customer extends User {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.unshippedOrders = new List<>(); //TODO: are we using these lists?
+		this.unshippedOrders = new List<>();
 		this.shippedOrders = new List<>();
 	}
 	
@@ -120,7 +113,6 @@ public class Customer extends User {
 		double totalP = 0;
 		String divider = "---------------------------------------------------------";
 		String t2 = "\t\t", t3 = "\t\t\t";
-		//TODO: Can I make these be member var b/c I use them more than once
 		if (unshippedOrders.isEmpty()) {
 			System.out.println("You don't have any unshipped orders!");
 		} else {
