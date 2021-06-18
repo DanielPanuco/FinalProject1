@@ -5,6 +5,9 @@
  */
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -19,6 +22,7 @@ public class UserInterface {
 	public static Employee currentEmp = null;
 	public static final TitleComparator tc = new TitleComparator();
 	public static final DateComparator dc = new DateComparator();
+	public static final OrderComparator oc = new OrderComparator();
 	//TODO: maybe change to videoGames.txt, once we decide on a String txt
 	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
@@ -31,13 +35,13 @@ public class UserInterface {
         HashTable<Employee> empHT = new HashTable<>(empSize * 2);
         BST<VideoGame> vgByTitle = new BST<>();
         BST<VideoGame> vgByDate = new BST<>();
-
-        Heap<Order> priorityQueue; // TODO: going to create object when we also read in customers
-
+		ArrayList<Order> tempOrderAl = new ArrayList<>();
+		Heap<Order> priorityQueue = new Heap<>(tempOrderAl, oc);
         Scanner input = new Scanner(System.in);
+
 		try {
-			fileToVG(input, vgByTitle, vgByDate, tc, dc);
-			fileToCust(input, custHT, custByName, vgByTitle, tc);
+			fileToVG(input, vgByTitle, vgByDate);
+			fileToCust(input, custHT, custByName, vgByTitle, priorityQueue);
 			fileToEmp(input, empHT);
 			//fileToOrders(input, orderHeap);
 		} catch (FileNotFoundException e) {
@@ -59,7 +63,7 @@ public class UserInterface {
         if (userType == 1) {
             custInterface(input, custHT, custByName, vgByTitle, vgByDate);
         } else {
-            empInterface(input, vgByDate, vgByDate, custHT, custByName, empHT);
+            empInterface(input, vgByDate, vgByDate, custHT, custByName, empHT, priorityQueue);
         }
     }
     
@@ -218,7 +222,7 @@ public class UserInterface {
 	  
 		public static void empInterface(Scanner input, BST<VideoGame> vgByTitle,
 				BST<VideoGame> vgByDate, HashTable<Customer> custHT,
-				HashTable<Customer> custByName, HashTable<Employee> empHT) {
+				HashTable<Customer> custByName, HashTable<Employee> empHT, Heap<Order> priorityQueue) {
 		String choice = "", ans; // TODO: EXTRA: access cust email, if title = val/gen imp,
 							// then print out f2p games with seperate for loop
 		input.nextLine(); // clear buffer from reading an Int
@@ -229,7 +233,7 @@ public class UserInterface {
 			choice = input.nextLine();
 			switch (choice.toUpperCase()) {
 				case "1":
-					//View Orders by Priority
+					viewPriorityQueue(input, priorityQueue);
 					break;
 				case "2":
 					System.out.println(custHT); //Display unsorted customer information
@@ -246,10 +250,10 @@ public class UserInterface {
 					listVG(input, vgByTitle, vgByDate);
 					break;
 				case "6":
-					addVG(input, vgByTitle, vgByDate, tc, dc);
+					addVG(input, vgByTitle, vgByDate);
 					break;
 				case "7":
-					removeVG(input, vgByTitle, vgByDate, tc, dc);
+					removeVG(input, vgByTitle, vgByDate);
 					break;
 				case "8":
 					System.out.println("\nWould you like to sign out?\n");
@@ -322,7 +326,7 @@ public class UserInterface {
 	}
     
     public static void shipOrder() {
-    	//emp calls this, based on heap
+    	//emp calls this, based on heap //TODO: (Mario or Nigel) write the shipOrder() method
     	//remove this from the user? remove vg
     }
     
@@ -366,7 +370,7 @@ public class UserInterface {
 	}
     
 	public static void addVG(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate, TitleComparator tc, DateComparator dc) {
+			BST<VideoGame> vgByDate) {
     	System.out.print("Please type in the Video Game you want to add: ");
 		title = input.nextLine();
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
@@ -379,7 +383,7 @@ public class UserInterface {
 	}
 
 	public static void removeVG(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate, TitleComparator tc, DateComparator dc) {
+			BST<VideoGame> vgByDate) {
 		System.out.print("Please type in the Video Game you want to remove: ");
 		title = input.nextLine();
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
@@ -417,8 +421,7 @@ public class UserInterface {
     }
 
 	public static void fileToCust(Scanner input,
-			HashTable<Customer> custHT, HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
-			TitleComparator tc) throws FileNotFoundException {
+			HashTable<Customer> custHT, HashTable<Customer> custByName, BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) throws FileNotFoundException {
 		String address;
 		int numGames, uShipSpeed = 0, sShipSpeed = 0, uNumOrders, sNumOrders;
 		String date; // for orders
@@ -473,6 +476,7 @@ public class UserInterface {
 			newC.placeShippedOrder(shippedOrder);
 			custHT.insert(newC, emailPWKey);
 			custByName.insert(newC, fullNameKey);*/
+			ArrayList<Order> tempOrder = new ArrayList<>();
 		}
 		input.close();
     }
@@ -499,7 +503,7 @@ public class UserInterface {
     }
 
 	public static void fileToVG(Scanner input, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate, TitleComparator tc, DateComparator dc)
+			BST<VideoGame> vgByDate)
 			throws FileNotFoundException {
 		String dev, genre, ESRB, pform;
 		double price;
@@ -526,6 +530,14 @@ public class UserInterface {
 			vgByDate.insert(newVG, dc);
 		}
 		input.close();
+	}
+
+	public static void viewPriorityQueue(Scanner input, Heap<Order> priorityQueue) { //TODO viewPriorityQueue needs testing
+		ArrayList<Order> tempOrder = priorityQueue.sort();
+		System.out.println("Printing orders in order of priority: \n\n");
+		for (int i = tempOrder.size() - 1; i > 0; i--) {
+			System.out.println(tempOrder.get(i));
+		}
 	}
 
 	public static void customerToFile(HashTable<Customer> customers) throws IOException {
