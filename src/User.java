@@ -4,31 +4,27 @@
  * CIS 22C, Final Project
  */
 
-abstract class User {
+public abstract class User {
     
 	private String firstName;
     private String lastName;
     private String email;
     private String password;
     
-     public User() {
-
-    }
-    
-    public User(String email, String password) {
+    User(String email, String password) {
     	this.email = email;
     	this.password = password;
     	this.firstName = "firstName unknown";
         this.lastName = "lastName unknown";
     }
     
-    public User(String firstName, String lastName, String email) {
+    User(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
     
-    public User(String firstName, String lastName, String email, String password) {
+    User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -66,11 +62,6 @@ abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
-   
-    
-    public static User login(String email, String password, HashTable<User> users) {
-		return null;
-	}
     
     public boolean passwordMatch(String anotherPassword) { 
 		return password.equals(anotherPassword); 

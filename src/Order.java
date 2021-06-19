@@ -42,11 +42,11 @@ public class Order {
         this.customer = customer;
     }
 
-    public String getDateS() {
+    public String getCurrentDate() {
         return currentDate;
     }
     
-    public String getTimeS() {
+    public String getCurrentTime() {
         return currentTime;
     }
 

@@ -7,10 +7,10 @@
 import java.text.DecimalFormat;
 
 public class Customer extends User {
-	private String address, city, state, username, shipDate;
+	private String address, city, state, username;
 	private int zip;
 	private List<Order> unshippedOrders, shippedOrders;
-	//TODO: might add getters to move placeOrders method to Employee class
+
 	DecimalFormat df = new DecimalFormat("$###,##0.00");
 
 	public Customer(String email, String password) {
@@ -50,14 +50,14 @@ public class Customer extends User {
 	public Customer(String username, String firstName, String lastName, String email, String password, 
 			String address, String city, String state, int zip,
 			List<Order> unshippedOrders, List<Order> shippedOrders) {
-		//call this one when the customers do have both shipped and unshipped orders
+		//TODO: Are we using this? if not delete it
 		super(firstName, lastName, email, password);
 		this.username = username;
 		this.address = address;
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.unshippedOrders = unshippedOrders; //we're actually using this constructor for cust w/orders
+		this.unshippedOrders = unshippedOrders; 
 		this.shippedOrders = shippedOrders; //addorder or setter if we don't use this
 	}
 	
@@ -164,7 +164,6 @@ public class Customer extends User {
 		}
 	}
 	
-
 	@Override public String toString() {
 		String result = username + "\n"
 				+ super.toString()
@@ -179,5 +178,4 @@ public class Customer extends User {
 		return result;
 	}
 
-	
 }
