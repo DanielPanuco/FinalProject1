@@ -17,9 +17,10 @@ public class Order {
 	private List<VideoGame> orderContents;
 	private boolean shippingStatus;
 	private long priority;
+	private double orderPrice;
 
 	public Order(Customer customer, List<VideoGame> orderContents,
-			int shippingSpeed, boolean shippingStatus) {
+			int shippingSpeed, boolean shippingStatus, double orderPrice) {
 		Calendar rightNow = Calendar.getInstance();
 		DecimalFormat df = new DecimalFormat("00");
 		this.currentDate = "" + rightNow.get(Calendar.MONTH) + "/"
@@ -32,6 +33,7 @@ public class Order {
 		this.shippingSpeed = shippingSpeed;
 		this.priority = (System.currentTimeMillis() - (shippingSpeed * 86400000));
 		this.shippingStatus = shippingStatus;
+		this.orderPrice = orderPrice;
 	}
 
     public Customer getCustomer() {
@@ -67,6 +69,10 @@ public class Order {
         this.orderContents = orderContents;
     }
 
+    public double getOrderPrice() {
+    	return orderPrice;
+    }
+    
     public int getShippingSpeed() {
         return shippingSpeed;
     }
