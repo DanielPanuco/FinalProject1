@@ -18,7 +18,7 @@ public class Order {
 	private boolean shippingStatus;
 	private long priority;
 
-	public Order(Customer customer, String currentDate, List<VideoGame> orderContents,
+	public Order(Customer customer, List<VideoGame> orderContents,
 			int shippingSpeed, boolean shippingStatus) {
 		Calendar rightNow = Calendar.getInstance();
 		DecimalFormat df = new DecimalFormat("00");
