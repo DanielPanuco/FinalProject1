@@ -53,6 +53,7 @@ public class UserInterface {
         //System.out.println(custHT); //test printing
         //System.out.println(custByName);
         //System.out.println(empHT);
+		//viewPriorityQueue(priorityQueue);
 		input = new Scanner(System.in);
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
         //System.out.println("Please note that we don't offer refunds after you place your orders!");
@@ -440,24 +441,24 @@ public class UserInterface {
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
 			username = input.nextLine();
-			//System.out.println(username);
+			System.out.println("username: " + username);
 			fName = input.nextLine();
-			//System.out.println(fName);
+			System.out.println("fname: " + fName);
 			lName = input.nextLine();
-			//System.out.println(lName);
+			System.out.println("lname: " + lName);
 			email = input.nextLine();
-			//System.out.println(email);
+			System.out.println("email: "+ email);
 			pw = input.nextLine();
-			//System.out.println(pw);
+			System.out.println("pw: " + pw);
 			address = input.nextLine();
-			//System.out.println(address);
+			System.out.println("add: " + address);
 			city = input.nextLine();
-			//System.out.println(city);
+			System.out.println("city: " + city);
 			state = input.nextLine();
-			//System.out.println(state);
+			System.out.println("state: " + state);
 			zip = input.nextInt();
-			//System.out.println(zip);
-			if(input.hasNextLine()){
+			System.out.println("zip: " + zip);
+			if (input.hasNextLine()) {
 				input.nextLine();
 			}
 			Customer newC = new Customer(username, fName, lName, email, pw,
@@ -466,19 +467,19 @@ public class UserInterface {
 			List<VideoGame> shippedVG = new List<>();
 			
 			uNumOrders = input.nextInt();
-			System.out.println(uNumOrders);
+			System.out.println("Unum Orders:" + uNumOrders + "\n");
 			for (int i = 0; i < uNumOrders; i++) {
 				uShipSpeed = input.nextInt();
-				//System.out.println(uShipSpeed);
+				System.out.println("U ship speed:" + uShipSpeed + "\n");
 				//boolean would be here
 				numGames = input.nextInt();
-				//System.out.println(numGames);
+				System.out.println("num Games:" + numGames + "\n");
 				input.nextLine();
 				orderDate = input.nextLine();
-				//System.out.println(orderDate);
+				System.out.println("Date" + orderDate);
 				for (int j = 0; j < numGames; j++) {
 					title = input.nextLine();
-					//System.out.println(title);
+					System.out.println("Title " + (j+1) + ":" + title + "\n");
 					VideoGame tempVG = new VideoGame(title);
 					tempVG = vgByTitle.search(tempVG, tc);
 					unshippedVG.addLast(tempVG);
@@ -487,19 +488,20 @@ public class UserInterface {
 			}
 			Order unShippedOrder = new Order(newC, orderDate, unshippedVG, uShipSpeed, false);
 			sNumOrders = input.nextInt();
+			System.out.println("Snum Orders:" + sNumOrders + "\n");
 			input.nextLine();
 			for (int i = 0; i < sNumOrders; i++) {
 				sShipSpeed = input.nextInt();
-				//System.out.println(sShipSpeed);
+				System.out.println("U ship speed:" + uShipSpeed + "\n");
 				//boolean would be here
 				numGames = input.nextInt();
-				//System.out.println(numGames);
+				System.out.println("num Games:" + numGames + "\n");
 				input.nextLine();
 				orderDate = input.nextLine();
-				//System.out.println(orderDate);
+				System.out.println("Date" + orderDate);
 				for (int j = 0; j < numGames; j++) {
 					title = input.nextLine();
-					//System.out.println(title);
+					System.out.println("Title " + j + ":" + title + "\n");
 					VideoGame tempVG = new VideoGame(title);
 					tempVG = vgByTitle.search(tempVG, tc);
 					unshippedVG.addLast(tempVG);
@@ -518,7 +520,6 @@ public class UserInterface {
 				input.nextLine();
 			}
 		}
-			System.out.println(priorityQueue);
 	}
 		input.close();
 }
@@ -578,13 +579,13 @@ public class UserInterface {
 		ArrayList<Order> tempOrder = priorityQueue.sort();
 		System.out.println("Printing orders in order of priority: \n\n");
 		for (int i = tempOrder.size() - 1; i > 0; i--) {
-			System.out.println(tempOrder.get(i));
+			System.out.println("Temp Order " + i + ": " + tempOrder.get(i));
 		}
 	}
 
-	public static void customerToFile(HashTable<Customer> customers) throws IOException {
+	public static void customerToFile(HashTable<Customer> custHT) throws IOException {
 		FileWriter myWriter = new FileWriter(custFile);
-		myWriter.write(customers.toString());
+		myWriter.write(custHT.toString());
 		myWriter.close();
 	}
 }
