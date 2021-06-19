@@ -21,7 +21,6 @@ public class Employee extends User {
 	public Employee(String firstName, String lastName, 
 			String email, String password, int accountNum) {
 		super(firstName, lastName, email, password);
-		this.setAccountNum(accountNum);
 	}
 	
 	public static Customer searchCustomer(String firstName,

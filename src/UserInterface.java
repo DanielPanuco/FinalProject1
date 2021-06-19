@@ -5,9 +5,9 @@
  */
 
 import java.io.*;
-import java.lang.reflect.Array; //TODO: unused?
+import java.lang.reflect.Array; //TODO: unused
 import java.util.ArrayList;
-import java.util.PriorityQueue; //TODO: unused?
+import java.util.PriorityQueue; //TODO: unused
 import java.util.Scanner;
 
 public class UserInterface {
@@ -37,14 +37,14 @@ public class UserInterface {
         BST<VideoGame> vgByTitle = new BST<>();
         BST<VideoGame> vgByDate = new BST<>();
 		ArrayList<Order> tempOrderAl = new ArrayList<>();
+		tempOrderAl.add(null);
 		Heap<Order> priorityQueue = new Heap<>(tempOrderAl, oc);
         input = new Scanner(System.in);
 
 		try {
 			fileToVG(vgByTitle, vgByDate);
-			fileToCust(custHT, custByName, vgByTitle, priorityQueue);
+			fileToCustandPQ(custHT, custByName, vgByTitle, priorityQueue);
 			fileToEmp(empHT);
-			//fileToOrders(input, orderHeap);
 		} catch (FileNotFoundException e) {
 			System.out.println("File(s) not found, please make sure it is in the project"
 					+ "folder and rereun the program.");
@@ -421,65 +421,97 @@ public class UserInterface {
                 + "X. Exit\n"); //TODO: finalize output
     }
 
-	public static void fileToCust(HashTable<Customer> custHT, HashTable<Customer> custByName, BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) throws FileNotFoundException {
+	public static void fileToCustandPQ(HashTable<Customer> custHT,
+			HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
+			Heap<Order> priorityQueue) throws FileNotFoundException {
 		String address;
-		int numGames, uShipSpeed = 0, sShipSpeed = 0, uNumOrders, sNumOrders;
-		String date; // for orders
+		int numGames, uNumOrders, sNumOrders = 0, uShipSpeed = 0, sShipSpeed = 0;
+		String orderDate = ""; // for orders
     	File file = new File(custFile);
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
 			username = input.nextLine();
+			System.out.println(username);
 			fName = input.nextLine();
+			System.out.println(fName);
 			lName = input.nextLine();
+			System.out.println(lName);
 			email = input.nextLine();
+			System.out.println(email);
 			pw = input.nextLine();
+			System.out.println(pw);
 			address = input.nextLine();
+			System.out.println(address);
 			city = input.nextLine();
+			System.out.println(city);
 			state = input.nextLine();
-			zip = input.nextInt(); // TODO: this commented out section needs to be reworked for the order format we have
-/*			List<VideoGame> unshippedVG = new List<>();
-			List<VideoGame> shippedVG = new List<>();
-				numGames = input.nextInt();
-				//System.out.println(numGames);
+			System.out.println(state);
+			zip = input.nextInt();
+			System.out.println(zip);
+			if(input.hasNextLine()){
 				input.nextLine();
+			}
+			Customer newC = new Customer(username, fName, lName, email, pw,
+					address, city, state, zip);
+			List<VideoGame> unshippedVG = new List<>();
+			List<VideoGame> shippedVG = new List<>();
+			
+			uNumOrders = input.nextInt();
+			System.out.println(uNumOrders);
+			for (int i = 0; i < uNumOrders; i++) {
+				uShipSpeed = input.nextInt();
+				System.out.println(uShipSpeed);
+				//boolean would be here
+				numGames = input.nextInt();
+				System.out.println(numGames);
+				input.nextLine();
+				orderDate = input.nextLine();
+				System.out.println(orderDate);
 				for (int j = 0; j < numGames; j++) {
 					title = input.nextLine();
+					System.out.println(title);
 					VideoGame tempVG = new VideoGame(title);
 					tempVG = vgByTitle.search(tempVG, tc);
 					unshippedVG.addLast(tempVG);
 				}
-				uTimestamp = input.nextLong();
-				//System.out.println(uTimestamp);
-				uShipSpeed = input.nextInt();
-				//System.out.println(uShipSpeed);
+				
+			}
+			Order unShippedOrder = new Order(newC, orderDate, unshippedVG, uShipSpeed, false);
+			sNumOrders = input.nextInt();
+			input.nextLine();
+			for (int i = 0; i < sNumOrders; i++) {
+				sShipSpeed = input.nextInt();
+				System.out.println(sShipSpeed);
+				//boolean would be here
 				numGames = input.nextInt();
+				System.out.println(numGames);
 				input.nextLine();
+				orderDate = input.nextLine();
+				System.out.println(orderDate);
 				for (int j = 0; j < numGames; j++) {
 					title = input.nextLine();
-					//System.out.println("title: " +title);
+					System.out.println(title);
 					VideoGame tempVG = new VideoGame(title);
 					tempVG = vgByTitle.search(tempVG, tc);
-					shippedVG.addLast(tempVG);
+					unshippedVG.addLast(tempVG);
 				}
-				sTimestamp = input.nextLong();
-				input.nextLine();
-				sShipSpeed = input.nextInt();
-				if (input.hasNextLine()) {
-					input.nextLine();
-					input.nextLine();
-				}*/
-			Customer newC = new Customer(username, fName, lName, email, pw,
-					address, city, state, zip);
-/*			Order unshippedOrder = new Order(newC, uTimestamp, unshippedVG, uShipSpeed, false);
-			Order shippedOrder = new Order(newC, sTimestamp, shippedVG, sShipSpeed, true);
-			newC.placeUnshippedOrder(unshippedOrder);
+				
+			Order shippedOrder = new Order(newC, orderDate, shippedVG, sShipSpeed, true);
+			newC.placeUnshippedOrder(unShippedOrder);
 			newC.placeShippedOrder(shippedOrder);
 			custHT.insert(newC, emailPWKey);
-			custByName.insert(newC, fullNameKey);*/
+			custByName.insert(newC, fullNameKey);
 			ArrayList<Order> tempOrder = new ArrayList<>();
+			priorityQueue.insert(unShippedOrder);
+			priorityQueue.insert(shippedOrder);
+			
+			if (input.hasNextLine()) {
+				input.nextLine();
+			}
 		}
-		input.close();
-    }
+			input.close();
+	}
+}
 
 	public static void fileToEmp(HashTable<Employee> empHT)
 			throws FileNotFoundException {
@@ -541,7 +573,7 @@ public class UserInterface {
 	}
 
 	public static void customerToFile(HashTable<Customer> customers) throws IOException {
-		FileWriter myWriter = new FileWriter("customers.txt");
+		FileWriter myWriter = new FileWriter(custFile);
 		myWriter.write(customers.toString());
 		myWriter.close();
 	}

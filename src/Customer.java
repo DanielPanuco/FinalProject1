@@ -7,7 +7,7 @@
 import java.text.DecimalFormat;
 
 public class Customer extends User {
-	private String address, city, state, username;
+	private String address, city, state, username, shipDate;
 	private int zip;
 	private List<Order> unshippedOrders, shippedOrders;
 	//TODO: might add getters to move placeOrders method to Employee class
@@ -163,6 +163,7 @@ public class Customer extends User {
 			}
 		}
 	}
+	
 
 	@Override public String toString() {
 		String result = username + "\n"
@@ -177,4 +178,6 @@ public class Customer extends User {
     		    + shippedOrders;
 		return result;
 	}
+
+	
 }

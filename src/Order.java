@@ -10,27 +10,29 @@ import java.text.DecimalFormat;
 
 public class Order {
 
-    private Customer customer;
-    private int shippingSpeed;
-    private int date;
-    private String dateS;
-    private String timeS;
-    private List<VideoGame> orderContents;
-    private boolean shippingStatus;
-    private long priority;
+	private Customer customer;
+	private int shippingSpeed;
+	private String currentDate;
+	private String currentTime;
+	private List<VideoGame> orderContents;
+	private boolean shippingStatus;
+	private long priority;
 
-    public Order(Customer customer, int date, List<VideoGame> orderContents, int shippingSpeed, boolean shippingStatus) {
-        Calendar rightNow = Calendar.getInstance();
-        DecimalFormat ft = new DecimalFormat("00");
-        this.dateS = "" + rightNow.get(Calendar.MONTH) + "/" + rightNow.get(Calendar.DATE) + "/" + rightNow.get(Calendar.YEAR);
-        this.timeS = "" + rightNow.get(Calendar.HOUR) +  ":" + ft.format(rightNow.get(Calendar.MINUTE));
-        this.customer = customer;
-        this.date = date;
-        this.orderContents = orderContents;
-        this.shippingSpeed = shippingSpeed;
-        this.priority = (System.currentTimeMillis() - (shippingSpeed * 86400000));
-        this.shippingStatus = shippingStatus;
-    }
+	public Order(Customer customer, String currentDate, List<VideoGame> orderContents,
+			int shippingSpeed, boolean shippingStatus) {
+		Calendar rightNow = Calendar.getInstance();
+		DecimalFormat ft = new DecimalFormat("00");
+		this.currentDate = "" + rightNow.get(Calendar.MONTH) + "/"
+						+ rightNow.get(Calendar.DATE) + "/"
+						+ rightNow.get(Calendar.YEAR);
+		this.currentTime = "" + rightNow.get(Calendar.HOUR) + ":"
+						+ ft.format(rightNow.get(Calendar.MINUTE));
+		this.customer = customer;
+		this.orderContents = orderContents;
+		this.shippingSpeed = shippingSpeed;
+		this.priority = (System.currentTimeMillis() - (shippingSpeed * 86400000));
+		this.shippingStatus = shippingStatus;
+	}
 
     public Customer getCustomer() {
         return customer;
@@ -40,21 +42,22 @@ public class Order {
         this.customer = customer;
     }
 
-    public long getDate() {
-        return date;
-    }
-    
     public String getDateS() {
-        return dateS;
+        return currentDate;
     }
     
     public String getTimeS() {
-        return timeS;
+        return currentTime;
     }
 
-    public void setDate(int date) {
-        this.date = date;
-    }
+    public void setCurrentDate(int month, int date, int year) {
+       this.currentDate = "" + month + "/" + date + "/" + year;
+   }
+
+    public void setCurrentTime(int hour, int minute) {
+           DecimalFormat ft = new DecimalFormat("00");
+           this.currentTime = "" + hour + ":" + ft.format(minute);
+  }
 
     public List<VideoGame> getOrderContents() {
         return orderContents;
@@ -92,8 +95,8 @@ public class Order {
     public String toString() { // return string in the format that we are writing out to the file
         String temp = "";
         temp += shippingSpeed + "\n";
-        temp += Boolean.toString(shippingStatus) + "\n";
-        temp += date + "\n";
+        //temp += Boolean.toString(shippingStatus) + "\n";
+        temp += currentDate;
         temp += priority + "\n";
         temp += orderContents.getLength() + "\n"; // Number of video games in the order
         orderContents.placeIterator();

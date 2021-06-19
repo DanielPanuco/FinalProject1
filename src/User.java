@@ -91,13 +91,12 @@ abstract class User {
          }
 	}
     
-    @Override public String toString() {
-		String result = firstName + "\n" 
-				+ lastName + "\n"
-				+ "Email: " + email + "\n";
+	@Override
+	public String toString() {
+		String result = firstName + "\n" + lastName + "\n" + email + "\n"
+				+ password + "\n";
 		return result;
 	}
-
 
     public int hashCode() {
         int key = 0;
