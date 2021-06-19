@@ -336,10 +336,22 @@ public class UserInterface {
 		}
 	}
     
-    public static void shipOrder() {
-    	//emp calls this, based on heap //TODO: (Mario or Nigel) write the shipOrder() method
-    	//remove this from the user? remove vg
-    }
+    public static void shipOrder(Heap<Order> priorityQueue) {
+		System.out.println("Shipping an order...");
+		Order temp = priorityQueue.getMax();
+		priorityQueue.remove(1);
+		List<VideoGame> tempVG = temp.getOrderContents();
+		System.out.println("Date ordered: " + temp.getCurrentDate());
+		System.out.println("Shipping speed: " + temp.getShippingSpeed());
+		tempVG.placeIterator();
+		while (!tempVG.offEnd()) {
+			tempVG.getIterator().printContent();
+		}
+		// System.out.println("Total price: " + );
+		currentC.removeUnshippedOrder(temp);
+		currentC.placeShippedOrder(temp);
+		System.out.println("Order has been shipped");
+	}
     
 	public static void searchVG(BST<VideoGame> vgByTitle) {
 		VideoGame searchVG;
@@ -587,5 +599,11 @@ public class UserInterface {
 		FileWriter myWriter = new FileWriter(custFile);
 		myWriter.write(custHT.toString());
 		myWriter.close();
+	}
+
+	public static void setVgFile(BST<VideoGame> vgByTitle) throws IOException {
+		FileWriter vgWriter = new FileWriter(vgFile);
+		vgWriter.write(vgByTitle.toString());
+		vgWriter.close();
 	}
 }

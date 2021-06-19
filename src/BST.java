@@ -360,13 +360,13 @@ public class BST<T> {
 		}
 	}
 	//TODO: extra mcRating: certain rating: add to al
-	//take in comparator == 0, al is just an an object (memory address)
-	private void inOrderTraversal(Node node) { //passing to an AL
-		if (node == null) { //in order traversal
+
+	private void inOrderTraversal(Node node) {
+		if (node == null) {
 			return;
 		} else {
 			inOrderPrint(node.left);
-			System.out.println(node.data); //al.add(node.data)
+			System.out.println(node.data);
 			inOrderPrint(node.right);
 		}
 	}

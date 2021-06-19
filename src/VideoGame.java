@@ -115,6 +115,11 @@ public class VideoGame {
     }
 
     //additional operations
+
+    public void printContent() {
+        System.out.println("Title: " + title);
+        System.out.println("Price: " + price);
+    }
     @Override public String toString() {
         DecimalFormat df = new DecimalFormat("##0.00");
         String dateStr = "" + releaseDate;

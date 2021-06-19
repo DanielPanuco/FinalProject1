@@ -108,7 +108,28 @@ public class Customer extends User {
     public void placeShippedOrder(Order order) {
         this.shippedOrders.addLast(order);
     }
-	
+
+	public void removeUnshippedOrder(Order order) {
+		unshippedOrders.placeIterator();
+		while (!unshippedOrders.offEnd()) {
+			if (unshippedOrders.getIterator().equals(order)) {
+				unshippedOrders.removeIterator();
+				return;
+			}
+			unshippedOrders.advanceIterator();
+		}
+	}
+
+	public void removeShippedOrder(Order order) {
+		shippedOrders.placeIterator();
+		while (!shippedOrders.offEnd()) {
+			if (shippedOrders.getIterator().equals(order)) {
+				shippedOrders.removeIterator();
+				return;
+			}
+			shippedOrders.advanceIterator();
+		}
+	}
 	public void viewUnshippedOrders() {
 		double totalP = 0;
 		String divider = "---------------------------------------------------------";
