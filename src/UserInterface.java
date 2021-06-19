@@ -498,7 +498,8 @@ public class UserInterface {
 				}
 				
 			}
-			Order unShippedOrder = new Order(newC, orderDate, unshippedVG, uShipSpeed, false);
+			//TODO: this isn't calling constructor with priority
+			//Order unShippedOrder = new Order(newC, orderDate, unshippedVG, uShipSpeed, false);
 			sNumOrders = input.nextInt();
 			System.out.println("Snum Orders:" + sNumOrders + "\n");
 			input.nextLine();
@@ -518,15 +519,16 @@ public class UserInterface {
 					tempVG = vgByTitle.search(tempVG, tc);
 					unshippedVG.addLast(tempVG);
 				}
-				
-			Order shippedOrder = new Order(newC, orderDate, shippedVG, sShipSpeed, true);
-			newC.placeUnshippedOrder(unShippedOrder);
+			//TODO: this isn't calling constructor with priority
+			//Order shippedOrder = new Order(newC, orderDate, shippedVG, sShipSpeed, true);
+			// this section has been commented out because the error in line 523 causes errors in the region
+/*			newC.placeUnshippedOrder(unShippedOrder);
 			newC.placeShippedOrder(shippedOrder);
 			custHT.insert(newC, emailPWKey);
 			custByName.insert(newC, fullNameKey);
 			ArrayList<Order> tempOrder = new ArrayList<>();
 			priorityQueue.insert(unShippedOrder);
-			priorityQueue.insert(shippedOrder);
+			priorityQueue.insert(shippedOrder);*/
 			
 			if (input.hasNextLine()) {
 				input.nextLine();
