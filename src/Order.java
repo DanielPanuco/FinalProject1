@@ -96,7 +96,7 @@ public class Order {
         String temp = "";
         temp += shippingSpeed + "\n";
         //temp += Boolean.toString(shippingStatus) + "\n";
-        temp += currentDate;
+        temp += currentDate + "\n";
         temp += priority + "\n";
         temp += orderContents.getLength() + "\n"; // Number of video games in the order
         orderContents.placeIterator();

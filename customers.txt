@@ -8,22 +8,17 @@ Chardon
 Ohio
 44024
 
-2
+1
 2
 2
 20210616
 Halo 3
 Valorant
-3
-1
-20210610
-Halo 5: Guardians
-343 Industries
 
 1
-1
-1
-20210618
+2
+2
+20210616
 Genshin Impact
 Valorant
 
@@ -41,15 +36,15 @@ Georgia
 2
 2
 20210616
-Zero Escape: Virtue's Last Reward
-Spike Chunsoft
+Halo 3
+Valorant
 
 1
 2
 2
 20210616
-Phoenix Wright: Ace Attorney - Dual Destinies
-Capcom
+Genshin Impact
+Valorant
 
 Nuse1973
 Craig
@@ -65,15 +60,15 @@ New Jersey
 2
 2
 20210616
-Dark Souls
-From Software
+Halo 3
+Valorant
 
 1
 2
 2
 20210616
-Animal Crossing: New Horizons
-Nintendo
+Genshin Impact
+Valorant
 
 Ners1943
 Aimee
@@ -89,15 +84,15 @@ California
 2
 2
 20210616
-The Witcher
-CD Projekt Red
+Halo 3
+Valorant
 
 1
 2
 2
 20210616
-Resident Evil Village
-Capcom
+Genshin Impact
+Valorant
 
 Halm1970
 Jimmy
@@ -113,12 +108,12 @@ Ohio
 2
 2
 20210616
-Halo Infinite
-343 Industries
+Halo 3
+Valorant
 
 1
 2
 2
 20210616
-Red Dead Redemption
-Rockstar Games
+Genshin Impact
+Valorant

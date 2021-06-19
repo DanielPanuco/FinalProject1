@@ -39,7 +39,7 @@ public class UserInterface {
 		ArrayList<Order> tempOrderAl = new ArrayList<>();
 		tempOrderAl.add(null);
 		Heap<Order> priorityQueue = new Heap<>(tempOrderAl, oc);
-        input = new Scanner(System.in);
+        
 
 		try {
 			fileToVG(vgByTitle, vgByDate);
@@ -53,6 +53,7 @@ public class UserInterface {
         //System.out.println(custHT); //test printing
         //System.out.println(custByName);
         //System.out.println(empHT);
+		input = new Scanner(System.in);
         System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
         //System.out.println("Please note that we don't offer refunds after you place your orders!");
         //maybe mention credit/debit card only
@@ -66,6 +67,13 @@ public class UserInterface {
         } else {
             empInterface(vgByDate, vgByDate, custHT, custByName, empHT, priorityQueue);
         }
+        
+        try {
+			customerToFile(custHT);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
 	public static void custAccSetup(HashTable<Customer> custHT,
@@ -432,23 +440,23 @@ public class UserInterface {
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
 			username = input.nextLine();
-			System.out.println(username);
+			//System.out.println(username);
 			fName = input.nextLine();
-			System.out.println(fName);
+			//System.out.println(fName);
 			lName = input.nextLine();
-			System.out.println(lName);
+			//System.out.println(lName);
 			email = input.nextLine();
-			System.out.println(email);
+			//System.out.println(email);
 			pw = input.nextLine();
-			System.out.println(pw);
+			//System.out.println(pw);
 			address = input.nextLine();
-			System.out.println(address);
+			//System.out.println(address);
 			city = input.nextLine();
-			System.out.println(city);
+			//System.out.println(city);
 			state = input.nextLine();
-			System.out.println(state);
+			//System.out.println(state);
 			zip = input.nextInt();
-			System.out.println(zip);
+			//System.out.println(zip);
 			if(input.hasNextLine()){
 				input.nextLine();
 			}
@@ -461,16 +469,16 @@ public class UserInterface {
 			System.out.println(uNumOrders);
 			for (int i = 0; i < uNumOrders; i++) {
 				uShipSpeed = input.nextInt();
-				System.out.println(uShipSpeed);
+				//System.out.println(uShipSpeed);
 				//boolean would be here
 				numGames = input.nextInt();
-				System.out.println(numGames);
+				//System.out.println(numGames);
 				input.nextLine();
 				orderDate = input.nextLine();
-				System.out.println(orderDate);
+				//System.out.println(orderDate);
 				for (int j = 0; j < numGames; j++) {
 					title = input.nextLine();
-					System.out.println(title);
+					//System.out.println(title);
 					VideoGame tempVG = new VideoGame(title);
 					tempVG = vgByTitle.search(tempVG, tc);
 					unshippedVG.addLast(tempVG);
@@ -482,16 +490,16 @@ public class UserInterface {
 			input.nextLine();
 			for (int i = 0; i < sNumOrders; i++) {
 				sShipSpeed = input.nextInt();
-				System.out.println(sShipSpeed);
+				//System.out.println(sShipSpeed);
 				//boolean would be here
 				numGames = input.nextInt();
-				System.out.println(numGames);
+				//System.out.println(numGames);
 				input.nextLine();
 				orderDate = input.nextLine();
-				System.out.println(orderDate);
+				//System.out.println(orderDate);
 				for (int j = 0; j < numGames; j++) {
 					title = input.nextLine();
-					System.out.println(title);
+					//System.out.println(title);
 					VideoGame tempVG = new VideoGame(title);
 					tempVG = vgByTitle.search(tempVG, tc);
 					unshippedVG.addLast(tempVG);
@@ -510,8 +518,9 @@ public class UserInterface {
 				input.nextLine();
 			}
 		}
-			input.close();
+			System.out.println(priorityQueue);
 	}
+		input.close();
 }
 
 	public static void fileToEmp(HashTable<Employee> empHT)
