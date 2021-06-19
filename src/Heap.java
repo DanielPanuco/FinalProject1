@@ -15,7 +15,7 @@ public class Heap<T> {
      * @param comparator determines organization
      * of heap based on priority
      */
-    public Heap(ArrayList<T> data, Comparator<T> comparator){
+    public Heap(ArrayList<T> data, Comparator<T> comparator) {
         heap = data;
         heapSize = data.size() - 1;
         this.comparator = comparator;
@@ -56,7 +56,7 @@ public class Heap<T> {
         }
         if (index != index_of_max) {
             T temp = heap.get(index_of_max);
-            heap.set(index_of_max,getElement(index));
+            heap.set(index_of_max, getElement(index));
             heap.set(index, temp);
             heapify(index_of_max);
         }

@@ -112,12 +112,6 @@ public class Order {
 //Should also contain a Comparator class with a compare method to determine priority
 class OrderComparator implements Comparator<Order> {
     public int compare(Order order1, Order order2) {
-        if (order1.getPriority() < order2.getPriority()) {
-            return 1;
-        } else if (order1.getPriority() > order2.getPriority()) {
-            return -1;
-        } else {
-            return 0;
-        }
+        return - Long.compare(order1.getPriority(), order2.getPriority());
     }
 }
