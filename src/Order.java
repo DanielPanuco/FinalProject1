@@ -6,33 +6,33 @@
 
 import java.util.Comparator;
 import java.util.Calendar;
+import java.text.DecimalFormat;
 
 public class Order {
+    private Customer customer;
+    private int shippingSpeed;
+    private String currentDate;
+    private List<VideoGame> orderContents;
+    private boolean shippingStatus;
+    private long priority;
+    private double orderPrice;
 
-	private Customer customer;
-	private int shippingSpeed;
-	private String currentDate;
-	private List<VideoGame> orderContents;
-	private boolean shippingStatus;
-	private long priority;
-	private double orderPrice;
+    public Order(Customer customer, List<VideoGame> orderContents,
+                 int shippingSpeed, boolean shippingStatus) {
+        Calendar rightNow = Calendar.getInstance();
+        this.currentDate = "" + rightNow.get(Calendar.MONTH) + "/"
+                + rightNow.get(Calendar.DATE) + "/"
+                + rightNow.get(Calendar.YEAR);
+        this.customer = customer;
+        this.orderContents = orderContents;
+        this.shippingSpeed = shippingSpeed;
+        this.priority = (System.currentTimeMillis() - (shippingSpeed * 86400000));
+        this.shippingStatus = shippingStatus;
+        this.orderPrice = calculateOrderPrice(orderContents, shippingSpeed);
+    }
 
-	public Order(Customer customer, List<VideoGame> orderContents,
-			int shippingSpeed, boolean shippingStatus, double orderPrice) {
-		Calendar rightNow = Calendar.getInstance();
-		this.currentDate = "" + rightNow.get(Calendar.MONTH) + "/"
-						+ rightNow.get(Calendar.DATE) + "/"
-						+ rightNow.get(Calendar.YEAR);
-		this.customer = customer;
-		this.orderContents = orderContents;
-		this.shippingSpeed = shippingSpeed;
-		this.priority = (System.currentTimeMillis() - (shippingSpeed * 86400000));
-		this.shippingStatus = shippingStatus;
-		this.orderPrice = orderPrice;
-	}
-	
-	public Order(Customer customer, String currentDate, List<VideoGame> orderContents,
-            int shippingSpeed, boolean shippingStatus, long priority) {
+    public Order(Customer customer, String currentDate, List<VideoGame> orderContents,
+                 int shippingSpeed, boolean shippingStatus, long priority) {
         this.currentDate = currentDate;
         this.customer = customer;
         this.orderContents = orderContents;
@@ -40,6 +40,50 @@ public class Order {
         this.priority = (System.currentTimeMillis() - (shippingSpeed * 86400000));
         this.shippingStatus = shippingStatus;
         this.priority = priority;
+        this.orderPrice = calculateOrderPrice(orderContents, shippingSpeed);
+    }
+
+    public double calculateOrderPrice(List<VideoGame> orderContents, int shippingSpeed) {
+        double orderPrice = 0;
+        orderContents.placeIterator();
+        for (int i = 0; i < orderContents.getLength(); i++) {
+            orderPrice += orderContents.getIterator().getPrice();
+        }
+        switch (shippingSpeed) {
+            case 5:
+                break;
+            case 2:
+                orderPrice += 7.95;
+                break;
+            case 1:
+                orderPrice += 14.95;
+                break;
+        }
+        orderPrice *= 1.0725;
+        return orderPrice;
+    }
+
+    public void displayPriceCalculation(List<VideoGame> orderContents, int shippingSpeed) {
+        DecimalFormat dc = new DecimalFormat("$###,###,##0.00");
+        double orderPrice = 0;
+        orderContents.placeIterator();
+        for (int i = 0; i < orderContents.getLength(); i++) {
+            orderPrice += orderContents.getIterator().getPrice();
+        }
+        System.out.println("Order subtotal: " + dc.format(orderPrice));
+        switch (shippingSpeed) {
+            case 5:
+                break;
+            case 2:
+                orderPrice += 7.95;
+                break;
+            case 1:
+                orderPrice += 14.95;
+                break;
+        }
+        System.out.println("Shipping total: " + dc.format(orderPrice));
+        orderPrice *= 1.0725;
+        System.out.println("Total after California sales tax: " + dc.format(orderPrice));
     }
 
     public Customer getCustomer() {
@@ -53,11 +97,11 @@ public class Order {
     public String getCurrentDate() {
         return currentDate;
     }
- 
+
 
     public void setCurrentDate(int month, int date, int year) {
-       this.currentDate = "" + month + "/" + date + "/" + year;
-   }
+        this.currentDate = "" + month + "/" + date + "/" + year;
+    }
 
     public List<VideoGame> getOrderContents() {
         return orderContents;
@@ -68,9 +112,9 @@ public class Order {
     }
 
     public double getOrderPrice() {
-    	return orderPrice;
+        return orderPrice;
     }
-    
+
     public int getShippingSpeed() {
         return shippingSpeed;
     }
