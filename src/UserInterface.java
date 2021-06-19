@@ -101,7 +101,7 @@ public class UserInterface {
     			pw = input.nextLine();
 				currentC = new Customer(username, fName, lName, email, pw, addr,
 						city, state, zip);
-				custHT.insert(currentC, emailPWKey);//custHT.insert(currentC, email + pw);
+				custHT.insert(currentC, emailPWKey);
 				custByName.insert(currentC, emailPWKey);
 				System.out.println(success);
 	        } else if (ans.equals("3")){
@@ -110,8 +110,7 @@ public class UserInterface {
 	    		System.out.print("Enter your password: ");
 	    		pw = input.nextLine();
 	    		Customer tempC = new Customer(email, pw);
-	    		if (!(custHT.contains(tempC, emailPWKey))) { //only works based on email and password
-	    			//one HT
+	    		if (!(custHT.contains(tempC, emailPWKey))) {
 					System.out.println("\nIt appears we don't have "
 							+ "your account on file...\n");
 	    			System.out.println(createAcc);
@@ -223,11 +222,13 @@ public class UserInterface {
 	  
 		public static void empInterface(BST<VideoGame> vgByTitle,
 				BST<VideoGame> vgByDate, HashTable<Customer> custHT,
-				HashTable<Customer> custByName, HashTable<Employee> empHT, Heap<Order> priorityQueue) {
-		String choice = "", ans; // TODO: EXTRA: access cust email, if title = val/gen imp,
-							// then print out f2p games with seperate for loop
-		input.nextLine(); // clear buffer from reading an Int
-		empLogin(empHT);
+				HashTable<Customer> custByName, HashTable<Employee> empHT,
+				Heap<Order> priorityQueue) {
+			String choice = "", ans; // TODO: EXTRA: access cust email, if title
+										// = val/gen imp,
+										// then print out f2p games with seperate for loop
+			input.nextLine(); // clear buffer from reading an Int
+			empLogin(empHT);
 		while (!choice.equalsIgnoreCase("X")) {
 			displayEmpMenu();
 			System.out.print("Enter your choice: ");
