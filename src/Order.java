@@ -21,12 +21,12 @@ public class Order {
 	public Order(Customer customer, String currentDate, List<VideoGame> orderContents,
 			int shippingSpeed, boolean shippingStatus) {
 		Calendar rightNow = Calendar.getInstance();
-		DecimalFormat ft = new DecimalFormat("00");
+		DecimalFormat df = new DecimalFormat("00");
 		this.currentDate = "" + rightNow.get(Calendar.MONTH) + "/"
 						+ rightNow.get(Calendar.DATE) + "/"
 						+ rightNow.get(Calendar.YEAR);
 		this.currentTime = "" + rightNow.get(Calendar.HOUR) + ":"
-						+ ft.format(rightNow.get(Calendar.MINUTE));
+						+ df.format(rightNow.get(Calendar.MINUTE));
 		this.customer = customer;
 		this.orderContents = orderContents;
 		this.shippingSpeed = shippingSpeed;
@@ -55,8 +55,8 @@ public class Order {
    }
 
     public void setCurrentTime(int hour, int minute) {
-           DecimalFormat ft = new DecimalFormat("00");
-           this.currentTime = "" + hour + ":" + ft.format(minute);
+           DecimalFormat df = new DecimalFormat("00");
+           this.currentTime = "" + hour + ":" + df.format(minute);
   }
 
     public List<VideoGame> getOrderContents() {
@@ -95,7 +95,7 @@ public class Order {
     public String toString() { // return string in the format that we are writing out to the file
         String temp = "";
         temp += shippingSpeed + "\n";
-        //temp += Boolean.toString(shippingStatus) + "\n";
+        //temp += Boolean.toString(shippingStatus) + "\n"; //TODO: Check if passing in boolean is OK
         temp += currentDate + "\n";
         temp += priority + "\n";
         temp += orderContents.getLength() + "\n"; // Number of video games in the order
