@@ -6,7 +6,6 @@
 
 import java.util.Comparator;
 import java.util.Calendar;
-import java.text.DecimalFormat;
 
 public class Order {
 
@@ -21,7 +20,6 @@ public class Order {
 	public Order(Customer customer, List<VideoGame> orderContents,
 			int shippingSpeed, boolean shippingStatus, double orderPrice) {
 		Calendar rightNow = Calendar.getInstance();
-		DecimalFormat df = new DecimalFormat("00");
 		this.currentDate = "" + rightNow.get(Calendar.MONTH) + "/"
 						+ rightNow.get(Calendar.DATE) + "/"
 						+ rightNow.get(Calendar.YEAR);
