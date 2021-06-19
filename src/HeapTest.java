@@ -91,26 +91,26 @@ public class HeapTest {
 
         List<VideoGame> tempVG3 = new List<>();
         tempVG3.addLast(new VideoGame("Halo CE", "Bungie", 2008107, 5.00, "Shooter", "M", 86, "Xbox"));
-        Order tempOrder4 = new Order(tempC, "202106177", tempVG, 2, false);
+        //Order tempOrder4 = new Order(tempC, "202106177", tempVG, 2, false);
         try {
             Thread.sleep(10);
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
-        Order tempOrder1 = new Order(tempC, "20210616", tempVG3, 2, false);
+        //Order tempOrder1 = new Order(tempC, "20210616", tempVG3, 2, false);
         try {
             Thread.sleep(10);
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
-        Order tempOrder2 = new Order(tempC, "20210616", tempVG2, 2, true);
+        //Order tempOrder2 = new Order(tempC, "20210616", tempVG2, 2, true);
 
         try {
             Thread.sleep(10);
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
-        Order tempOrder3 = new Order(tempC, "20210616", tempVG, 2, false);
+/*        Order tempOrder3 = new Order(tempC, "20210616", tempVG, 2, false);
 
         orderArrayList.add(null);
         orderArrayList.add(tempOrder2);
@@ -119,7 +119,7 @@ public class HeapTest {
         tempC.placeShippedOrder(tempOrder2);
         orderArrayList.add(tempOrder1);
         orderArrayList.add(tempOrder3);
-        orderArrayList.add(tempOrder4);
+        orderArrayList.add(tempOrder4);*/
 
         OrderComparator oc = new OrderComparator();
         Heap<Order> orderHeap = new Heap<>(orderArrayList, oc);

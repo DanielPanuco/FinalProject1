@@ -8,17 +8,23 @@ Chardon
 Ohio
 44024
 
+2
+2
+6/16/2021
+100
 1
-2
-2
-20210616
 Halo 3
+2
+6/16/2021
+70
+1
 Valorant
 
 1
 2
+6/16/2021
+60
 2
-20210616
 Genshin Impact
 Valorant
 
@@ -32,19 +38,9 @@ Atlanta
 Georgia
 30309
 
-1
-2
-2
-20210616
-Halo 3
-Valorant
+0
 
-1
-2
-2
-20210616
-Genshin Impact
-Valorant
+0
 
 Nuse1973
 Craig
@@ -56,19 +52,9 @@ Eatontown
 New Jersey
 7724
 
-1
-2
-2
-20210616
-Halo 3
-Valorant
+0
 
-1
-2
-2
-20210616
-Genshin Impact
-Valorant
+0
 
 Ners1943
 Aimee
@@ -80,19 +66,9 @@ Los Angeles
 California
 90017
 
-1
-2
-2
-20210616
-Halo 3
-Valorant
+0
 
-1
-2
-2
-20210616
-Genshin Impact
-Valorant
+0
 
 Halm1970
 Jimmy
@@ -104,16 +80,6 @@ Aurora
 Ohio
 44202
 
-1
-2
-2
-20210616
-Halo 3
-Valorant
+0
 
-1
-2
-2
-20210616
-Genshin Impact
-Valorant
+0

@@ -6,8 +6,10 @@
 
 import java.io.*;
 import java.lang.reflect.Array; //TODO: unused
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.PriorityQueue; //TODO: unused
+
 import java.util.Scanner;
 
 public class UserInterface {
@@ -15,8 +17,8 @@ public class UserInterface {
 			custFile = ("customers.txt"), empFile = ("employees.txt");
 	public static String fName, lName, email, addr, city, state, pw, title,
 						 username;
-	public static String fullNameKey = fName + lName;
-	public static String emailPWKey = email + pw; 
+	public static String fullNameKey;
+	public static String emailPWKey;
 	public static int zip;
 	public static Customer currentC = null;
 	public static Employee currentEmp = null;
@@ -101,6 +103,8 @@ public class UserInterface {
 				currentC = new Customer(fName, lName, email, addr,
 						city, state, zip);
 				System.out.println("\nYou have succesfully created an account!");
+				// TODO: you need to store the guest in the hashtable or else we can't output their orders to the file
+				// TODO: which means we need a password from them so we can add them to the customer hashtable
 	        } else if (ans.equals("2")) {
 				createAccount();
 				System.out.println(createAcc);
@@ -119,7 +123,10 @@ public class UserInterface {
 	    		System.out.print("Enter your password: ");
 	    		pw = input.nextLine();
 	    		Customer tempC = new Customer(email, pw);
-	    		if (!(custHT.contains(tempC, emailPWKey))) {
+				emailPWKey = email + pw;
+				fullNameKey = fName + lName;
+	    		boolean signinStatus = custHT.contains(tempC, emailPWKey);
+	    		if (!(signinStatus)) {
 					System.out.println("\nIt appears we don't have "
 							+ "your account on file...\n");
 	    			System.out.println(createAcc);
@@ -134,7 +141,7 @@ public class UserInterface {
 	    			custByName.insert(currentC, fullNameKey);
 					System.out.println(success);
 				} else {
-					currentC = custHT.get(currentC, emailPWKey);
+					currentC = custHT.get(tempC, emailPWKey);
 					System.out.println("\nWelcome back, " + currentC.getFirstName() + " "
 									+ currentC.getLastName() + "!\n");
 				}
@@ -255,7 +262,7 @@ public class UserInterface {
 					searchingCus(custByName);
 					break;
 				case "4":
-					//Ship an Order (Remove from Heap) 
+					shipOrder(priorityQueue);
 					break;
 				case "5":
 					listVG(vgByTitle, vgByDate);
@@ -371,26 +378,27 @@ public class UserInterface {
 
     public static void listVG(BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate) {
-    	//TODO: EXTRA: follow inOrderPrint traversal, pass in an AL
-    	//and print this AL to print like around 10ish games each time max or just less
     	String choice = "";
     	System.out.println("\nHow would you like to sort the"
-    						+ "avaliable video games?\n"
+    						+ " available video games?\n"
     						+ "1. By Title\n"
     						+ "2. By Release Date");
     	System.out.print("\nEnter your choice: ");
 		choice = input.nextLine();
 		while (!(choice.equals("1") || choice.equals("2"))) {
 			// TODO: Is this fixed now?
-			if (choice.equals("1")) {
-				vgByTitle.inOrderPrint();
-			} else if (choice.equals("2")) { // for typos
-				vgByDate.inOrderPrint();
-			} else {
-				System.out.println("Invalid Input, Please enter only 1 or 2!");
-			}
+			System.out.println("Wrong input\nEnter 1 to search by title | 2 to search by date: ");
+			choice = input.nextLine();
 		}
-	}
+		if (choice.equals("1")) {
+			vgByTitle.inOrderPrint();
+		} else if (choice.equals("2")) {
+			vgByDate.inOrderPrint();
+		} else {
+			System.out.println("Invalid Input, Please enter only 1 or 2!");
+		}
+    }
+
     
 	public static void addVG(BST<VideoGame> vgByTitle,
 			BST<VideoGame> vgByDate) {
@@ -447,6 +455,7 @@ public class UserInterface {
 			HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
 			Heap<Order> priorityQueue) throws FileNotFoundException {
 		String address;
+		long priority;
 		int numGames, uNumOrders, sNumOrders = 0, uShipSpeed = 0, sShipSpeed = 0;
 		String orderDate = ""; // for orders
     	File file = new File(custFile);
@@ -475,20 +484,20 @@ public class UserInterface {
 			}
 			Customer newC = new Customer(username, fName, lName, email, pw,
 					address, city, state, zip);
-			List<VideoGame> unshippedVG = new List<>();
-			List<VideoGame> shippedVG = new List<>();
-			
 			uNumOrders = input.nextInt();
 			System.out.println("Unum Orders:" + uNumOrders + "\n");
 			for (int i = 0; i < uNumOrders; i++) {
+				List<VideoGame> unshippedVG = new List<>();
 				uShipSpeed = input.nextInt();
 				System.out.println("U ship speed:" + uShipSpeed + "\n");
-				//boolean would be here
-				numGames = input.nextInt();
-				System.out.println("num Games:" + numGames + "\n");
 				input.nextLine();
 				orderDate = input.nextLine();
 				System.out.println("Date" + orderDate);
+				priority = input.nextLong();
+				System.out.println("priority: " + priority);
+				numGames = input.nextInt();
+				System.out.println("num Games:" + numGames + "\n");
+				input.nextLine();
 				for (int j = 0; j < numGames; j++) {
 					title = input.nextLine();
 					System.out.println("Title " + (j+1) + ":" + title + "\n");
@@ -496,44 +505,46 @@ public class UserInterface {
 					tempVG = vgByTitle.search(tempVG, tc);
 					unshippedVG.addLast(tempVG);
 				}
-				
+				Order unShippedOrder = new Order(newC, orderDate, unshippedVG, uShipSpeed, false, priority);
+				newC.placeUnshippedOrder(unShippedOrder);
+				priorityQueue.insert(unShippedOrder);
 			}
-			//TODO: this isn't calling constructor with priority
-			//Order unShippedOrder = new Order(newC, orderDate, unshippedVG, uShipSpeed, false);
 			sNumOrders = input.nextInt();
 			System.out.println("Snum Orders:" + sNumOrders + "\n");
-			input.nextLine();
+			if (input.hasNextLine()) {
+				input.nextLine();
+			}
 			for (int i = 0; i < sNumOrders; i++) {
+				List<VideoGame> shippedVG = new List<>();
 				sShipSpeed = input.nextInt();
 				System.out.println("U ship speed:" + uShipSpeed + "\n");
-				//boolean would be here
-				numGames = input.nextInt();
-				System.out.println("num Games:" + numGames + "\n");
 				input.nextLine();
 				orderDate = input.nextLine();
 				System.out.println("Date" + orderDate);
+				priority = input.nextLong();
+				System.out.println("priority: " + priority);
+				numGames = input.nextInt();
+				System.out.println("num Games:" + numGames + "\n");
+				input.nextLine();
 				for (int j = 0; j < numGames; j++) {
 					title = input.nextLine();
 					System.out.println("Title " + j + ":" + title + "\n");
 					VideoGame tempVG = new VideoGame(title);
 					tempVG = vgByTitle.search(tempVG, tc);
-					unshippedVG.addLast(tempVG);
+					shippedVG.addLast(tempVG);
 				}
-			//TODO: this isn't calling constructor with priority
-			//Order shippedOrder = new Order(newC, orderDate, shippedVG, sShipSpeed, true);
-			// this section has been commented out because the error in line 523 causes errors in the region
-/*			newC.placeUnshippedOrder(unShippedOrder);
-			newC.placeShippedOrder(shippedOrder);
-			custHT.insert(newC, emailPWKey);
-			custByName.insert(newC, fullNameKey);
-			ArrayList<Order> tempOrder = new ArrayList<>();
-			priorityQueue.insert(unShippedOrder);
-			priorityQueue.insert(shippedOrder);*/
-			
+				Order shippedOrder = new Order(newC, orderDate, shippedVG, sShipSpeed, true, priority);
+				newC.placeShippedOrder(shippedOrder);
+		}
 			if (input.hasNextLine()) {
 				input.nextLine();
 			}
-		}
+			emailPWKey = email + pw;
+			fullNameKey = fName + lName;
+			System.out.println("email key: " + emailPWKey);
+			System.out.println("name key: " + fullNameKey);
+			custHT.insert(newC, emailPWKey);
+			custByName.insert(newC, fullNameKey);
 	}
 		input.close();
 }
