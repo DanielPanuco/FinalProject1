@@ -110,6 +110,7 @@ public class UserInterface {
 			custByName.insert(currentC, emailPWKey);
 			System.out.println("\nYou have successfully created an account, "
 					+ fName + " " + lName + "!\n");
+			System.out.println(currentC.getPassword());
 		} else if (ans.equals("3")){
 			System.out.print("\nEnter your email address: ");
 			email = input.nextLine();
@@ -494,7 +495,7 @@ public class UserInterface {
 			System.out.println("5. Sign out as a Guest\n"
 								+ "X. Exit\n");
 		} else {
-			System.out.println("5. Sign out as a Guest\n"
+			System.out.println("5. Sign out of your account\n"
 								+ "X. Exit\n");	
 		} // TODO: finalize output
 	}
