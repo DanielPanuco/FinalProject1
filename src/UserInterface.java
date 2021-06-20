@@ -16,7 +16,7 @@ public class UserInterface {
 	private static final String vgFile = ("product.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
 	public static String fName, lName, email, addr, city, state, pw, title,
-			username;
+						 username;
 	public static String fullNameKey;
 	public static String emailPWKey;
 	public static int zip;
@@ -42,7 +42,6 @@ public class UserInterface {
 		tempOrderAl.add(null);
 		Heap<Order> priorityQueue = new Heap<>(tempOrderAl, oc);
 
-
 		try {
 			fileToVG(vgByTitle, vgByDate);
 			fileToCustandPQ(custHT, custByName, vgByTitle, priorityQueue);
@@ -51,7 +50,6 @@ public class UserInterface {
 			System.out.println("File(s) not found, please make sure it is in the project"
 					+ "folder and rereun the program.");
 		}
-		//need to be called for it to happen
 		//System.out.println(custHT); //test printing
 		//System.out.println(custByName);
 		//System.out.println(empHT);
@@ -207,7 +205,7 @@ public class UserInterface {
 					break;
 				default:
 					System.out.println("\nInvalid menu option."
-							+ " Please enter A-D or X to exit.");
+							+ " Please enter 1-5 or X to exit.");
 					break;
 			}
 		}
@@ -261,7 +259,7 @@ public class UserInterface {
 					//(avoid printing passwords)
 					break;
 				case "3":
-					searchingCus(custByName);
+					searchingCust(custByName);
 					break;
 				case "4":
 					shipOrder(priorityQueue);
@@ -288,23 +286,24 @@ public class UserInterface {
 					break;
 				default:
 					System.out.println("\nInvalid menu option."
-							+ " Please enter A-D or X to exit.");
+							+ " Please enter 1-8 or X to exit.");
 					break;
 			}
 		}
 	}
 
-	public static void searchingCus(HashTable<Customer> custByName) {
-		System.out.print("Please type in the first name of the person you are searching for: ");
+	public static void searchingCust(HashTable<Customer> custByName) {
+		System.out.print("Please type in the first name of the customer "
+						+ "you are searching for: ");
 		fName = input.nextLine();
-		System.out.print("Please type in the last name of the person you are searching for: ");
+		System.out.print("Please type in the last name of the customer "
+						+ "you are searching for: ");
 		lName = input.nextLine();
 		Customer cust = Employee.searchCustomer(fName, lName, custByName);
-		if(cust == null) {
+		if (cust == null) {
 			System.out.println("Customer doesn't exist!");
 		} else {
-			System.out.println("Customer has been found:\n"
-					+ cust);
+			System.out.println("Customer has been found:\n" + cust);
 		}
 	}
 	public static void placeOrder(BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) {
@@ -492,8 +491,8 @@ public class UserInterface {
 	}
 
 	public static void fileToCustandPQ(HashTable<Customer> custHT,
-									   HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
-									   Heap<Order> priorityQueue) throws FileNotFoundException {
+			HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
+			Heap<Order> priorityQueue) throws FileNotFoundException {
 		String address;
 		long priority;
 		int numGames, uNumOrders, sNumOrders = 0, uShipSpeed = 0, sShipSpeed = 0;
@@ -530,7 +529,8 @@ public class UserInterface {
 					tempVG = vgByTitle.search(tempVG, tc);
 					unshippedVG.addLast(tempVG);
 				}
-				Order unShippedOrder = new Order(newC, orderDate, unshippedVG, uShipSpeed, false, priority);
+				Order unShippedOrder = new Order(newC, orderDate, unshippedVG,
+						uShipSpeed, false, priority);
 				newC.placeUnshippedOrder(unShippedOrder);
 				priorityQueue.insert(unShippedOrder);
 			}
@@ -552,7 +552,8 @@ public class UserInterface {
 					tempVG = vgByTitle.search(tempVG, tc);
 					shippedVG.addLast(tempVG);
 				}
-				Order shippedOrder = new Order(newC, orderDate, shippedVG, sShipSpeed, true, priority);
+				Order shippedOrder = new Order(newC, orderDate, shippedVG,
+						sShipSpeed, true, priority);
 				newC.placeShippedOrder(shippedOrder);
 			}
 			if (input.hasNextLine()) {
