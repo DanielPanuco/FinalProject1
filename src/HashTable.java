@@ -173,7 +173,7 @@ public class HashTable<T> {
 
     /**
      * Prints all the keys at a specified
-     * bucket in the Table. Tach key displayed
+     * bucket in the Table. Each key displayed
      * on its own line, with a blank line 
      * separating each key
      * Above the keys, prints the message

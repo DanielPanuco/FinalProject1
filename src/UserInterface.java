@@ -74,8 +74,7 @@ public class UserInterface {
         try {
 			customerToFile(custHT);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.getMessage();
 		}
     }
     
@@ -103,9 +102,11 @@ public class UserInterface {
 				currentC = new Customer(fName, lName, email, addr,
 						city, state, zip);
 				System.out.println("\nYou have succesfully created an account!");
-				// TODO: you need to store the guest in the hashtable or else we can't output their orders to the file
-				// TODO: which means we need a password from them so we can add them to the customer hashtable
-	        } else if (ans.equals("2")) {
+				// TODO: you need to store the guest in the hashtable or else we
+				// can't output their orders to the file
+				// TODO: which means we need a password from them so we can add
+				// them to the customer hashtable
+			} else if (ans.equals("2")) {
 				createAccount();
 				System.out.println(createAcc);
     			System.out.print(enterUsername);
@@ -190,7 +191,7 @@ public class UserInterface {
 				case "4":
 					viewOrders();
 					break;
-				case "5": //TODO: this works but requires to enter for some reason, buffer issue?
+				case "5":
 					System.out.println("\nWould you like to sign out?\n");
 					System.out.print("Enter (Y/N): ");
 					ans = input.nextLine();
@@ -219,8 +220,7 @@ public class UserInterface {
 			System.out.print("Enter your password: ");
 			pw = input.nextLine();
 			currentEmp = new Employee(email, pw);
-			while (!(empHT.contains(currentEmp, emailPWKey))) { // only works based on email
-													// and password, one HT
+			while (!(empHT.contains(currentEmp, emailPWKey))) {
 				System.out.println("\nPlease make sure you entered your correct"
 						+ " case sensitive email and password!"); 
 				// TODO: extra, give them X tries, count with a num,
@@ -551,7 +551,6 @@ public class UserInterface {
 
 	public static void fileToEmp(HashTable<Employee> empHT)
 			throws FileNotFoundException {
-		int accNum;
     	File file = new File(empFile);
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
@@ -559,12 +558,10 @@ public class UserInterface {
 			lName = input.nextLine();
 			email = input.nextLine();
 			pw = input.nextLine();
-			accNum = input.nextInt();
 			if (input.hasNextLine()) {
-				input.nextLine();  //clear buffer
 				input.nextLine();
 			}
-			Employee newE = new Employee(fName, lName, email, pw, accNum);
+			Employee newE = new Employee(fName, lName, email, pw);
 			empHT.insert(newE, emailPWKey);
 		}
 		input.close();
@@ -600,7 +597,8 @@ public class UserInterface {
 		input.close();
 	}
 
-	public static void viewPriorityQueue(Heap<Order> priorityQueue) { //TODO viewPriorityQueue needs testing
+	public static void viewPriorityQueue(Heap<Order> priorityQueue) { 
+		//TODO: viewPriorityQueue needs testing
 		ArrayList<Order> tempOrder = priorityQueue.sort();
 		System.out.println("Printing orders in order of priority: \n\n");
 		for (int i = tempOrder.size() - 1; i > 0; i--) {
