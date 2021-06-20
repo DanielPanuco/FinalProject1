@@ -4,6 +4,8 @@
  * CIS 22C, Final Project
  */
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Comparator;
 
@@ -389,6 +391,37 @@ public class BST<T> {
 			postOrderPrint(node.left);
 			postOrderPrint(node.right);
 			System.out.println(node.data);
+		}
+	}
+
+	/*	public String toString() {
+            return toString(root);
+        }
+
+        private String toString(Node node) {
+            String bstString = "";
+            if (node == null) {
+                return "";
+            } else {
+                bstString += toString(node.left);
+                bstString += node.data.toText() + "\n";
+                bstString += toString(node.right);
+                return bstString;
+            }
+        }*/
+	public ArrayList<T> inOrderToAL() {
+		ArrayList<T> tempAL = new ArrayList<>();
+		inOrderToAL(root, tempAL);
+		return tempAL;
+	}
+
+	private void inOrderToAL(Node node, ArrayList<T> tempAL) {
+		if (node == null) {
+			return;
+		} else {
+			inOrderToAL(node.left, tempAL);
+			tempAL.add(node.data);
+			inOrderToAL(node.right, tempAL);
 		}
 	}
 }

@@ -130,5 +130,21 @@ public class HeapTest {
         System.out.println(oc.compare(tempOrder2, tempOrder1));*/
         System.out.println(tempC.toString());
         // tempC.placeUnshippedOrder();
+        BST<VideoGame> videoGameBST = new BST<>();
+        TitleComparator titleComparator = new TitleComparator();
+        VideoGame tempvggg = new VideoGame("Halo", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox");
+        VideoGame tempvggg2 = new VideoGame("Pokemon", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox");
+        VideoGame tempvggg3 = new VideoGame("Call of Duty", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox");
+        videoGameBST.insert(tempvggg, titleComparator);
+        videoGameBST.insert(tempvggg2, titleComparator);
+        videoGameBST.insert(tempvggg3, titleComparator);
+        ArrayList<VideoGame> tempal = videoGameBST.inOrderToAL();
+        String fileOutput = "";
+        for (int i = 0; i < tempal.size(); i++) {
+            fileOutput += tempal.get(i).toText();
+            fileOutput += "\n";
+        }
+        System.out.println(fileOutput);
+        System.out.println("Test");
     }
 }

@@ -135,6 +135,17 @@ public class VideoGame {
         return S;
     }
 
+    public String toText() {
+        String S = title + "\n"
+                + developer + "\n"
+                + releaseDate + "\n"
+                + price + "\n"
+                + genre + "\n"
+                + esrb + "\n"
+                + metaCriticScore + "\n"
+                + platform + "\n";
+        return S;
+    }
     //compares this videoGame to another object for equality, compares titles
     @Override public boolean equals(Object o) {
         if (o == this) {

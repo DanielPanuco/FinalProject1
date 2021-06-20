@@ -202,8 +202,13 @@ public class Customer extends User {
 				+ shippedOrders.getLength() + "\n"
     		    + shippedOrders
 				+ "\n";
-
 		return result;
 	}
 
+	public void displayCustomer() {
+		System.out.println("Email: " + getEmail());
+		System.out.println("Username: " + getUsername());
+		System.out.println("Name: " + getFirstName() + " " + getLastName());
+		System.out.println("City and state: " + getCity() + ", " + getState());
+	}
 }
