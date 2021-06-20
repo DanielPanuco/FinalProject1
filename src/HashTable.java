@@ -32,7 +32,7 @@ public class HashTable<T> {
     /**
      * returns the hash value in the Table
      * for a given Object 
-     * @param t the Object
+     * @param key the Object
      * @return the index in the Table
      */
 
@@ -173,7 +173,7 @@ public class HashTable<T> {
 
     /**
      * Prints all the keys at a specified
-     * bucket in the Table. Tach key displayed
+     * bucket in the Table. Each key displayed
      * on its own line, with a blank line 
      * separating each key
      * Above the keys, prints the message

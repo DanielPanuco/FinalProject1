@@ -13,19 +13,11 @@ public class Employee extends User {
 			String email, String password) {
 		super(firstName, lastName, email, password);
 	}
-	
-	public Employee(String firstName, String lastName, 
-			String email, String password, int accountNum) {
-		super(firstName, lastName, email, password);
-	}
-	
-	public static Customer searchCustomer(String firstName,
-			String lastName, HashTable<Customer> customersByName) {
-		return customersByName.get(new Customer(firstName, lastName), firstName+lastName);
-	}
 
-	public static void displayCustomer(Customer customer) {
-		System.out.println(customer);
+	public static Customer searchCustomer(String firstName,
+										  String lastName, HashTable<Customer> customersByName) {
+		String fullNameKey = firstName + lastName;
+		return customersByName.get(new Customer(firstName, lastName), fullNameKey);
 	}
 	
 	public static void viewOrders(Heap<Order> orders) {

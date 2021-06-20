@@ -16,7 +16,7 @@ public class UserInterface {
 	private static final String vgFile = ("product.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
 	public static String fName, lName, email, addr, city, state, pw, title,
-						 username;
+			username;
 	public static String fullNameKey;
 	public static String emailPWKey;
 	public static int zip;
@@ -29,19 +29,19 @@ public class UserInterface {
 	//TODO: maybe change to videoGames.txt, once we decide on a String txt
 	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
-	
-    public static void main(String[] args) {
-        final int custSize = 5, empSize = 3;
-        int userType;
-        HashTable<Customer> custHT = new HashTable<>(custSize * 2);
-        HashTable<Customer> custByName = new HashTable<>(custSize * 2);
-        HashTable<Employee> empHT = new HashTable<>(empSize * 2);
-        BST<VideoGame> vgByTitle = new BST<>();
-        BST<VideoGame> vgByDate = new BST<>();
+
+	public static void main(String[] args) {
+		final int custSize = 5, empSize = 3;
+		int userType;
+		HashTable<Customer> custHT = new HashTable<>(custSize * 2);
+		HashTable<Customer> custByName = new HashTable<>(custSize * 2);
+		HashTable<Employee> empHT = new HashTable<>(empSize * 2);
+		BST<VideoGame> vgByTitle = new BST<>();
+		BST<VideoGame> vgByDate = new BST<>();
 		ArrayList<Order> tempOrderAl = new ArrayList<>();
 		tempOrderAl.add(null);
 		Heap<Order> priorityQueue = new Heap<>(tempOrderAl, oc);
-        
+
 
 		try {
 			fileToVG(vgByTitle, vgByDate);
@@ -52,104 +52,109 @@ public class UserInterface {
 					+ "folder and rereun the program.");
 		}
 		//need to be called for it to happen
-        //System.out.println(custHT); //test printing
-        //System.out.println(custByName);
-        //System.out.println(empHT);
+		//System.out.println(custHT); //test printing
+		//System.out.println(custByName);
+		//System.out.println(empHT);
 		//viewPriorityQueue(priorityQueue);
 		input = new Scanner(System.in);
-        System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
-        //System.out.println("Please note that we don't offer refunds after you place your orders!");
-        //maybe mention credit/debit card only
-        System.out.println("[Please select your user type]\n"
-        		+ "1. Customer\n"
-        		+ "2. Employee");
-        System.out.print("\nPlease enter 1 or 2: ");
-        userType = input.nextInt();
-        if (userType == 1) {
-            custInterface(custHT, custByName, vgByTitle, vgByDate);
-        } else {
-            empInterface(vgByDate, vgByDate, custHT, custByName, empHT, priorityQueue);
-        }
-        
-        try {
+		System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
+		//System.out.println("Please note that we don't offer refunds after you place your orders!");
+		//maybe mention credit/debit card only
+		System.out.println("[Please select your user type]\n"
+				+ "1. Customer\n"
+				+ "2. Employee");
+		System.out.print("\nPlease enter 1 or 2: ");
+		userType = input.nextInt();
+		if (userType == 1) {
+			custInterface(custHT, custByName, vgByTitle, vgByDate, priorityQueue);
+		} else {
+			empInterface(vgByDate, vgByDate, custHT, custByName, empHT, priorityQueue);
+		}
+		try {
 			customerToFile(custHT);
 		} catch (IOException e) {
 			e.getMessage();
 		}
-    }
-    
+	}
+
 	public static void custAccSetup(HashTable<Customer> custHT,
-			HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate) {
-    	String ans;
-    	String createAcc ="Let's create an account for you!\n";
+									HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
+									BST<VideoGame> vgByDate) {
+		String ans;
+		String createAcc ="Let's create an account for you!\n";
 		String enterUsername = "Enter your username: "; //only do this if it's clear
-		String createPW = "Create a password:";
-		String success = "\nYou have succesfully created an account,"
-							+ fName + " " + lName + "!\n";
+		String createPW = "Create a password: ";
+		emailPWKey = email + pw;
+		fullNameKey = fName + lName;
+		//String success = "\nYou have succesfully created an account,"
+		//+ fName + " " + lName + "!\n";
 		input.nextLine(); // clear buffer from reading
 		System.out.println("\nWelcome to our store, please login here!");
 		System.out.println("\n[Choose your customer type]\n"
-	        		+ "1. Guest\n"
-	        		+ "2. New Customer\n"
-	        		+ "3. Existing Customer");
-		 	System.out.print("\nPlease enter 1, 2, or 3: ");
-	        ans = input.nextLine();
-	        if (ans.equals("1")) {
-				System.out.println("\nPlease start by filling out"
-						+ "your contact info!\n");
-	        	createAccount();
-				currentC = new Customer(fName, lName, email, addr,
-						city, state, zip);
-				System.out.println("\nYou have succesfully created an account!");
-				// TODO: you need to store the guest in the hashtable or else we
-				// can't output their orders to the file
-				// TODO: which means we need a password from them so we can add
-				// them to the customer hashtable
-			} else if (ans.equals("2")) {
-				createAccount();
+				+ "1. Guest\n"
+				+ "2. New Customer\n"
+				+ "3. Existing Customer");
+		System.out.print("\nPlease enter 1, 2, or 3: ");
+		ans = input.nextLine();
+		if (ans.equals("1")) {
+			System.out.println("\nPlease start by filling out"
+					+ "your shipping info!\n");
+			createAccount();
+			currentC = new Customer(fName, lName, email, addr,
+					city, state, zip);
+			custHT.insert(currentC, emailPWKey);
+			custByName.insert(currentC, emailPWKey);
+			System.out.println("\nThank you for filling out your shipping info!");
+			// TODO: you need to store the guest in the hashtable or else we
+			// can't output their orders to the file
+			// TODO: which means we need a password from them so we can add
+			// them to the customer hashtable
+		} else if (ans.equals("2")) {
+			createAccount();
+			System.out.println(createAcc);
+			System.out.print(enterUsername);
+			username = input.nextLine();
+			System.out.print(createPW);
+			pw = input.nextLine();
+			currentC = new Customer(username, fName, lName, email, pw, addr,
+					city, state, zip);
+			custHT.insert(currentC, emailPWKey);
+			custByName.insert(currentC, emailPWKey);
+			//System.out.println(success);
+			System.out.println("\nYou have successfully created an account,"
+					+ fName + " " + lName + "!\n");
+		} else if (ans.equals("3")){
+			System.out.print("Enter your email address: ");
+			email = input.nextLine();
+			System.out.print("Enter your password: ");
+			pw = input.nextLine();
+			Customer tempC = new Customer(email, pw);
+			boolean signinStatus = custHT.contains(tempC, emailPWKey);
+			if (!(signinStatus)) {
+				System.out.println("\nIt appears we don't have "
+						+ "your account on file...\n");
 				System.out.println(createAcc);
-    			System.out.print(enterUsername);
-    			username = input.nextLine();
-    			System.out.println(createPW);
-    			pw = input.nextLine();
+				System.out.print(enterUsername);
+				username = input.nextLine();
+				System.out.print(createPW);
+				pw = input.nextLine();
+				createAccount();
 				currentC = new Customer(username, fName, lName, email, pw, addr,
 						city, state, zip);
 				custHT.insert(currentC, emailPWKey);
-				custByName.insert(currentC, emailPWKey);
-				System.out.println(success);
-	        } else if (ans.equals("3")){
-	        	System.out.print("Enter your email address: ");
-	    		email = input.nextLine();
-	    		System.out.print("Enter your password: ");
-	    		pw = input.nextLine();
-	    		Customer tempC = new Customer(email, pw);
-				emailPWKey = email + pw;
-				fullNameKey = fName + lName;
-	    		boolean signinStatus = custHT.contains(tempC, emailPWKey);
-	    		if (!(signinStatus)) {
-					System.out.println("\nIt appears we don't have "
-							+ "your account on file...\n");
-	    			System.out.println(createAcc);
-	    			System.out.print(enterUsername);
-	    			username = input.nextLine();
-	    			System.out.println(createPW);
-	    			pw = input.nextLine();
-					createAccount();
-	    			currentC = new Customer(username, fName, lName, email, pw, addr,
-	    					city, state, zip);
-	    			custHT.insert(currentC, emailPWKey);
-	    			custByName.insert(currentC, fullNameKey);
-					System.out.println(success);
-				} else {
-					currentC = custHT.get(tempC, emailPWKey);
-					System.out.println("\nWelcome back, " + currentC.getFirstName() + " "
-									+ currentC.getLastName() + "!\n");
-				}
+				custByName.insert(currentC, fullNameKey);
+				//System.out.println(success);
+				System.out.println("\nYou have successfully created an account,"
+						+ fName + " " + lName + "!\n");
+			} else {
+				currentC = custHT.get(tempC, emailPWKey);
+				System.out.println("\nWelcome back, " + currentC.getFirstName() + " "
+						+ currentC.getLastName() + "!\n");
 			}
 		}
+	}
 
-    public static void createAccount() {
+	public static void createAccount() {
 		System.out.print("Enter your first name: ");
 		fName = input.nextLine();
 		System.out.print("Enter your last name: ");
@@ -166,19 +171,19 @@ public class UserInterface {
 		zip = input.nextInt();
 		input.nextLine(); // clear buffer
 	}
-  
+
 	public static void custInterface(HashTable<Customer> custHT,
-			HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate) {
+									 HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
+									 BST<VideoGame> vgByDate, Heap<Order> priorityQueue) {
 		String choice = "", ans;
-		custAccSetup(custHT, custByName, vgByTitle, vgByDate); 
+		custAccSetup(custHT, custByName, vgByTitle, vgByDate);
 		while (!choice.equalsIgnoreCase("X")) {
 			displayCustMenu();
 			System.out.print("Enter your choice: "); //TODO: will convert this to a member string
 			choice = input.nextLine();
 			switch (choice.toUpperCase()) {
 				case "1":
-					placeOrder(vgByTitle);
+					placeOrder(vgByTitle, priorityQueue);
 					//OverniDght Shipping, Rush Shipping, Standard Shipping
 					//Priority attribute for each video game order? or overall?
 					break;
@@ -207,44 +212,44 @@ public class UserInterface {
 					System.out.println("\nInvalid menu option."
 							+ " Please enter A-D or X to exit.");
 					break;
-				}
 			}
 		}
+	}
 
-		public static void empLogin(HashTable<Employee> empHT) {
-			System.out.println("\n[Employee Login Menu]");
-	    	System.out.println("\nWelcome back! Please login here");
-	    	System.out.println("-------------------------------\n");
-	    	System.out.print("Enter your email address: ");
+	public static void empLogin(HashTable<Employee> empHT) {
+		System.out.println("\n[Employee Login Menu]");
+		System.out.println("\nWelcome back! Please login here");
+		System.out.println("-------------------------------\n");
+		System.out.print("Enter your email address: ");
+		email = input.nextLine();
+		System.out.print("Enter your password: ");
+		pw = input.nextLine();
+		currentEmp = new Employee(email, pw);
+		while (!(empHT.contains(currentEmp, emailPWKey))) {
+			System.out.println("\nPlease make sure you entered your correct"
+					+ " case sensitive email and password!");
+			// TODO: extra, give them X tries, count with a num,
+			//if they exceed X tries the program will terminate.
+			System.out.print("Enter your email address: ");
 			email = input.nextLine();
-			System.out.print("Enter your password: ");
+			System.out.print("\nEnter your password: ");
 			pw = input.nextLine();
 			currentEmp = new Employee(email, pw);
-			while (!(empHT.contains(currentEmp, emailPWKey))) {
-				System.out.println("\nPlease make sure you entered your correct"
-						+ " case sensitive email and password!"); 
-				// TODO: extra, give them X tries, count with a num,
-				//if they exceed X tries the program will terminate.
-				System.out.print("Enter your email address: ");
-				email = input.nextLine();
-				System.out.print("\nEnter your password: ");
-				pw = input.nextLine();
-				currentEmp = new Employee(email, pw);
-			}
-			currentEmp = empHT.get(currentEmp, emailPWKey); 
-			System.out.println("\nWelcome back, " + currentEmp.getFirstName()
-					+ " " + currentEmp.getLastName() + "!\n");
 		}
-	  
-		public static void empInterface(BST<VideoGame> vgByTitle,
-				BST<VideoGame> vgByDate, HashTable<Customer> custHT,
-				HashTable<Customer> custByName, HashTable<Employee> empHT,
-				Heap<Order> priorityQueue) {
-			String choice = "", ans; // TODO: EXTRA: access cust email, if title
-										// = val/gen imp,
-										// then print out f2p games with seperate for loop
-			input.nextLine(); // clear buffer from reading an Int
-			empLogin(empHT);
+		currentEmp = empHT.get(currentEmp, emailPWKey);
+		System.out.println("\nWelcome back, " + currentEmp.getFirstName()
+				+ " " + currentEmp.getLastName() + "!\n");
+	}
+
+	public static void empInterface(BST<VideoGame> vgByTitle,
+									BST<VideoGame> vgByDate, HashTable<Customer> custHT,
+									HashTable<Customer> custByName, HashTable<Employee> empHT,
+									Heap<Order> priorityQueue) {
+		String choice = "", ans; // TODO: EXTRA: access cust email, if title
+		// = val/gen imp,
+		// then print out f2p games with seperate for loop
+		input.nextLine(); // clear buffer from reading an Int
+		empLogin(empHT);
 		while (!choice.equalsIgnoreCase("X")) {
 			displayEmpMenu();
 			System.out.print("Enter your choice: ");
@@ -306,22 +311,56 @@ public class UserInterface {
 					+ cust);
 		}
 	}
-    public static void placeOrder(BST<VideoGame> vgByTitle) {
-    	//TODO: (Nigel) should rewrite this to just create the order and call the place order method
-    	List<VideoGame> unshippedVG = new List<>();
-    	System.out.println("Enter the case sensitive title of the video game you would like to buy: ");
-		title = input.nextLine();
-		VideoGame tempVG = new VideoGame(title);
-		tempVG = vgByTitle.search(tempVG, tc);
-		if (tempVG == null) {
-			System.out.println("Sorry, we don't carry this title yet."
-					+ "Please make sure you entered the correct case sensitive title!");
-		} else {
+	public static void placeOrder(BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) {
+		int numGames;
+		double orderPrice;
+		int shippingSpeed;
+		Order placeOrder;
+		List<VideoGame> unshippedVG = new List<>();
+		vgByTitle.inOrderPrint();
+		System.out.print("Enter the number of games you would like to purchase: ");
+		numGames = input.nextInt();
+		input.nextLine();
+		for (int i = 0; i < numGames; i++) {
+			System.out.print("Enter the case sensitive title of the video game you would like to buy: ");
+			title = input.nextLine();
+			VideoGame tempVG = new VideoGame(title);
+			tempVG = vgByTitle.search(tempVG, tc);
+			while (tempVG == null) {
+				System.out.print("Sorry, we don't carry this title yet."
+						+ "Please enter an available correct case sensitive title: ");
+				title = input.nextLine();
+				tempVG = vgByTitle.search(tempVG, tc);
+			}
 			unshippedVG.addLast(tempVG);
 		}
-    }
-    
-    public static void viewOrders() {
+		System.out.println("1. Standard Shipping || FREE!" + "\n2. Second Day Delivery || $7.95" + "\n3. Next Day Delivery || $14.95");
+		System.out.print("Please choose desired shipping speed: ");
+		shippingSpeed = input.nextInt();
+		while (shippingSpeed > 3 || shippingSpeed < 1) {
+			System.out.print("Please enter valid choice 1-3: ");
+			shippingSpeed = input.nextInt();
+		}
+		switch (shippingSpeed) {
+			case 1:
+				shippingSpeed = 5;
+				break;
+			case 2:
+				shippingSpeed = 2;
+				break;
+			case 3:
+				shippingSpeed = 2;
+				break;
+		}
+		System.out.println("Thank you, your order is being processed!\n");
+		input.nextLine();
+		placeOrder = new Order(currentC, unshippedVG, shippingSpeed, false);
+		placeOrder.displayPriceCalculation(unshippedVG, shippingSpeed);
+		priorityQueue.insert(placeOrder);
+		currentC.placeUnshippedOrder(placeOrder);
+	}
+
+	public static void viewOrders() {
 		String ans = "";
 		System.out.println("\n[Viewing Order(s) Submenu]");
 		System.out.println("Which would you like to view?\n\n"
@@ -342,8 +381,8 @@ public class UserInterface {
 					"Invalid Input, Please enter only U or S next time!");
 		}
 	}
-    
-    public static void shipOrder(Heap<Order> priorityQueue) {
+
+	public static void shipOrder(Heap<Order> priorityQueue) {
 		System.out.println("Shipping an order...");
 		Order temp = priorityQueue.getMax();
 		priorityQueue.remove(1);
@@ -359,7 +398,7 @@ public class UserInterface {
 		currentC.placeShippedOrder(temp);
 		System.out.println("Order has been shipped");
 	}
-    
+
 	public static void searchVG(BST<VideoGame> vgByTitle) {
 		VideoGame searchVG;
 		System.out.println("\nWhich video game would you like to search for?");
@@ -376,14 +415,14 @@ public class UserInterface {
 		}
 	}
 
-    public static void listVG(BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate) {
-    	String choice = "";
-    	System.out.println("\nHow would you like to sort the"
-    						+ " available video games?\n"
-    						+ "1. By Title\n"
-    						+ "2. By Release Date");
-    	System.out.print("\nEnter your choice: ");
+	public static void listVG(BST<VideoGame> vgByTitle,
+							  BST<VideoGame> vgByDate) {
+		String choice = "";
+		System.out.println("\nHow would you like to sort the"
+				+ " available video games?\n"
+				+ "1. By Title\n"
+				+ "2. By Release Date");
+		System.out.print("\nEnter your choice: ");
 		choice = input.nextLine();
 		while (!(choice.equals("1") || choice.equals("2"))) {
 			// TODO: Is this fixed now?
@@ -397,12 +436,12 @@ public class UserInterface {
 		} else {
 			System.out.println("Invalid Input, Please enter only 1 or 2!");
 		}
-    }
+	}
 
-    
+
 	public static void addVG(BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate) {
-    	System.out.print("Please type in the Video Game you want to add: ");
+							 BST<VideoGame> vgByDate) {
+		System.out.print("Please type in the Video Game you want to add: ");
 		title = input.nextLine();
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
 		if (vg != null) {
@@ -414,7 +453,7 @@ public class UserInterface {
 	}
 
 	public static void removeVG(BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate) {
+								BST<VideoGame> vgByDate) {
 		System.out.print("Please type in the Video Game you want to remove: ");
 		title = input.nextLine();
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
@@ -426,7 +465,7 @@ public class UserInterface {
 		}
 	}
 
-    public static void displayCustMenu() {
+	public static void displayCustMenu() {
 		System.out.println("\n[Customer Main Menu]\n\n"
 				+ "Please select from the following options:\n\n"
 				+ "1. Place Order\n"
@@ -435,72 +474,57 @@ public class UserInterface {
 				+ "4. View Unshipped and Shipped Orders\n"
 				+ "5. Sign Out of Your Acount\n"
 				+ "X. Exit\n"); // TODO: finalize output
-    }
+	}
 
-    public static void displayEmpMenu() {
-        System.out.println("\n[Employee Main Menu]\n\n"
+	public static void displayEmpMenu() {
+		System.out.println("\n[Employee Main Menu]\n\n"
 				+ "Please select from the following options:\n\n"
-                + "1. View Orders by Priority\n"
-                + "2. Display Customer Info\n"
-                + "3. Search for Customer\n"
-                + "4. Ship Orders\n"
-                + "5. List Video Games\n"
-                + "6. Add New Product\n"
-                + "7. Remove a Product\n"
-                + "8. Sign Out of Your Acount\n"
-                + "X. Exit\n"); //TODO: finalize output
-    }
+				+ "1. View Orders by Priority\n"
+				+ "2. Display Customer Info\n"
+				+ "3. Search for Customer\n"
+				+ "4. Ship Orders\n"
+				+ "5. List Video Games\n"
+				+ "6. Add New Product\n"
+				+ "7. Remove a Product\n"
+				+ "8. Sign Out of Your Acount\n"
+				+ "X. Exit\n"); //TODO: finalize output
+	}
 
 	public static void fileToCustandPQ(HashTable<Customer> custHT,
-			HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
-			Heap<Order> priorityQueue) throws FileNotFoundException {
+									   HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
+									   Heap<Order> priorityQueue) throws FileNotFoundException {
 		String address;
 		long priority;
 		int numGames, uNumOrders, sNumOrders = 0, uShipSpeed = 0, sShipSpeed = 0;
 		String orderDate = ""; // for orders
-    	File file = new File(custFile);
+		File file = new File(custFile);
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
 			username = input.nextLine();
-			System.out.println("username: " + username);
 			fName = input.nextLine();
-			System.out.println("fname: " + fName);
 			lName = input.nextLine();
-			System.out.println("lname: " + lName);
 			email = input.nextLine();
-			System.out.println("email: "+ email);
 			pw = input.nextLine();
-			System.out.println("pw: " + pw);
 			address = input.nextLine();
-			System.out.println("add: " + address);
 			city = input.nextLine();
-			System.out.println("city: " + city);
 			state = input.nextLine();
-			System.out.println("state: " + state);
 			zip = input.nextInt();
-			System.out.println("zip: " + zip);
 			if (input.hasNextLine()) {
 				input.nextLine();
 			}
 			Customer newC = new Customer(username, fName, lName, email, pw,
 					address, city, state, zip);
 			uNumOrders = input.nextInt();
-			System.out.println("Unum Orders:" + uNumOrders + "\n");
 			for (int i = 0; i < uNumOrders; i++) {
 				List<VideoGame> unshippedVG = new List<>();
 				uShipSpeed = input.nextInt();
-				System.out.println("U ship speed:" + uShipSpeed + "\n");
 				input.nextLine();
 				orderDate = input.nextLine();
-				System.out.println("Date" + orderDate);
 				priority = input.nextLong();
-				System.out.println("priority: " + priority);
 				numGames = input.nextInt();
-				System.out.println("num Games:" + numGames + "\n");
 				input.nextLine();
 				for (int j = 0; j < numGames; j++) {
 					title = input.nextLine();
-					System.out.println("Title " + (j+1) + ":" + title + "\n");
 					VideoGame tempVG = new VideoGame(title);
 					tempVG = vgByTitle.search(tempVG, tc);
 					unshippedVG.addLast(tempVG);
@@ -510,48 +534,40 @@ public class UserInterface {
 				priorityQueue.insert(unShippedOrder);
 			}
 			sNumOrders = input.nextInt();
-			System.out.println("Snum Orders:" + sNumOrders + "\n");
 			if (input.hasNextLine()) {
 				input.nextLine();
 			}
 			for (int i = 0; i < sNumOrders; i++) {
 				List<VideoGame> shippedVG = new List<>();
 				sShipSpeed = input.nextInt();
-				System.out.println("U ship speed:" + uShipSpeed + "\n");
 				input.nextLine();
 				orderDate = input.nextLine();
-				System.out.println("Date" + orderDate);
 				priority = input.nextLong();
-				System.out.println("priority: " + priority);
 				numGames = input.nextInt();
-				System.out.println("num Games:" + numGames + "\n");
 				input.nextLine();
 				for (int j = 0; j < numGames; j++) {
 					title = input.nextLine();
-					System.out.println("Title " + j + ":" + title + "\n");
 					VideoGame tempVG = new VideoGame(title);
 					tempVG = vgByTitle.search(tempVG, tc);
 					shippedVG.addLast(tempVG);
 				}
 				Order shippedOrder = new Order(newC, orderDate, shippedVG, sShipSpeed, true, priority);
 				newC.placeShippedOrder(shippedOrder);
-		}
+			}
 			if (input.hasNextLine()) {
 				input.nextLine();
 			}
 			emailPWKey = email + pw;
 			fullNameKey = fName + lName;
-			System.out.println("email key: " + emailPWKey);
-			System.out.println("name key: " + fullNameKey);
 			custHT.insert(newC, emailPWKey);
 			custByName.insert(newC, fullNameKey);
-	}
+		}
 		input.close();
-}
+	}
 
 	public static void fileToEmp(HashTable<Employee> empHT)
 			throws FileNotFoundException {
-    	File file = new File(empFile);
+		File file = new File(empFile);
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
 			fName = input.nextLine();
@@ -565,10 +581,10 @@ public class UserInterface {
 			empHT.insert(newE, emailPWKey);
 		}
 		input.close();
-    }
+	}
 
 	public static void fileToVG(BST<VideoGame> vgByTitle,
-			BST<VideoGame> vgByDate)
+								BST<VideoGame> vgByDate)
 			throws FileNotFoundException {
 		String dev, genre, ESRB, pform;
 		double price;
@@ -597,7 +613,7 @@ public class UserInterface {
 		input.close();
 	}
 
-	public static void viewPriorityQueue(Heap<Order> priorityQueue) { 
+	public static void viewPriorityQueue(Heap<Order> priorityQueue) {
 		//TODO: viewPriorityQueue needs testing
 		ArrayList<Order> tempOrder = priorityQueue.sort();
 		System.out.println("Printing orders in order of priority: \n\n");
