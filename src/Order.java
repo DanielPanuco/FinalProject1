@@ -69,6 +69,7 @@ public class Order {
         orderContents.placeIterator();
         for (int i = 0; i < orderContents.getLength(); i++) {
             orderPrice += orderContents.getIterator().getPrice();
+            orderContents.advanceIterator();
         }
         System.out.println("Order subtotal: " + dc.format(orderPrice));
         switch (shippingSpeed) {

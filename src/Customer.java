@@ -152,9 +152,12 @@ public class Customer extends User {
 					totalP += currVG.getPrice();
 					vgList.advanceIterator();
 				}
+				int tempShippingSpeed = unshippedOrders.getIterator().getShippingSpeed();
+
+				unshippedOrders.getIterator().displayPriceCalculation(vgList, tempShippingSpeed);
 				unshippedOrders.advanceIterator();
+				System.out.println("\n" + divider);
 			}
-			System.out.println("\n" + divider +"\nTotal:  " + df.format(totalP));
 		}
 	}
 
@@ -179,8 +182,10 @@ public class Customer extends User {
 					totalP += currVG.getPrice();
 					vgList.advanceIterator();
 				}
+				int tempShippingSpeed = shippedOrders.getIterator().getShippingSpeed();
+				System.out.println();
+				shippedOrders.getIterator().displayPriceCalculation(vgList, tempShippingSpeed);
 				shippedOrders.advanceIterator();
-				System.out.println("\n" + divider +"\nTotal:  " + df.format(totalP));
 			}
 		}
 	}
@@ -191,11 +196,14 @@ public class Customer extends User {
 				+ address + "\n"
 				+ city + "\n"
     		    + state + "\n"
-    		    + zip + "\n"
+    		    + zip + "\n\n"
 				+ unshippedOrders.getLength() + "\n"
     		    + unshippedOrders
+				+ "\n"
 				+ shippedOrders.getLength() + "\n"
-    		    + shippedOrders;
+    		    + shippedOrders
+				+ "\n";
+
 		return result;
 	}
 
