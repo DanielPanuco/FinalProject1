@@ -72,6 +72,7 @@ public class UserInterface {
 		}
 		try {
 			customerToFile(custHT);
+			// TODO: vgTofile
 		} catch (IOException e) {
 			e.getMessage();
 		}
@@ -84,10 +85,6 @@ public class UserInterface {
 		String createAcc ="Let's create an account for you!\n";
 		String enterUsername = "Enter your username: "; //only do this if it's clear
 		String createPW = "Create a password: ";
-		emailPWKey = email + pw;
-		fullNameKey = fName + lName;
-		//String success = "\nYou have succesfully created an account,"
-		//+ fName + " " + lName + "!\n";
 		input.nextLine(); // clear buffer from reading
 		System.out.println("\nWelcome to our store, please login here!");
 		System.out.println("\n[Choose your customer type]\n"
@@ -100,6 +97,8 @@ public class UserInterface {
 			System.out.println("\nPlease start by filling out"
 					+ "your shipping info!\n");
 			createAccount();
+			emailPWKey = email + pw;
+			fullNameKey = fName + lName;
 			currentC = new Customer(fName, lName, email, addr,
 					city, state, zip);
 			custHT.insert(currentC, emailPWKey);
@@ -116,6 +115,8 @@ public class UserInterface {
 			username = input.nextLine();
 			System.out.print(createPW);
 			pw = input.nextLine();
+			emailPWKey = email + pw;
+			fullNameKey = fName + lName;
 			currentC = new Customer(username, fName, lName, email, pw, addr,
 					city, state, zip);
 			custHT.insert(currentC, emailPWKey);
@@ -128,6 +129,8 @@ public class UserInterface {
 			email = input.nextLine();
 			System.out.print("Enter your password: ");
 			pw = input.nextLine();
+			emailPWKey = email + pw;
+			fullNameKey = fName + lName;
 			Customer tempC = new Customer(email, pw);
 			boolean signinStatus = custHT.contains(tempC, emailPWKey);
 			if (!(signinStatus)) {
@@ -260,7 +263,7 @@ public class UserInterface {
 					break;
 				case "2":
 					System.out.println(custHT); //Display unsorted customer information
-					//TODO: add customers phone numbers, need to format individual printing fields
+					//TODO: need new customer display method and call that in a new hashtable
 					//(avoid printing passwords)
 					break;
 				case "3":
