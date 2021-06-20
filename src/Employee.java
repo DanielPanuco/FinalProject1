@@ -14,12 +14,19 @@ public class Employee extends User {
 		super(firstName, lastName, email, password);
 	}
 	
+	public Employee(String firstName, String lastName, 
+			String email, String password, int accountNum) {
+		super(firstName, lastName, email, password);
+	}
+	
 	public static Customer searchCustomer(String firstName,
 			String lastName, HashTable<Customer> customersByName) {
-		String fullNameKey = firstName + lastName;
-		return customersByName.get(new Customer(firstName, lastName), fullNameKey);
+		return customersByName.get(new Customer(firstName, lastName), firstName+lastName);
 	}
 
+	public static void displayCustomer(Customer customer) {
+		System.out.println(customer);
+	}
 	
 	public static void viewOrders(Heap<Order> orders) {
 		System.out.println(orders);
@@ -57,7 +64,7 @@ public class Employee extends User {
 		byDate.remove(videogame, dc);
 	}
 
-	@Override public String toString() {
+	public String toString() {
 		return super.toString();
 	}
 }
