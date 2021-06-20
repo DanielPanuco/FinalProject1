@@ -297,9 +297,8 @@ public class UserInterface {
 		}
 	}
 	public static void placeOrder(BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) {
-		int numGames;
+		int numGames, shippingSpeed;
 		double orderPrice;
-		int shippingSpeed;
 		Order placeOrder;
 		String divider = "----------------------------------"; //for future potential use
 		List<VideoGame> unshippedVG = new List<>();
@@ -308,13 +307,16 @@ public class UserInterface {
 		numGames = input.nextInt();
 		input.nextLine();
 		for (int i = 0; i < numGames; i++) {
+			
 			System.out.print("\nEnter the case sensitive title of the video game you would like to buy: ");
 			title = input.nextLine();
 			VideoGame tempVG = new VideoGame(title);
 			tempVG = vgByTitle.search(tempVG, tc);
 			while (tempVG == null) {
-				System.out.print("Sorry, we don't carry this title yet."
+				System.out.print("\nSorry, we don't carry this title yet.\n"
 						+ "Please enter an available correct case sensitive title: ");
+				//TODO: fix Exception in thread "main" java.lang.NullPointerException: 
+				//Cannot invoke "VideoGame.getTitle()" because "v1" is null
 				title = input.nextLine();
 				tempVG = vgByTitle.search(tempVG, tc);
 			}
@@ -342,12 +344,15 @@ public class UserInterface {
 				break;
 				//TODO: Missing a default case
 		}
-		System.out.println("Thank you, your order is being processed!\n");
+		System.out.println("\nThank you, your order is being processed!\n");
 		input.nextLine();
 		placeOrder = new Order(currentC, unshippedVG, shippingSpeed, false);
-		placeOrder.displayPriceCalculation(unshippedVG, shippingSpeed);
+		
+		//placeOrder.displayPriceCalculation(unshippedVG, shippingSpeed); redundant now
+		//might be OK to del the method too
 		priorityQueue.insert(placeOrder);
 		currentC.placeUnshippedOrder(placeOrder);
+		currentC.viewUnshippedOrders();
 	}
 
 	public static void viewOrders() {
