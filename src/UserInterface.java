@@ -84,9 +84,9 @@ public class UserInterface {
     	String ans;
     	String createAcc ="Let's create an account for you!\n";
 		String enterUsername = "Enter your username: "; //only do this if it's clear
-		String createPW = "Create a password:";
-		String success = "\nYou have succesfully created an account,"
-							+ fName + " " + lName + "!\n";
+		String createPW = "Create a password: ";
+		//String success = "\nYou have succesfully created an account,"
+				//+ fName + " " + lName + "!\n";
 		input.nextLine(); // clear buffer from reading
 		System.out.println("\nWelcome to our store, please login here!");
 		System.out.println("\n[Choose your customer type]\n"
@@ -97,11 +97,13 @@ public class UserInterface {
 	        ans = input.nextLine();
 	        if (ans.equals("1")) {
 				System.out.println("\nPlease start by filling out"
-						+ "your contact info!\n");
+						+ "your shipping info!\n");
 	        	createAccount();
 				currentC = new Customer(fName, lName, email, addr,
 						city, state, zip);
-				System.out.println("\nYou have succesfully created an account!");
+				custHT.insert(currentC, emailPWKey);
+				custByName.insert(currentC, emailPWKey);
+				System.out.println("\nThank you for filling out your shipping info!");
 				// TODO: you need to store the guest in the hashtable or else we
 				// can't output their orders to the file
 				// TODO: which means we need a password from them so we can add
@@ -111,13 +113,15 @@ public class UserInterface {
 				System.out.println(createAcc);
     			System.out.print(enterUsername);
     			username = input.nextLine();
-    			System.out.println(createPW);
+    			System.out.print(createPW);
     			pw = input.nextLine();
 				currentC = new Customer(username, fName, lName, email, pw, addr,
 						city, state, zip);
 				custHT.insert(currentC, emailPWKey);
 				custByName.insert(currentC, emailPWKey);
-				System.out.println(success);
+				//System.out.println(success);
+				System.out.println("\nYou have succesfully created an account,"
+						+ fName + " " + lName + "!\n");
 	        } else if (ans.equals("3")){
 	        	System.out.print("Enter your email address: ");
 	    		email = input.nextLine();
@@ -133,14 +137,16 @@ public class UserInterface {
 	    			System.out.println(createAcc);
 	    			System.out.print(enterUsername);
 	    			username = input.nextLine();
-	    			System.out.println(createPW);
+	    			System.out.print(createPW);
 	    			pw = input.nextLine();
 					createAccount();
 	    			currentC = new Customer(username, fName, lName, email, pw, addr,
 	    					city, state, zip);
 	    			custHT.insert(currentC, emailPWKey);
 	    			custByName.insert(currentC, fullNameKey);
-					System.out.println(success);
+	    			//System.out.println(success);
+	    			System.out.println("\nYou have succesfully created an account,"
+							+ fName + " " + lName + "!\n");
 				} else {
 					currentC = custHT.get(tempC, emailPWKey);
 					System.out.println("\nWelcome back, " + currentC.getFirstName() + " "
