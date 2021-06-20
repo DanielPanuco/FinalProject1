@@ -57,7 +57,7 @@ public class UserInterface {
 		//System.out.println(empHT);
 		//viewPriorityQueue(priorityQueue);
 		input = new Scanner(System.in);
-		System.out.println("Welcome to [Insert Video Game Store Title Here]! \n");
+		System.out.println("Welcome to Triforce Games! \n");
 		//System.out.println("Please note that we don't offer refunds after you place your orders!");
 		//maybe mention credit/debit card only
 		System.out.println("[Please select your user type]\n"
@@ -79,8 +79,7 @@ public class UserInterface {
 	}
 
 	public static void custAccSetup(HashTable<Customer> custHT,
-									HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
-									BST<VideoGame> vgByDate) {
+			HashTable<Customer> custByName) {
 		String ans;
 		String createAcc ="Let's create an account for you!\n";
 		String enterUsername = "Enter your username: "; //only do this if it's clear
@@ -94,7 +93,7 @@ public class UserInterface {
 		System.out.print("\nPlease enter 1, 2, or 3: ");
 		ans = input.nextLine();
 		if (ans.equals("1")) {
-			System.out.println("\nPlease start by filling out"
+			System.out.println("\nPlease start by filling out "
 					+ "your shipping info!\n");
 			createAccount();
 			emailPWKey = email + pw;
@@ -103,11 +102,8 @@ public class UserInterface {
 					city, state, zip);
 			custHT.insert(currentC, emailPWKey);
 			custByName.insert(currentC, emailPWKey);
-			System.out.println("\nThank you for filling out your shipping info!");
-			// TODO: you need to store the guest in the hashtable or else we
-			// can't output their orders to the file
-			// TODO: which means we need a password from them so we can add
-			// them to the customer hashtable
+			System.out.println("\nThank you for filling out your shipping info, "
+							+ fName + " " + lName + "!");
 		} else if (ans.equals("2")) {
 			createAccount();
 			System.out.println(createAcc);
@@ -121,11 +117,10 @@ public class UserInterface {
 					city, state, zip);
 			custHT.insert(currentC, emailPWKey);
 			custByName.insert(currentC, emailPWKey);
-			//System.out.println(success);
 			System.out.println("\nYou have successfully created an account,"
 					+ fName + " " + lName + "!\n");
 		} else if (ans.equals("3")){
-			System.out.print("Enter your email address: ");
+			System.out.print("\nEnter your email address: ");
 			email = input.nextLine();
 			System.out.print("Enter your password: ");
 			pw = input.nextLine();
@@ -146,7 +141,6 @@ public class UserInterface {
 						city, state, zip);
 				custHT.insert(currentC, emailPWKey);
 				custByName.insert(currentC, fullNameKey);
-				//System.out.println(success);
 				System.out.println("\nYou have successfully created an account,"
 						+ fName + " " + lName + "!\n");
 			} else {
@@ -179,7 +173,7 @@ public class UserInterface {
 									 HashTable<Customer> custByName, BST<VideoGame> vgByTitle,
 									 BST<VideoGame> vgByDate, Heap<Order> priorityQueue) {
 		String choice = "", ans;
-		custAccSetup(custHT, custByName, vgByTitle, vgByDate);
+		custAccSetup(custHT, custByName);
 		while (!choice.equalsIgnoreCase("X")) {
 			displayCustMenu();
 			System.out.print("Enter your choice: "); //TODO: will convert this to a member string
@@ -204,7 +198,7 @@ public class UserInterface {
 					System.out.print("Enter (Y/N): ");
 					ans = input.nextLine();
 					if (ans.equalsIgnoreCase("Y")) {
-						custAccSetup(custHT, custByName, vgByTitle, vgByDate);
+						custAccSetup(custHT, custByName);
 					}
 					break;
 				case "X":
@@ -290,8 +284,7 @@ public class UserInterface {
 					}
 					break;
 				case "X":
-					System.out.println("\nGoodbye!");
-					//Write to all txt files
+					System.out.println("\nGoodbye!"); //
 					break;
 				default:
 					System.out.println("\nInvalid menu option."
@@ -319,13 +312,14 @@ public class UserInterface {
 		double orderPrice;
 		int shippingSpeed;
 		Order placeOrder;
+		String divider = "----------------------------------"; //for future potential use
 		List<VideoGame> unshippedVG = new List<>();
 		vgByTitle.inOrderPrint();
 		System.out.print("Enter the number of games you would like to purchase: ");
 		numGames = input.nextInt();
 		input.nextLine();
 		for (int i = 0; i < numGames; i++) {
-			System.out.print("Enter the case sensitive title of the video game you would like to buy: ");
+			System.out.print("\nEnter the case sensitive title of the video game you would like to buy: ");
 			title = input.nextLine();
 			VideoGame tempVG = new VideoGame(title);
 			tempVG = vgByTitle.search(tempVG, tc);
@@ -337,8 +331,11 @@ public class UserInterface {
 			}
 			unshippedVG.addLast(tempVG);
 		}
-		System.out.println("1. Standard Shipping || FREE!" + "\n2. Second Day Delivery || $7.95" + "\n3. Next Day Delivery || $14.95");
-		System.out.print("Please choose desired shipping speed: ");
+		System.out.println("\nWhich shipping option would you like to choose?\n");
+		System.out.println("1. Standard Shipping (5 Days): FREE!"
+				+ "\n2. Rush Shipping (2 Days): $7.95"
+				+ "\n3. Overnight Shipping (1 Day): $14.95\n");
+		System.out.print("Please choose your desired shipping speed: ");
 		shippingSpeed = input.nextInt();
 		while (shippingSpeed > 3 || shippingSpeed < 1) {
 			System.out.print("Please enter valid choice 1-3: ");
@@ -354,6 +351,7 @@ public class UserInterface {
 			case 3:
 				shippingSpeed = 2;
 				break;
+				//TODO: Missing a default case
 		}
 		System.out.println("Thank you, your order is being processed!\n");
 		input.nextLine();

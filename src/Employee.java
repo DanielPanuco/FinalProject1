@@ -28,22 +28,6 @@ public class Employee extends User {
 		//need to know the priority
 	}
 	
-	public static void listByTitle(BST<VideoGame> byTitle) {
-		if(byTitle != null) {
-			byTitle.inOrderPrint();
-		} else {
-			System.out.println("Video Game list doesn't exist");
-		}
-	}
-	
-	public static void listByDate(BST<VideoGame> byDate) {
-		if(byDate != null) {
-			byDate.inOrderPrint();
-		} else {
-			System.out.println("Video Game list doesn't exist");
-		}
-	}
-	
 	public static void addProduct(BST<VideoGame> byTitle, BST<VideoGame> byDate, VideoGame videogame,
 			TitleComparator tc, DateComparator dc) {
 		byTitle.insert(videogame,tc);
@@ -56,7 +40,7 @@ public class Employee extends User {
 		byDate.remove(videogame, dc);
 	}
 
-	public String toString() {
+	@Override public String toString() {
 		return super.toString();
 	}
 }

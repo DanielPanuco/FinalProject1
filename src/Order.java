@@ -58,6 +58,7 @@ public class Order {
             case 1:
                 orderPrice += 14.95;
                 break;
+              //TODO: Missing a default case
         }
         orderPrice *= 1.0725;
         return orderPrice;
@@ -144,7 +145,6 @@ public class Order {
     public String toString() { // return string in the format that we are writing out to the file
         String temp = "";
         temp += shippingSpeed + "\n";
-        //temp += Boolean.toString(shippingStatus) + "\n"; //TODO: Check if passing in boolean is OK
         temp += currentDate + "\n";
         temp += priority + "\n";
         temp += orderContents.getLength() + "\n"; // Number of video games in the order

@@ -131,7 +131,6 @@ public class Customer extends User {
 		}
 	}
 	public void viewUnshippedOrders() {
-		double totalP = 0;
 		String divider = "---------------------------------------------------------";
 		String t2 = "\t\t", t3 = "\t\t\t";
 		if (unshippedOrders.isEmpty()) {
@@ -149,9 +148,9 @@ public class Customer extends User {
 					System.out.println((j + 1) + ":\t"
 							+ df.format(currVG.getPrice()) + t2 + currVG.getTitle() 
 							+ " (" + currVG.getPlatform() + ")" +t3);
-					totalP += currVG.getPrice();
 					vgList.advanceIterator();
 				}
+				
 				int tempShippingSpeed = unshippedOrders.getIterator().getShippingSpeed();
 
 				unshippedOrders.getIterator().displayPriceCalculation(vgList, tempShippingSpeed);
