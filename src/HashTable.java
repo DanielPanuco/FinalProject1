@@ -36,12 +36,16 @@ public class HashTable<T> {
      * @return the index in the Table
      */
 
-    public int hash(String key) { 
+    private int hash(String key) { 
     	int code = 0;
     	for (int i = 0; i < key.length(); i++) {
             code += (int) key.charAt(i);
         }
         return code % Table.size();
+    }
+    
+    public int getHash(String key) {
+    	return hash(key);
     }
     
     /**

@@ -17,7 +17,7 @@ public class Employee extends User {
 	public static Customer searchCustomer(String firstName,
 										  String lastName, HashTable<Customer> customersByName) {
 		String fullNameKey = firstName + lastName;
-		int hash = customersByName.hash(fullNameKey);
+		int hash = customersByName.getHash(fullNameKey);
 		List<Customer> customersList = customersByName.getBucket(hash);
 		customersList.placeIterator();
 		for(int i = 0; i < customersList.getLength(); i++) {
