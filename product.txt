@@ -1,56 +1,20 @@
-Halo 5: Guardians
-343 Industries
-20070925
-20.00
-First-person shooter
-T
-84
-Xbox One
+Animal Crossing: New Horizons
+Nintendo
+20200320
+60.0
+Life Simulation
+E
+90
+Nintendo Switch
 
-Halo 3
-Bungie
-20200714
-5
-First-person shooter
+Crusader Kings III
+Paradox Interactive
+20200901
+39.99
+Strategy
 M
-94
+91
 PC
-
-Valorant
-Riot Games
-20200602
-0
-Tactical FPS
-T
-80
-PC
-
-Genshin Impact
-Mihoyo
-20200928
-0
-Action RPG
-T
-84
-PC
-
-Zero Escape: Virtue's Last Reward
-Spike Chunsoft
-20120216
-23.99
-Visual Novel
-M
-88
-Nintendo 3DS
-
-Phoenix Wright: Ace Attorney - Dual Destinies
-Capcom
-20130725
-29.99
-Visual Novel
-M
-81
-Nintendo 3DS
 
 Dark Souls
 From Software
@@ -79,67 +43,13 @@ M
 89
 PC
 
-Animal Crossing: New Horizons
-Nintendo
-20200320
-60
-Life Simulation
-E
-90
-Nintendo Switch
-
-The Witcher
-CD Projekt Red
-20071026
-9.99
+Genshin Impact
+Mihoyo
+20200928
+0.0
 Action RPG
-M
-81
-PC
-
-Resident Evil Village
-Capcom
-20210507
-69.99
-Action Adventure
-M
-81
-PC
-
-Halo Infinite
-343 Industries
-20211225
-59.99
-First-person shooter
-M
-80
-PC
-
-Victoria II
-Paradox Development Studio
-20100813
-21.99
-Strategy
 T
-75
-PC
-
-Red Dead Redemption
-Rockstar Games
-20181026
-59.99
-Action-Adventure
-M
-97
-PS4
-
-Crusader Kings III
-Paradox Interactive
-20200901
-39.99
-Strategy
-M
-91
+84
 PC
 
 Hades
@@ -151,6 +61,69 @@ T
 93
 Nintendo Switch
 
+Halo 3
+Bungie
+20200714
+5.0
+First-person shooter
+M
+94
+PC
+
+Halo 5: Guardians
+343 Industries
+20150925
+20.0
+First-person shooter
+T
+84
+Xbox One
+
+Halo Infinite
+343 Industries
+20211225
+59.99
+First-person shooter
+M
+80
+PC
+
+Okami HD
+Capcom
+20180809
+5.99
+Action-Adventure
+T
+92
+Nintendo Switch
+
+Phoenix Wright: Ace Attorney - Dual Destinies
+Capcom
+20130725
+29.99
+Visual Novel
+M
+81
+Nintendo 3DS
+
+Red Dead Redemption
+Rockstar Games
+20181026
+59.99
+Action-Adventure
+M
+97
+PS4
+
+Resident Evil Village
+Capcom
+20210507
+69.99
+Action Adventure
+M
+81
+PC
+
 The Legend of Zelda: Breath of the Wild
 Nintendo
 20171201
@@ -159,6 +132,33 @@ Action-Adventure
 E 10+
 97
 Nintendo Switch
+
+The Witcher
+CD Projekt Red
+20071026
+9.99
+Action RPG
+M
+81
+PC
+
+Valorant
+Riot Games
+20200602
+0.0
+Tactical FPS
+T
+80
+PC
+
+Victoria II
+Paradox Development Studio
+20100813
+21.99
+Strategy
+T
+75
+PC
 
 Xenoblade Chronicles 2
 Monolith Soft
@@ -178,11 +178,12 @@ T
 89
 Nintendo Switch
 
-Okami HD
-Capcom
-20180809
-5.99
-Action-Adventure
-T
-92
-Nintendo Switch
+Zero Escape: Virtue's Last Reward
+Spike Chunsoft
+20120216
+23.99
+Visual Novel
+M
+88
+Nintendo 3DS
+

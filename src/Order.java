@@ -72,7 +72,7 @@ public class Order {
             orderPrice += orderContents.getIterator().getPrice();
             orderContents.advanceIterator();
         }
-        System.out.println("Order subtotal: " + dc.format(orderPrice));
+        System.out.println("\nOrder subtotal: " + dc.format(orderPrice));
         switch (shippingSpeed) {
             case 5:
                 break;

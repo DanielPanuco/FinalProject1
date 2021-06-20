@@ -63,6 +63,7 @@ public abstract class User {
     }
 
     public boolean passwordMatch(String anotherPassword) {
+    	//haven't used this yet, would be nice but not necess
         return password.equals(anotherPassword);
     }
 

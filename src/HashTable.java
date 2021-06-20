@@ -77,20 +77,20 @@ public class HashTable<T> {
      */
     
     public T get(T t, String key) throws NullPointerException{
-        if(t == null) {
-            throw new NullPointerException("get: cannot get null");
-        }else {
-            int bucket = hash(key);
-            List<T> list = Table.get(bucket);
-            int position = list.linearSearch(t);
-            if(position == -1) {
-                return null;
-            }else {
-                list.iteratorToIndex(position);
-                return list.getIterator();
-            }
-        }
-    }
+		if (t == null) {
+			throw new NullPointerException("get: cannot get null");
+		} else {
+			int bucket = hash(key);
+			List<T> list = Table.get(bucket);
+			int position = list.linearSearch(t);
+			if (position == -1) {
+				return null;
+			} else {
+				list.iteratorToIndex(position);
+				return list.getIterator();
+			}
+		}
+	}
 
     /**
      * Determines whether a specified key is in 
@@ -101,14 +101,14 @@ public class HashTable<T> {
      * @throws NullPointerException when t is null
      */
 
-    public boolean contains(T t, String key) throws NullPointerException{
-        if(t == null) {
-            throw new NullPointerException("contains: cannot contain null");
-        }else {
-            int bucket = hash(key);
-            return Table.get(bucket).linearSearch(t) == -1 ? false : true;
-        }
-    }
+	public boolean contains(T t, String key) throws NullPointerException {
+		if (t == null) {
+			throw new NullPointerException("contains: cannot contain null");
+		} else {
+			int bucket = hash(key);
+			return Table.get(bucket).linearSearch(t) == -1 ? false : true;
+		}
+	}
     
     /**Mutators*/
 

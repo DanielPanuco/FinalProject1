@@ -17,11 +17,8 @@ public class Employee extends User {
 	public static Customer searchCustomer(String firstName,
 										  String lastName, HashTable<Customer> customersByName) {
 		String fullNameKey = firstName + lastName;
-		return customersByName.get(new Customer(firstName, lastName), fullNameKey);
-	}
-	
-	public static void viewOrders(Heap<Order> orders) {
-		System.out.println(orders);
+		Customer tempCust = new Customer(firstName, lastName, "NA");
+		return customersByName.get(tempCust, fullNameKey);
 	}
 	
 	public static void shipOrder(Heap<Order> orders, Order order) {
@@ -30,8 +27,8 @@ public class Employee extends User {
 	
 	public static void addProduct(BST<VideoGame> byTitle, BST<VideoGame> byDate, VideoGame videogame,
 			TitleComparator tc, DateComparator dc) {
-		byTitle.insert(videogame,tc);
-		byDate.insert(videogame,dc);
+		byTitle.insert(videogame, tc);
+		byDate.insert(videogame, dc);
 	}
 	
 	public static void removeProduct(BST<VideoGame> byTitle, BST<VideoGame> byDate, VideoGame videogame,

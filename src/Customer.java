@@ -20,7 +20,15 @@ public class Customer extends User {
 		this.state = "state unknown";
 		this.zip = 00000;
 	}
-
+	
+	public Customer(String firstName, String lastName, String email)  {
+		super(firstName, lastName, email);
+		this.address = "address unknown";
+		this.city = "city unknown";
+		this.state = "state unknown";
+		this.zip = 00000;
+	}
+	
 	public Customer(String username, String firstName, String lastName, String email, String password, 
 			String address, String city, String state, int zip) {
 		//call this one when the customers doesn't have any existing orders

@@ -29,7 +29,7 @@ public class UserInterface {
 	//TODO: maybe change to videoGames.txt, once we decide on a String txt
 	//name it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
-
+	
 	public static void main(String[] args) {
 		final int custSize = 5, empSize = 3;
 		int userType;
@@ -50,7 +50,7 @@ public class UserInterface {
 			System.out.println("File(s) not found, please make sure it is in the project"
 					+ "folder and rereun the program.");
 		}
-		//System.out.println(custHT); //test printing
+		//vgByTitle.inOrderPrint(); //test printing
 		//System.out.println(custByName);
 		//System.out.println(empHT);
 		//viewPriorityQueue(priorityQueue);
@@ -66,11 +66,11 @@ public class UserInterface {
 		if (userType == 1) {
 			custInterface(custHT, custByName, vgByTitle, vgByDate, priorityQueue);
 		} else {
-			empInterface(vgByDate, vgByDate, custHT, custByName, empHT, priorityQueue);
+			empInterface(vgByTitle, vgByDate, custHT, custByName, empHT, priorityQueue);
 		}
 		try {
 			customerToFile(custHT);
-			// TODO: vgTofile
+			setVGFile(vgByTitle);
 		} catch (IOException e) {
 			e.getMessage();
 		}
@@ -187,6 +187,8 @@ public class UserInterface {
 					break;
 				case "3":
 					searchVG(vgByTitle);
+					//TODO: prob a good idea to have an option for the user to buy this title
+					//pass in the title into a variation of our placeOrder method
 					break;
 				case "4":
 					viewOrders();
@@ -225,7 +227,7 @@ public class UserInterface {
 					+ " case sensitive email and password!");
 			// TODO: extra, give them X tries, count with a num,
 			//if they exceed X tries the program will terminate.
-			System.out.print("Enter your email address: ");
+			System.out.print("\nEnter your email address: ");
 			email = input.nextLine();
 			System.out.print("\nEnter your password: ");
 			pw = input.nextLine();
@@ -293,13 +295,14 @@ public class UserInterface {
 	}
 
 	public static void searchingCust(HashTable<Customer> custByName) {
-		System.out.print("Please type in the first name of the customer "
+		System.out.print("\nPlease type in the first name of the customer "
 						+ "you are searching for: ");
 		fName = input.nextLine();
-		System.out.print("Please type in the last name of the customer "
+		System.out.print("\nPlease type in the last name of the customer "
 						+ "you are searching for: ");
 		lName = input.nextLine();
 		Customer cust = Employee.searchCustomer(fName, lName, custByName);
+		System.out.println(cust);
 		if (cust == null) {
 			System.out.println("Customer doesn't exist!");
 		} else {
@@ -383,20 +386,24 @@ public class UserInterface {
 	}
 
 	public static void shipOrder(Heap<Order> priorityQueue) {
-		System.out.println("Shipping an order...");
-		Order temp = priorityQueue.getMax();
+		System.out.println("\nShipping an order...");
+		Order tempOrder = priorityQueue.getMax();
+		viewPriorityQueue(priorityQueue);
 		priorityQueue.remove(1);
-		List<VideoGame> tempVG = temp.getOrderContents();
-		System.out.println("Date ordered: " + temp.getCurrentDate());
-		System.out.println("Shipping speed: " + temp.getShippingSpeed());
-		tempVG.placeIterator();
-		while (!tempVG.offEnd()) {
-			tempVG.getIterator().printContent();
+
+		List<VideoGame> tempOrderVG = tempOrder.getOrderContents();
+		System.out.println("Date ordered: " + tempOrder.getCurrentDate());
+		System.out.println("Shipping speed: " + tempOrder.getShippingSpeed());
+		tempOrderVG.placeIterator();
+		while (!tempOrderVG.offEnd()) {
+			tempOrderVG.getIterator().printContent();
+			tempOrderVG.advanceIterator();
 		}
 		// System.out.println("Total price: " + );
-		currentC.removeUnshippedOrder(temp);
-		currentC.placeShippedOrder(temp);
-		System.out.println("Order has been shipped");
+		currentC = tempOrder.getCustomer();
+		currentC.removeUnshippedOrder(tempOrder);
+		currentC.placeShippedOrder(tempOrder);
+		System.out.println("\nOrder has been shipped");
 	}
 
 	public static void searchVG(BST<VideoGame> vgByTitle) {
@@ -424,6 +431,7 @@ public class UserInterface {
 				+ "2. By Release Date");
 		System.out.print("\nEnter your choice: ");
 		choice = input.nextLine();
+		System.out.println();
 		while (!(choice.equals("1") || choice.equals("2"))) {
 			// TODO: Is this fixed now?
 			System.out.println("Wrong input\nEnter 1 to search by title | 2 to search by date: ");
@@ -441,27 +449,50 @@ public class UserInterface {
 
 	public static void addVG(BST<VideoGame> vgByTitle,
 							 BST<VideoGame> vgByDate) {
-		System.out.print("Please type in the Video Game you want to add: ");
+		String dev, genre, ESRB, pform;
+		double price;
+		int rDate, mcScore;
+
+		System.out.print("\nPlease enter the title of the video game: ");
 		title = input.nextLine();
-		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
-		if (vg != null) {
-			Employee.addProduct(vgByTitle, vgByDate, vg, tc, dc);
+		VideoGame tempVG = new VideoGame(title);
+		tempVG = vgByTitle.search(tempVG, tc);
+		if (tempVG == null) {
+			System.out.print("Please enter the developer of " + title + ": ");
+			dev = input.nextLine();
+			System.out.print("Please enter the release date (YYYYMMDD): ");
+			rDate = input.nextInt();
+			System.out.print("Please enter the price: $");
+			price = input.nextDouble();
+			input.nextLine();
+			System.out.print("Please enter the genre: ");
+			genre = input.nextLine();
+			System.out.print("Please enter the ESRB (Entertainment Software Rating Board) Rating: ");
+			ESRB = input.nextLine();
+			System.out.print("Please enter the Metacritic Score: ");
+			mcScore = input.nextInt();
+			input.nextLine();
+			System.out.print("Please enter the platform: ");
+			pform = input.nextLine();
+			VideoGame newVG = new VideoGame(title, dev, rDate, price, genre, ESRB,
+					mcScore, pform);
+			Employee.addProduct(vgByTitle, vgByDate, newVG, tc, dc);
 		} else {
 			System.out.println(
-					"\nCannot find the Video Game you typed in, try again");
+					"\nThis video game already exists in our system!");
 		}
 	}
 
 	public static void removeVG(BST<VideoGame> vgByTitle,
 								BST<VideoGame> vgByDate) {
-		System.out.print("Please type in the Video Game you want to remove: ");
+		System.out.print("\nPlease type in the title of the Video Game you want to remove: ");
 		title = input.nextLine();
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
 		if (vg != null) {
 			Employee.removeProduct(vgByTitle, vgByDate, vg, tc, dc);
+			System.out.println(title + "has been succesfully removed from our product catalog!");
 		} else {
-			System.out.println(
-					"\nCannot find the Video Game you typed in, try again");
+			System.out.println("Cannot find " + title + "in our product catalog, please try again!");
 		}
 	}
 
@@ -471,9 +502,14 @@ public class UserInterface {
 				+ "1. Place Order\n"
 				+ "2. List Video Games\n"
 				+ "3. Search for Video Game\n"
-				+ "4. View Unshipped and Shipped Orders\n"
-				+ "5. Sign Out of Your Acount\n"
-				+ "X. Exit\n"); // TODO: finalize output
+				+ "4. View Unshipped and Shipped Orders");
+		if (currentC.getUsername().equalsIgnoreCase("NA")) {
+			System.out.println("5. Sign out as a Guest\n"
+								+ "X. Exit\n");
+		} else {
+			System.out.println("5. Sign out as a Guest\n"
+								+ "X. Exit\n");	
+		} // TODO: finalize output
 	}
 
 	public static void displayEmpMenu() {
@@ -486,7 +522,7 @@ public class UserInterface {
 				+ "5. List Video Games\n"
 				+ "6. Add New Product\n"
 				+ "7. Remove a Product\n"
-				+ "8. Sign Out of Your Acount\n"
+				+ "8. Sign Out of Your Account\n"
 				+ "X. Exit\n"); //TODO: finalize output
 	}
 
@@ -618,7 +654,8 @@ public class UserInterface {
 	public static void viewPriorityQueue(Heap<Order> priorityQueue) {
 		//TODO: viewPriorityQueue needs testing
 		ArrayList<Order> tempOrder = priorityQueue.sort();
-		System.out.println("Printing orders in order of priority: \n\n");
+		System.out.println("\nPrinting orders in order of priority: \n\n");
+		//TODO: pls print who's order (cust info)
 		for (int i = tempOrder.size() - 1; i > 0; i--) {
 			System.out.println("Temp Order " + i + ": " + tempOrder.get(i));
 		}
@@ -630,9 +667,16 @@ public class UserInterface {
 		myWriter.close();
 	}
 
-	public static void setVgFile(BST<VideoGame> vgByTitle) throws IOException {
+	public static void setVGFile(BST<VideoGame> vgByTitle) throws IOException {
+		  ArrayList<VideoGame> tempal = vgByTitle.inOrderToAL();
+	        String fileOutput = "";
+	        for (int i = 0; i < tempal.size(); i++) {
+	            fileOutput += tempal.get(i).toText();
+	            fileOutput += "\n";
+	        }
+	        //System.out.println("testing file output: \n" + fileOutput);
 		FileWriter vgWriter = new FileWriter(vgFile);
-		vgWriter.write(vgByTitle.toString());
+		vgWriter.write(fileOutput);
 		vgWriter.close();
 	}
 }
