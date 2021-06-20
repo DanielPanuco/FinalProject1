@@ -96,7 +96,6 @@ public class HashTable<T> {
 			List<T> list = Table.get(bucket);
 			list.placeIterator();
 			int position = list.linearSearch(t);
-			System.out.println("position:  " + position);
 			if (position == -1) {
 				return null;
 			} else {
