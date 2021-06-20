@@ -36,7 +36,7 @@ public class HashTable<T> {
      * @return the index in the Table
      */
 
-    private int hash(String key) { 
+    public int hash(String key) { 
     	int code = 0;
     	for (int i = 0; i < key.length(); i++) {
             code += (int) key.charAt(i);
@@ -57,6 +57,14 @@ public class HashTable<T> {
                     + "index is outside bounds of the table");
         }
         return Table.get(index).getLength();
+    }
+    
+    public List<T> getBucket(int index) throws IndexOutOfBoundsException{
+        if(index < 0 || index >= Table.size()) {
+            throw new IndexOutOfBoundsException("countBucket(): "
+                    + "index is outside bounds of the table");
+        }
+        return Table.get(index);
     }
 
     /**
@@ -82,7 +90,9 @@ public class HashTable<T> {
 		} else {
 			int bucket = hash(key);
 			List<T> list = Table.get(bucket);
+			list.placeIterator();
 			int position = list.linearSearch(t);
+			System.out.println("position:  " + position);
 			if (position == -1) {
 				return null;
 			} else {

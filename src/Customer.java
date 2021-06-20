@@ -212,6 +212,21 @@ public class Customer extends User {
 				+ "\n";
 		return result;
 	}
+	
+		public boolean equals(Object o, String firstName, String lastName) {
+        if(o == this) {
+            return true;
+        } else if (!(o instanceof Customer)) {
+            return false;
+        } else {
+            Customer cust = (Customer) o;
+            if (cust.getFirstName().equals(firstName) && cust.getLastName().equals(lastName)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 
 	public void displayCustomer() {
 		System.out.println("Email: " + getEmail());

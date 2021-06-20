@@ -17,8 +17,17 @@ public class Employee extends User {
 	public static Customer searchCustomer(String firstName,
 										  String lastName, HashTable<Customer> customersByName) {
 		String fullNameKey = firstName + lastName;
-		Customer tempCust = new Customer(firstName, lastName, "NA");
-		return customersByName.get(tempCust, fullNameKey);
+		int hash = customersByName.hash(fullNameKey);
+		List<Customer> customersList = customersByName.getBucket(hash);
+		customersList.placeIterator();
+		for(int i = 0; i < customersList.getLength(); i++) {
+			if(customersList.getIterator().equals(new Customer(firstName, lastName, "NA"), firstName, lastName)) {
+				return customersList.getIterator();
+			}else {
+				customersList.advanceIterator();
+			}
+		}
+		return null;
 	}
 	
 	public static void shipOrder(Heap<Order> orders, Order order) {
@@ -40,4 +49,6 @@ public class Employee extends User {
 	@Override public String toString() {
 		return super.toString();
 	}
+	
+	
 }
