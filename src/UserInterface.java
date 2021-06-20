@@ -110,7 +110,6 @@ public class UserInterface {
 			custByName.insert(currentC, emailPWKey);
 			System.out.println("\nYou have successfully created an account, "
 					+ fName + " " + lName + "!\n");
-			System.out.println(currentC.getPassword());
 		} else if (ans.equals("3")){
 			System.out.print("\nEnter your email address: ");
 			email = input.nextLine();
