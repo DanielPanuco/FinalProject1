@@ -4,7 +4,6 @@
  * CIS 22C, Final Project
  */
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Comparator;
@@ -12,7 +11,8 @@ import java.util.Comparator;
 public class BST<T> {
 	private class Node {
 		private T data;
-		private Node left, right;
+		private Node left;
+		private Node right;
 
 		public Node(T data) {
 			this.data = data;
@@ -34,7 +34,6 @@ public class BST<T> {
 
 	/**
 	 * Copy constructor for BST
-	 * 
 	 * @param bst the BST of which to make a copy.
 	 * @param c   the way the tree is organized
 	 */
@@ -44,7 +43,6 @@ public class BST<T> {
 
 	/**
 	 * Helper method for copy constructor
-	 * 
 	 * @param node the node containing data to copy
 	 * @param c    the way the tree is organized
 	 */
@@ -62,7 +60,6 @@ public class BST<T> {
 
 	/**
 	 * Returns the data stored in the root
-	 * 
 	 * @precondition !isEmpty()
 	 * @return the data stored in the root
 	 * @throws NoSuchElementException when precondition is violated
@@ -77,7 +74,6 @@ public class BST<T> {
 
 	/**
 	 * Determines whether the tree is empty
-	 * 
 	 * @return whether the tree is empty
 	 */
 	public boolean isEmpty() {
@@ -86,7 +82,6 @@ public class BST<T> {
 
 	/**
 	 * Returns the current size of the tree (number of nodes)
-	 * 
 	 * @return the size of the tree
 	 */
 	public int getSize() {
@@ -95,7 +90,6 @@ public class BST<T> {
 
 	/**
 	 * Helper method for the getSize method
-	 * 
 	 * @param node the current node to count
 	 * @return the size of the tree
 	 */
@@ -109,7 +103,6 @@ public class BST<T> {
 
 	/**
 	 * Returns the height of tree by counting edges.
-	 * 
 	 * @return the height of the tree
 	 */
 	public int getHeight() {
@@ -118,7 +111,6 @@ public class BST<T> {
 
 	/**
 	 * Helper method for getHeight method
-	 * 
 	 * @param node the current node whose height to count
 	 * @return the height of the tree
 	 */
@@ -139,7 +131,6 @@ public class BST<T> {
 
 	/**
 	 * Returns the smallest value in the tree
-	 * 
 	 * @precondition !isEmpty()
 	 * @return the smallest value in the tree
 	 * @throws NoSuchElementException when the precondition is violated
@@ -154,7 +145,6 @@ public class BST<T> {
 
 	/**
 	 * Recursive helper method to findMin method
-	 * 
 	 * @param node the current node to check if it is the smallest
 	 * @return the smallest value in the tree
 	 */
@@ -169,7 +159,6 @@ public class BST<T> {
 
 	/**
 	 * Returns the largest value in the tree
-	 * 
 	 * @precondition !isEmpty()
 	 * @return the largest value in the tree
 	 * @throws NoSuchElementException when the precondition is violated
@@ -362,16 +351,6 @@ public class BST<T> {
 		}
 	}
 	//TODO: extra mcRating: certain rating: add to al
-
-	private void inOrderTraversal(Node node) {
-		if (node == null) {
-			return;
-		} else {
-			inOrderPrint(node.left);
-			System.out.println(node.data);
-			inOrderPrint(node.right);
-		}
-	}
 
 	/**
 	 * Prints the data in post order to the console followed by a new line

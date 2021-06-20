@@ -6,7 +6,7 @@
 
 import java.io.*;
 import java.lang.reflect.Array; //TODO: unused
-import java.text.DecimalFormat;
+import java.text.DecimalFormat; //TODO: unused
 import java.util.ArrayList;
 import java.util.PriorityQueue; //TODO: unused
 
@@ -16,9 +16,7 @@ public class UserInterface {
 	private static final String vgFile = ("product.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
 	public static String fName, lName, email, addr, city, state, pw, title,
-						 username;
-	public static String fullNameKey;
-	public static String emailPWKey;
+						 username, fullNameKey, emailPWKey;
 	public static int zip;
 	public static Customer currentC = null;
 	public static Employee currentEmp = null;
@@ -32,7 +30,7 @@ public class UserInterface {
 	
 	public static void main(String[] args) {
 		final int custSize = 5, empSize = 3;
-		int userType;
+		String userType;
 		HashTable<Customer> custHT = new HashTable<>(custSize * 2);
 		HashTable<Customer> custByName = new HashTable<>(custSize * 2);
 		HashTable<Employee> empHT = new HashTable<>(empSize * 2);
@@ -50,10 +48,6 @@ public class UserInterface {
 			System.out.println("File(s) not found, please make sure it is in the project"
 					+ "folder and rereun the program.");
 		}
-		//vgByTitle.inOrderPrint(); //test printing
-		//System.out.println(custByName);
-		//System.out.println(empHT);
-		//viewPriorityQueue(priorityQueue);
 		input = new Scanner(System.in);
 		System.out.println("Welcome to Triforce Games! \n");
 		//System.out.println("Please note that we don't offer refunds after you place your orders!");
@@ -62,27 +56,26 @@ public class UserInterface {
 				+ "1. Customer\n"
 				+ "2. Employee");
 		System.out.print("\nPlease enter 1 or 2: ");
-		userType = input.nextInt();
-		if (userType == 1) {
+		userType = input.nextLine();
+		if (userType.equals("1")) {
 			custInterface(custHT, custByName, vgByTitle, vgByDate, priorityQueue);
 		} else {
 			empInterface(vgByTitle, vgByDate, custHT, custByName, empHT, priorityQueue);
 		}
 		try {
 			customerToFile(custHT);
-			setVGFile(vgByTitle);
+			setVgFile(vgByTitle);
 		} catch (IOException e) {
-			e.getMessage();
+			e.getMessage(); //TODO: write a custom message for this
 		}
 	}
 
 	public static void custAccSetup(HashTable<Customer> custHT,
 			HashTable<Customer> custByName) {
 		String ans;
-		String createAcc ="Let's create an account for you!\n";
+		String createAcc = "\nLet's create an account for you!\n";
 		String enterUsername = "Enter your username: "; //only do this if it's clear
 		String createPW = "Create a password: ";
-		input.nextLine(); // clear buffer from reading
 		System.out.println("\nWelcome to our store, please login here!");
 		System.out.println("\n[Choose your customer type]\n"
 				+ "1. Guest\n"
@@ -92,7 +85,7 @@ public class UserInterface {
 		ans = input.nextLine();
 		if (ans.equals("1")) {
 			System.out.println("\nPlease start by filling out "
-					+ "your shipping info!\n");
+					+ "your shipping info!");
 			createAccount();
 			emailPWKey = email + pw;
 			fullNameKey = fName + lName;
@@ -115,7 +108,7 @@ public class UserInterface {
 					city, state, zip);
 			custHT.insert(currentC, emailPWKey);
 			custByName.insert(currentC, emailPWKey);
-			System.out.println("\nYou have successfully created an account,"
+			System.out.println("\nYou have successfully created an account, "
 					+ fName + " " + lName + "!\n");
 		} else if (ans.equals("3")){
 			System.out.print("\nEnter your email address: ");
@@ -139,7 +132,7 @@ public class UserInterface {
 						city, state, zip);
 				custHT.insert(currentC, emailPWKey);
 				custByName.insert(currentC, fullNameKey);
-				System.out.println("\nYou have successfully created an account,"
+				System.out.println("\nYou have successfully created an account, "
 						+ fName + " " + lName + "!\n");
 			} else {
 				currentC = custHT.get(tempC, emailPWKey);
@@ -150,7 +143,7 @@ public class UserInterface {
 	}
 
 	public static void createAccount() {
-		System.out.print("Enter your first name: ");
+		System.out.print("\nEnter your first name: ");
 		fName = input.nextLine();
 		System.out.print("Enter your last name: ");
 		lName = input.nextLine();
@@ -179,8 +172,6 @@ public class UserInterface {
 			switch (choice.toUpperCase()) {
 				case "1":
 					placeOrder(vgByTitle, priorityQueue);
-					//OverniDght Shipping, Rush Shipping, Standard Shipping
-					//Priority attribute for each video game order? or overall?
 					break;
 				case "2":
 					listVG(vgByTitle, vgByDate);
@@ -196,14 +187,13 @@ public class UserInterface {
 				case "5":
 					System.out.println("\nWould you like to sign out?\n");
 					System.out.print("Enter (Y/N): ");
-					ans = input.nextLine();
+					ans = input.nextLine();  //TODO: buffer issue, enter twice
 					if (ans.equalsIgnoreCase("Y")) {
 						custAccSetup(custHT, custByName);
 					}
 					break;
 				case "X":
-					System.out.println("\nGoodbye!");
-					//Write to all txt files
+					System.out.println("\nGoodbye! We hope to see you again!");
 					break;
 				default:
 					System.out.println("\nInvalid menu option."
@@ -245,7 +235,6 @@ public class UserInterface {
 		String choice = "", ans; // TODO: EXTRA: access cust email, if title
 		// = val/gen imp,
 		// then print out f2p games with seperate for loop
-		input.nextLine(); // clear buffer from reading an Int
 		empLogin(empHT);
 		while (!choice.equalsIgnoreCase("X")) {
 			displayEmpMenu();
@@ -256,9 +245,7 @@ public class UserInterface {
 					viewPriorityQueue(priorityQueue);
 					break;
 				case "2":
-					System.out.println(custHT); //Display unsorted customer information
-					//TODO: need new customer display method and call that in a new hashtable
-					//(avoid printing passwords)
+					System.out.println(custHT); //TODO: call right method
 					break;
 				case "3":
 					searchingCust(custByName);
@@ -284,7 +271,7 @@ public class UserInterface {
 					}
 					break;
 				case "X":
-					System.out.println("\nGoodbye!"); //
+					System.out.println("\nGoodbye!");
 					break;
 				default:
 					System.out.println("\nInvalid menu option."
@@ -366,7 +353,7 @@ public class UserInterface {
 	public static void viewOrders() {
 		String ans = "";
 		System.out.println("\n[Viewing Order(s) Submenu]");
-		System.out.println("Which would you like to view?\n\n"
+		System.out.println("\nWhich would you like to view?\n\n"
 				+ "U: My Unshipped Orders\n"
 				+ "S: My Shipped Orders\n");
 		System.out.print("Enter your choice: "); //TODO: extra add while loop
@@ -388,9 +375,9 @@ public class UserInterface {
 	public static void shipOrder(Heap<Order> priorityQueue) {
 		System.out.println("\nShipping an order...");
 		Order tempOrder = priorityQueue.getMax();
+		//TODO: pls specify customer's order
 		viewPriorityQueue(priorityQueue);
 		priorityQueue.remove(1);
-
 		List<VideoGame> tempOrderVG = tempOrder.getOrderContents();
 		System.out.println("Date ordered: " + tempOrder.getCurrentDate());
 		System.out.println("Shipping speed: " + tempOrder.getShippingSpeed());
@@ -399,7 +386,7 @@ public class UserInterface {
 			tempOrderVG.getIterator().printContent();
 			tempOrderVG.advanceIterator();
 		}
-		// System.out.println("Total price: " + );
+		//TODO: System.out.println("Total price: " + ); do we want to print total price here?
 		currentC = tempOrder.getCustomer();
 		currentC.removeUnshippedOrder(tempOrder);
 		currentC.placeShippedOrder(tempOrder);
@@ -490,7 +477,7 @@ public class UserInterface {
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
 		if (vg != null) {
 			Employee.removeProduct(vgByTitle, vgByDate, vg, tc, dc);
-			System.out.println(title + "has been succesfully removed from our product catalog!");
+			System.out.println(title + " has been succesfully removed from our product catalog!");
 		} else {
 			System.out.println("Cannot find " + title + "in our product catalog, please try again!");
 		}
@@ -655,7 +642,6 @@ public class UserInterface {
 		//TODO: viewPriorityQueue needs testing
 		ArrayList<Order> tempOrder = priorityQueue.sort();
 		System.out.println("\nPrinting orders in order of priority: \n\n");
-		//TODO: pls print who's order (cust info)
 		for (int i = tempOrder.size() - 1; i > 0; i--) {
 			System.out.println("Temp Order " + i + ": " + tempOrder.get(i));
 		}
@@ -667,7 +653,7 @@ public class UserInterface {
 		myWriter.close();
 	}
 
-	public static void setVGFile(BST<VideoGame> vgByTitle) throws IOException {
+	public static void setVgFile(BST<VideoGame> vgByTitle) throws IOException {
 		  ArrayList<VideoGame> tempal = vgByTitle.inOrderToAL();
 	        String fileOutput = "";
 	        for (int i = 0; i < tempal.size(); i++) {
