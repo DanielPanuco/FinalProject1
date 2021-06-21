@@ -297,62 +297,87 @@ public class UserInterface {
 		}
 	}
 	public static void placeOrder(BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) {
-		int numGames, shippingSpeed;
 		double orderPrice;
 		Order placeOrder;
-		String divider = "----------------------------------"; //for future potential use
+		String userInput;
+		int numChoice;
+		String divider = "----------------------------------"; // for future potential use
 		List<VideoGame> unshippedVG = new List<>();
 		vgByTitle.inOrderPrint();
 		System.out.print("Enter the number of games you would like to purchase: ");
-		numGames = input.nextInt();
-		input.nextLine();
-		for (int i = 0; i < numGames; i++) {
-			
-			System.out.print("\nEnter the case sensitive title of the video game you would like to buy: ");
-			title = input.nextLine();
-			VideoGame tempVG = new VideoGame(title);
+		userInput = input.nextLine();
+		do {
+
+			try {
+				numChoice = Integer.parseInt(userInput);
+
+				if (numChoice >= 1) {
+					break;
+				}
+
+			} catch (NumberFormatException e) {
+			}
+
+			System.out.print("Input must be a number greater than 0: ");
+			userInput = input.nextLine();
+		} while (true);
+
+		for (int i = 0; i < numChoice; i++) {
+			if (numChoice == 1) {
+				System.out.print("\nEnter the case sensitive title of the video game you'd like to purchase: ");
+			} else {
+			System.out.print("\nEnter the case sensitive title of the video game purchase #" + (i + 1) + ": ");
+			}
+			userInput = input.nextLine();
+			VideoGame tempVG = new VideoGame(userInput);
 			tempVG = vgByTitle.search(tempVG, tc);
 			while (tempVG == null) {
-				System.out.print("\nSorry, we don't carry this title yet.\n"
-						+ "Please enter an available correct case sensitive title: ");
-				//TODO: fix Exception in thread "main" java.lang.NullPointerException: 
-				//Cannot invoke "VideoGame.getTitle()" because "v1" is null
-				title = input.nextLine();
+				System.out.print("Please confirm correct spelling. Enter case sensitive title: ");
+				userInput = input.nextLine();
+				tempVG = new VideoGame(userInput);
 				tempVG = vgByTitle.search(tempVG, tc);
 			}
 			unshippedVG.addLast(tempVG);
 		}
 		System.out.println("\nWhich shipping option would you like to choose?\n");
-		System.out.println("1. Standard Shipping (5 Days): FREE!"
-				+ "\n2. Rush Shipping (2 Days): $7.95"
-				+ "\n3. Overnight Shipping (1 Day): $14.95\n");
+		System.out.println("1. Standard Shipping (5 Days): $4.95 || Free for orders over $35!"
+				+ "\n2. Rush Shipping (2 Days): $7.95" + "\n3. Overnight Shipping (1 Day): $14.95\n");
 		System.out.print("Please choose your desired shipping speed: ");
-		shippingSpeed = input.nextInt();
-		while (shippingSpeed > 3 || shippingSpeed < 1) {
-			System.out.print("Please enter valid choice 1-3: ");
-			shippingSpeed = input.nextInt();
-		}
-		switch (shippingSpeed) {
-			case 1:
-				shippingSpeed = 5;
-				break;
-			case 2:
-				shippingSpeed = 2;
-				break;
-			case 3:
-				shippingSpeed = 2;
-				break;
-				//TODO: Missing a default case
-		}
-		System.out.println("\nThank you, your order is being processed!\n");
-		input.nextLine();
-		placeOrder = new Order(currentC, unshippedVG, shippingSpeed, false);
+		userInput = input.nextLine();
+		do {
+
+			try {
+				numChoice = Integer.parseInt(userInput);
+
+				if (numChoice >= 1 && numChoice <= 3) {
+					break;
+				}
+
+			} catch (NumberFormatException e) {
+			}
+
+			System.out.print("Input must be a number between 1 and 3: ");
+			userInput = input.nextLine();
+		} while (true);
 		
-		//placeOrder.displayPriceCalculation(unshippedVG, shippingSpeed); redundant now
-		//might be OK to del the method too
+		switch (numChoice) {
+		case 1:
+			numChoice = 5;
+			break;
+		case 2:
+			numChoice = 2;
+			break;
+		case 3:
+			numChoice = 2;
+			break;
+		// TODO: Missing a default case
+		}
+		System.out.println("Thank you, your order is being processed!\n");
+		input.nextLine();
+		placeOrder = new Order(currentC, unshippedVG, numChoice, false);
+		placeOrder.displayPriceCalculation(unshippedVG, numChoice);
 		priorityQueue.insert(placeOrder);
 		currentC.placeUnshippedOrder(placeOrder);
-		currentC.viewUnshippedOrders();
 	}
 
 	public static void viewOrders() {
