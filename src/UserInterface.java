@@ -297,7 +297,7 @@ public class UserInterface {
 		}
 	}
 	public static void placeOrder(BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) {
-		double orderPrice;
+		double orderPrice; //TODO: unused
 		Order placeOrder;
 		String userInput;
 		int numChoice;
@@ -372,11 +372,12 @@ public class UserInterface {
 			break;
 		// TODO: Missing a default case
 		}
-		System.out.println("Thank you, your order is being processed!\n");
-		placeOrder = new Order(currentC, unshippedVG, numChoice, false);
-		placeOrder.displayPriceCalculation(unshippedVG, numChoice);
-		priorityQueue.insert(placeOrder);
-		currentC.placeUnshippedOrder(placeOrder);
+		System.out.println("\nThank you, your order is being processed!\n");
+        placeOrder = new Order(currentC, unshippedVG, numChoice, false);
+        //placeOrder.displayPriceCalculation(unshippedVG, numChoice);
+        priorityQueue.insert(placeOrder);
+        currentC.placeUnshippedOrder(placeOrder);
+        currentC.viewUnshippedOrders();
 	}
 
 	public static void viewOrders() {
@@ -388,13 +389,26 @@ public class UserInterface {
 		System.out.print("Enter your choice: "); //TODO: extra add while loop
 		ans = input.nextLine();
 		if (ans.equalsIgnoreCase("U")) {
-			System.out.println("\n\t[" + currentC.getUsername()
-					+ "'s Unshipped Orders]\n");
-			currentC.viewUnshippedOrders();
+			if (!currentC.getUsername().equals("NA")) {
+				System.out.println("\n\t\t\t[" + currentC.getUsername()
+						+ "'s Unshipped Orders]\n");
+				currentC.viewUnshippedOrders();
+			} else {
+				System.out.println("\n\t\t\t[" + currentC.getFirstName() + " "
+						+ currentC.getLastName() + "'s Unshipped Orders]\n");
+				currentC.viewUnshippedOrders();
+			}
+			
 		} else if (ans.equalsIgnoreCase("S")) { // for typos
-			System.out.println("\n\t[" + currentC.getUsername()
-					+ "'s Shipped Orders]\n");
-			currentC.viewShippedOrders();
+			if (!currentC.getUsername().equals("NA")) {
+				System.out.println("\n\t\t\t[" + currentC.getUsername()
+						+ "'s Shipped Orders]\n");
+				currentC.viewShippedOrders();
+			} else {
+				System.out.println("\n\t\t\t[" + currentC.getFirstName() + " "
+						+ currentC.getLastName() + "'s Shipped Orders]\n");
+				currentC.viewShippedOrders();
+			}
 		} else {
 			System.out.println(
 					"Invalid Input, Please enter only U or S next time!");

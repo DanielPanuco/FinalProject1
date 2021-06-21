@@ -72,12 +72,13 @@ public class Order {
         DecimalFormat dc = new DecimalFormat("$###,###,##0.00");
         double orderPrice = 0;
         double shippingPrice = 0;
+        double stateTax;
         orderContents.placeIterator();
         for (int i = 0; i < orderContents.getLength(); i++) {
             orderPrice += orderContents.getIterator().getPrice();
             orderContents.advanceIterator();
         }
-        System.out.println("\nOrder subtotal: " + dc.format(orderPrice));
+        System.out.println("\n\tSubtotal: " + dc.format(orderPrice));
         switch (shippingSpeed) {
             case 5:
             	 if (orderPrice >= 35) {
@@ -95,9 +96,13 @@ public class Order {
              	shippingPrice = 14.95;
                 break;
         }
-        System.out.println("Shipping price: " + dc.format(shippingPrice));
-        orderPrice *= 1.0725;
-        System.out.println("Total after California sales tax: " + dc.format(orderPrice));
+        System.out.println("+  Shipping Cost:  " + dc.format(shippingPrice));
+        stateTax = orderPrice * 1.0725;
+        System.out.println("+   CA Sales Tax: " + dc.format(stateTax));
+        //TODO: need to add state tax and fix calc for it too
+		System.out.println("-------------------------------------------------"
+						 + "-----------------------------------------");
+        System.out.println("\t   Total: " + dc.format(orderPrice) + "\n");
     }
 
     public Customer getCustomer() {

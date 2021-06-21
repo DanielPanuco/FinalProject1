@@ -140,7 +140,8 @@ public class Customer extends User {
 	}
 	
 	public void viewUnshippedOrders() {
-		String divider = "----------------------------------------------------------------------------------";
+		String divider = "-------------------------------------------------"
+				 		+"-----------------------------------------";
 		String t2 = "\t\t", t3 = "\t\t\t", t4 = "\t\t\t\t";
 		if (unshippedOrders.isEmpty()) {
 			System.out.println("You don't have any unshipped orders!");
@@ -150,24 +151,21 @@ public class Customer extends User {
 				List<VideoGame> vgList = unshippedOrders.getIterator()
 						.getOrderContents();
 				vgList.placeIterator();
-				System.out.println(t3 + "[Order #" + (i + 1) + "]\n"
-						+ " Qty\t" + "Price" + t4 + "Title\n" + divider);
+				System.out.println(t4 + "[Order #" + (i + 1) + "]\n"
+						+ " Qty\t" + "     Price" + t4 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
 					VideoGame currVG = vgList.getIterator();
-					System.out.println((j + 1) + ":\t"
-							+ df.format(currVG.getPrice()) + t3 + currVG.getTitle() 
+					System.out.println((j + 1) + ":" + t2 + "  "
+							+ df.format(currVG.getPrice()) + "\t" + currVG.getTitle() 
 							+ " (" + currVG.getPlatform() + ")");
 					vgList.advanceIterator();
 				}
 				
 				int tempShippingSpeed = unshippedOrders.getIterator().getShippingSpeed();
 				System.out.println();
+				System.out.println("\n" + divider);
 				unshippedOrders.getIterator().displayPriceCalculation(vgList, tempShippingSpeed);
 				unshippedOrders.advanceIterator();
-				//System.out.println("\n" + divider);
-				if (shippedOrders.getLength() > 1) {
-					System.out.println(); //This is for spacing out for the next order
-				}
 			}
 		}
 	}
@@ -183,23 +181,21 @@ public class Customer extends User {
 				List<VideoGame> vgList = shippedOrders.getIterator()
 						.getOrderContents();
 				vgList.placeIterator();
-				System.out.println(t3 + "[Order #" + (i + 1) + "]\n"
-						+ " Qty\t" + "Price" + t4 + "Title\n" + divider);
+				System.out.println(t4 + "[Order #" + (i + 1) + "]\n"
+						+ " Qty\t" + "     Price" + t4 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
 					VideoGame currVG = vgList.getIterator();
-					System.out.println((j + 1) + ":\t"
-							+ df.format(currVG.getPrice()) + t3 + currVG.getTitle() 
+					System.out.println((j + 1) + ":" + t2
+							+ df.format(currVG.getPrice()) + "\t" + currVG.getTitle() 
 							+ " (" + currVG.getPlatform() + ")");
 					vgList.advanceIterator();
 				}
-				
 				int tempShippingSpeed = shippedOrders.getIterator().getShippingSpeed();
 				System.out.println();
+				System.out.println("\n" + divider);
 				shippedOrders.getIterator().displayPriceCalculation(vgList, tempShippingSpeed);
 				shippedOrders.advanceIterator();
-				if (shippedOrders.getLength() > 1){
-					System.out.println(); //This is for spacing out for the next order
-				}
+
 			}
 		}
 	}
