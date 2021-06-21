@@ -136,7 +136,7 @@ public class Heap<T> {
      * @throws IndexOutOfBoundsException
      */
     public int get_left(int index) throws IndexOutOfBoundsException {
-        if (index > heapSize || index < 0) {
+        if (index > heapSize || index <= 0) {
             throw new IndexOutOfBoundsException("get_left(): index out of bounds");
         } else {
             return index * 2;
@@ -152,7 +152,7 @@ public class Heap<T> {
      * @throws IndexOutOfBoundsException
      */
     public int get_right(int index) throws IndexOutOfBoundsException {
-        if (index > heapSize || index < 0) {
+        if (index > heapSize || index <= 0) {
             throw new IndexOutOfBoundsException("get_right(): index out of bounds");
         } else {
             return (index * 2) + 1;

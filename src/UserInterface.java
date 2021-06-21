@@ -307,17 +307,14 @@ public class UserInterface {
 		System.out.print("Enter the number of games you would like to purchase: ");
 		userInput = input.nextLine();
 		do {
-
 			try {
 				numChoice = Integer.parseInt(userInput);
-
 				if (numChoice >= 1) {
 					break;
 				}
-
 			} catch (NumberFormatException e) {
+				System.out.println(e.getMessage());
 			}
-
 			System.out.print("Input must be a number greater than 0: ");
 			userInput = input.nextLine();
 		} while (true);
@@ -359,7 +356,7 @@ public class UserInterface {
 			System.out.print("Input must be a number between 1 and 3: ");
 			userInput = input.nextLine();
 		} while (true);
-		
+
 		switch (numChoice) {
 		case 1:
 			numChoice = 5;
@@ -377,7 +374,6 @@ public class UserInterface {
         //placeOrder.displayPriceCalculation(unshippedVG, numChoice);
         priorityQueue.insert(placeOrder);
         currentC.placeUnshippedOrder(placeOrder);
-        currentC.viewUnshippedOrders();
 	}
 
 	public static void viewOrders() {
@@ -418,8 +414,7 @@ public class UserInterface {
 	public static void shipOrder(Heap<Order> priorityQueue) {
 		System.out.println("\nShipping an order...");
 		Order tempOrder = priorityQueue.getMax();
-		//TODO: pls specify customer's order
-		viewPriorityQueue(priorityQueue);
+		//TODO: check pq's size to see if there are orders to ship
 		priorityQueue.remove(1);
 		List<VideoGame> tempOrderVG = tempOrder.getOrderContents();
 		System.out.println("Date ordered: " + tempOrder.getCurrentDate());
@@ -431,6 +426,7 @@ public class UserInterface {
 		}
 		//TODO: System.out.println("Total price: " + ); do we want to print total price here?
 		currentC = tempOrder.getCustomer();
+		currentC.displayCustomer();
 		currentC.removeUnshippedOrder(tempOrder);
 		currentC.placeShippedOrder(tempOrder);
 		System.out.println("\nOrder has been shipped");
@@ -520,7 +516,7 @@ public class UserInterface {
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
 		if (vg != null) {
 			Employee.removeProduct(vgByTitle, vgByDate, vg, tc, dc);
-			System.out.println(title + " has been succesfully removed from our product catalog!");
+			System.out.println(title + " has been successfully removed from our product catalog!");
 		} else {
 			System.out.println("Cannot find " + title + "in our product catalog, please try again!");
 		}

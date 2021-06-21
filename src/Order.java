@@ -44,27 +44,25 @@ public class Order {
     }
 
     public double calculateOrderPrice(List<VideoGame> orderContents, int shippingSpeed) {
-        double orderPrice = 0; 
+        double orderPrice = 0;
         orderContents.placeIterator();
         for (int i = 0; i < orderContents.getLength(); i++) {
             orderPrice += orderContents.getIterator().getPrice();
         }
-		switch (shippingSpeed) { // Henry: Is this switch case necessary? seems
-								 // similiar to the below one
-		case 1:
-			orderPrice += 14.95;
-			break;
-		case 2:
-			orderPrice += 7.95;
-			break;
-		case 5:
-			if (orderPrice >= 35) {
-			} else {
-				orderPrice += 4.95;
-			}
-			break;
-			// TODO: Missing a default case
-		}
+        switch (shippingSpeed) {
+            case 1:
+                orderPrice += 14.95;
+                break;
+            case 2:
+                orderPrice += 7.95;
+                break;
+            case 5:
+                if (orderPrice >= 35) {
+                } else {
+                    orderPrice += 4.95;
+                }
+                break;
+        }
         orderPrice *= 1.0725;
         return orderPrice;
     }
@@ -96,7 +94,6 @@ public class Order {
 				orderPrice += shippingPrice;
 			}
 			break;
-			 //TODO: Missing a default case
 		}
         System.out.println("+  Shipping Cost: " + dc.format(shippingPrice));
         stateTax = orderPrice * .0725;
@@ -118,7 +115,6 @@ public class Order {
     public String getCurrentDate() {
         return currentDate;
     }
-
 
     public void setCurrentDate(int month, int date, int year) {
         this.currentDate = "" + month + "/" + date + "/" + year;
