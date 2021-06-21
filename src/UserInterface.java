@@ -289,11 +289,11 @@ public class UserInterface {
 						+ "you are searching for: ");
 		lName = input.nextLine();
 		Customer cust = Employee.searchCustomer(fName, lName, custByName);
-		System.out.println(cust);
 		if (cust == null) {
 			System.out.println("Customer doesn't exist!");
 		} else {
-			System.out.println("Customer has been found:\n" + cust);
+			System.out.println("Customer has been found:\n");
+			cust.displayCustomer();
 		}
 	}
 	public static void placeOrder(BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) {

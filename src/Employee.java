@@ -21,7 +21,7 @@ public class Employee extends User {
 		List<Customer> customersList = customersByName.getBucket(hash);
 		customersList.placeIterator();
 		for(int i = 0; i < customersList.getLength(); i++) {
-			if(customersList.getIterator().equals(new Customer(firstName, lastName, "NA"))) {
+			if(customersList.getIterator().equals(new Customer(firstName, lastName, "NA"), "")) {
 				return customersList.getIterator();
 			}else {
 				customersList.advanceIterator();

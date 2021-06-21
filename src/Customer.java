@@ -216,14 +216,14 @@ public class Customer extends User {
 		return result;
 	}
 	
-		public boolean equals(Object o) {
+		public boolean equals(Object o, String temp) {
         if(o == this) {
             return true;
         } else if (!(o instanceof Customer)) {
             return false;
         } else {
             Customer cust = (Customer) o;
-            if (cust.getFirstName().equals(((Customer) o).getFirstName()) && cust.getLastName().equals(((Customer) o).getFirstName())) {
+            if (cust.getFirstName().equals(((Customer) o).getFirstName()) && cust.getLastName().equals(((Customer) o).getLastName())) {
                 return true;
             } else {
                 return false;
