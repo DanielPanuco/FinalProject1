@@ -49,21 +49,23 @@ public class Order {
         for (int i = 0; i < orderContents.getLength(); i++) {
             orderPrice += orderContents.getIterator().getPrice();
         }
-        switch (shippingSpeed) {  //Henry: Is this switch case necessary? seems similiar to the below one
-            case 5:
-                if (orderPrice >= 35) {
-            	break;
-                } else {
-                	orderPrice += 4.95;
-                }
-            case 2:
-                orderPrice += 7.95;
-                break;
-            case 1:
-                orderPrice += 14.95;
-                break;
-              //TODO: Missing a default case
-        }
+		switch (shippingSpeed) { // Henry: Is this switch case necessary? seems
+								 // similiar to the below one
+		case 1:
+			orderPrice += 14.95;
+			break;
+		case 2:
+			orderPrice += 7.95;
+			break;
+		case 5:
+			if (orderPrice >= 35) {
+				break;
+			} else {
+				orderPrice += 4.95;
+				break;
+			}
+			// TODO: Missing a default case
+		}
         orderPrice *= 1.0725;
         return orderPrice;
     }
@@ -80,22 +82,23 @@ public class Order {
         }
         System.out.println("\n\tSubtotal: " + dc.format(orderPrice));
 		switch (shippingSpeed) {
+		case 1:
+			shippingPrice = 14.95;
+			orderPrice += shippingPrice;
+			break;
+		case 2:
+			shippingPrice = 7.95;
+			orderPrice += shippingPrice;
+			break;
 		case 5:
 			if (orderPrice >= 35) {
 				break;
 			} else {
 				shippingPrice = 4.95;
 				orderPrice += shippingPrice;
+				break;
 			}
-		case 2:
-			shippingPrice = 7.95;
-			orderPrice += shippingPrice;
-			break;
-		case 1:
-			shippingPrice = 14.95;
-			orderPrice += shippingPrice;
 			 //TODO: Missing a default case
-			break;
 		}
         System.out.println("+  Shipping Cost: " + dc.format(shippingPrice));
         stateTax = orderPrice * .0725;
