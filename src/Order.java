@@ -101,7 +101,6 @@ public class Order {
         stateTax = orderPrice * .0725;
         orderPrice += stateTax;
         System.out.println("+   CA Sales Tax: " + dc.format(stateTax));
-        //TODO: need to add state tax and fix calc for it too
 		System.out.println("-------------------------------------------------"
 						 + "-----------------------------------------");
         System.out.println("\t   Total: " + dc.format(orderPrice) + "\n");
