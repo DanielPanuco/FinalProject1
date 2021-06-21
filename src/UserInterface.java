@@ -337,7 +337,7 @@ public class UserInterface {
 			unshippedVG.addLast(tempVG);
 		}
 		System.out.println("\nWhich shipping option would you like to choose?\n");
-		System.out.println("1. Standard Shipping (5 Days): $4.95 || Free for orders over $35!"
+		System.out.println("1. Standard Shipping (5 Days): $4.95 *Free for orders over $35!*"
 				+ "\n2. Rush Shipping (2 Days): $7.95" + "\n3. Overnight Shipping (1 Day): $14.95\n");
 		System.out.print("Please choose your desired shipping speed: ");
 		userInput = input.nextLine();

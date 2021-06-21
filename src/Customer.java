@@ -140,8 +140,7 @@ public class Customer extends User {
 	}
 	
 	public void viewUnshippedOrders() {
-		String divider = "-------------------------------------------------"
-				 		+"-----------------------------------------";
+		String divider = "----------------------------------------------------------------------------------";
 		String t2 = "\t\t", t3 = "\t\t\t", t4 = "\t\t\t\t";
 		if (unshippedOrders.isEmpty()) {
 			System.out.println("You don't have any unshipped orders!");
@@ -152,10 +151,10 @@ public class Customer extends User {
 						.getOrderContents();
 				vgList.placeIterator();
 				System.out.println(t4 + "[Order #" + (i + 1) + "]\n"
-						+ " Qty\t" + "     Price" + t4 + "Title\n" + divider);
+						+ "   Qty" + t2 + "   Price" + t4 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
 					VideoGame currVG = vgList.getIterator();
-					System.out.println((j + 1) + ":" + t2 + "  "
+					System.out.println((j + 1) + ":" + t2 + "   "
 							+ df.format(currVG.getPrice()) + "\t" + currVG.getTitle() 
 							+ " (" + currVG.getPlatform() + ")");
 					vgList.advanceIterator();
@@ -182,7 +181,7 @@ public class Customer extends User {
 						.getOrderContents();
 				vgList.placeIterator();
 				System.out.println(t4 + "[Order #" + (i + 1) + "]\n"
-						+ " Qty\t" + "     Price" + t4 + "Title\n" + divider);
+						+ "   Qty" + t2 + "   Price" + t4 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
 					VideoGame currVG = vgList.getIterator();
 					System.out.println((j + 1) + ":" + t2
