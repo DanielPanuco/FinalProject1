@@ -30,10 +30,6 @@ public class Employee extends User {
 		return null;
 	}
 	
-	public static void shipOrder(Heap<Order> orders, Order order) {
-		//need to know the priority
-	}
-	
 	public static void addProduct(BST<VideoGame> byTitle, BST<VideoGame> byDate, VideoGame videogame,
 			TitleComparator tc, DateComparator dc) {
 		byTitle.insert(videogame, tc);
