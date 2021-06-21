@@ -373,7 +373,6 @@ public class UserInterface {
 		// TODO: Missing a default case
 		}
 		System.out.println("Thank you, your order is being processed!\n");
-		input.nextLine();
 		placeOrder = new Order(currentC, unshippedVG, numChoice, false);
 		placeOrder.displayPriceCalculation(unshippedVG, numChoice);
 		priorityQueue.insert(placeOrder);
