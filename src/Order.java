@@ -59,11 +59,10 @@ public class Order {
 			break;
 		case 5:
 			if (orderPrice >= 35) {
-				break;
 			} else {
 				orderPrice += 4.95;
-				break;
 			}
+			break;
 			// TODO: Missing a default case
 		}
         orderPrice *= 1.0725;
@@ -92,12 +91,11 @@ public class Order {
 			break;
 		case 5:
 			if (orderPrice >= 35) {
-				break;
 			} else {
 				shippingPrice = 4.95;
 				orderPrice += shippingPrice;
-				break;
 			}
+			break;
 			 //TODO: Missing a default case
 		}
         System.out.println("+  Shipping Cost: " + dc.format(shippingPrice));
