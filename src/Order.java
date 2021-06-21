@@ -51,7 +51,11 @@ public class Order {
         }
         switch (shippingSpeed) {
             case 5:
-                break;
+                if (orderPrice >= 35) {
+            	break;
+                } else {
+                	orderPrice += 4.95;
+                }
             case 2:
                 orderPrice += 7.95;
                 break;
@@ -67,6 +71,7 @@ public class Order {
     public void displayPriceCalculation(List<VideoGame> orderContents, int shippingSpeed) {
         DecimalFormat dc = new DecimalFormat("$###,###,##0.00");
         double orderPrice = 0;
+        double shippingPrice = 0;
         orderContents.placeIterator();
         for (int i = 0; i < orderContents.getLength(); i++) {
             orderPrice += orderContents.getIterator().getPrice();
@@ -75,15 +80,22 @@ public class Order {
         System.out.println("\nOrder subtotal: " + dc.format(orderPrice));
         switch (shippingSpeed) {
             case 5:
-                break;
+            	 if (orderPrice >= 35) {
+            		 break;
+                     } else {
+                     	orderPrice += 4.95;
+                     	shippingPrice = 4.95;
+                     }
             case 2:
                 orderPrice += 7.95;
+             	shippingPrice = 7.95;
                 break;
             case 1:
                 orderPrice += 14.95;
+             	shippingPrice = 14.95;
                 break;
         }
-        System.out.println("Shipping total: " + dc.format(orderPrice));
+        System.out.println("Shipping price: " + dc.format(shippingPrice));
         orderPrice *= 1.0725;
         System.out.println("Total after California sales tax: " + dc.format(orderPrice));
     }
