@@ -234,6 +234,6 @@ public class Customer extends User {
 		System.out.println("Email: " + getEmail());
 		System.out.println("Username: " + getUsername());
 		System.out.println("Name: " + getFirstName() + " " + getLastName());
-		System.out.println("City and state: " + getCity() + ", " + getState());
+		System.out.println("City and State: " + getCity() + ", " + getState());
 	}
 }

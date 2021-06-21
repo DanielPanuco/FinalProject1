@@ -412,7 +412,7 @@ public class UserInterface {
 	}
 
 	public static void shipOrder(Heap<Order> priorityQueue) {
-		System.out.println("\nShipping an order...");
+		System.out.println("\nShipping an order...\n");
 		Order tempOrder = priorityQueue.getMax();
 		//TODO: check pq's size to see if there are orders to ship
 		priorityQueue.remove(1);
@@ -429,7 +429,7 @@ public class UserInterface {
 		currentC.displayCustomer();
 		currentC.removeUnshippedOrder(tempOrder);
 		currentC.placeShippedOrder(tempOrder);
-		System.out.println("\nOrder has been shipped");
+		System.out.println("\nThe order has been shipped!"); //TODO: specify who's order by using getters
 	}
 
 	public static void searchVG(BST<VideoGame> vgByTitle) {
