@@ -15,7 +15,7 @@ public class Order {
     private List<VideoGame> orderContents;
     private boolean shippingStatus;
     private long priority;
-    private double orderPrice;
+    private double totalOrderPrice;
 
     public Order(Customer customer, List<VideoGame> orderContents,
                  int shippingSpeed, boolean shippingStatus) {
@@ -28,7 +28,7 @@ public class Order {
         this.shippingSpeed = shippingSpeed;
         this.priority = (System.currentTimeMillis() - (shippingSpeed * 86400000));
         this.shippingStatus = shippingStatus;
-        this.orderPrice = calculateOrderPrice(orderContents, shippingSpeed);
+        this.totalOrderPrice = calculateOrderPrice(orderContents, shippingSpeed);
     }
 
     public Order(Customer customer, String currentDate, List<VideoGame> orderContents,
@@ -40,16 +40,16 @@ public class Order {
         this.priority = (System.currentTimeMillis() - (shippingSpeed * 86400000));
         this.shippingStatus = shippingStatus;
         this.priority = priority;
-        this.orderPrice = calculateOrderPrice(orderContents, shippingSpeed);
+        this.totalOrderPrice = calculateOrderPrice(orderContents, shippingSpeed);
     }
 
     public double calculateOrderPrice(List<VideoGame> orderContents, int shippingSpeed) {
-        double orderPrice = 0;
+        double orderPrice = 0; 
         orderContents.placeIterator();
         for (int i = 0; i < orderContents.getLength(); i++) {
             orderPrice += orderContents.getIterator().getPrice();
         }
-        switch (shippingSpeed) {
+        switch (shippingSpeed) {  //Henry: Is this switch case necessary? seems similiar to the below one
             case 5:
                 if (orderPrice >= 35) {
             	break;
@@ -69,7 +69,7 @@ public class Order {
     }
 
     public void displayPriceCalculation(List<VideoGame> orderContents, int shippingSpeed) {
-        DecimalFormat dc = new DecimalFormat("$###,###,##0.00");
+        DecimalFormat dc = new DecimalFormat("$ ###,###,##0.00");
         double orderPrice = 0;
         double shippingPrice = 0;
         double stateTax;
@@ -79,25 +79,27 @@ public class Order {
             orderContents.advanceIterator();
         }
         System.out.println("\n\tSubtotal: " + dc.format(orderPrice));
-        switch (shippingSpeed) {
-            case 5:
-            	 if (orderPrice >= 35) {
-            		 break;
-                     } else {
-                     	orderPrice += 4.95;
-                     	shippingPrice = 4.95;
-                     }
-            case 2:
-                orderPrice += 7.95;
-             	shippingPrice = 7.95;
-                break;
-            case 1:
-                orderPrice += 14.95;
-             	shippingPrice = 14.95;
-                break;
-        }
-        System.out.println("+  Shipping Cost:  " + dc.format(shippingPrice));
-        stateTax = orderPrice * 1.0725;
+		switch (shippingSpeed) {
+		case 5:
+			if (orderPrice >= 35) {
+				break;
+			} else {
+				shippingPrice = 4.95;
+				orderPrice += shippingPrice;
+			}
+		case 2:
+			shippingPrice = 7.95;
+			orderPrice += shippingPrice;
+			break;
+		case 1:
+			shippingPrice = 14.95;
+			orderPrice += shippingPrice;
+			 //TODO: Missing a default case
+			break;
+		}
+        System.out.println("+  Shipping Cost: " + dc.format(shippingPrice));
+        stateTax = orderPrice * .0725;
+        orderPrice += stateTax;
         System.out.println("+   CA Sales Tax: " + dc.format(stateTax));
         //TODO: need to add state tax and fix calc for it too
 		System.out.println("-------------------------------------------------"
@@ -130,8 +132,8 @@ public class Order {
         this.orderContents = orderContents;
     }
 
-    public double getOrderPrice() {
-        return orderPrice;
+    public double getTotalOrderPrice() {
+        return totalOrderPrice;
     }
 
     public int getShippingSpeed() {
