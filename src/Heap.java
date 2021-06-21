@@ -1,4 +1,5 @@
 import java.util.Comparator;
+import java.util.NoSuchElementException;
 import java.util.ArrayList;
 
 public class Heap<T> {
@@ -90,16 +91,25 @@ public class Heap<T> {
 
     /**
      * removes the element at the specified index
+     * @precondition heapSize != 0
      * Calls helper method heapify
      * @param index the index of the element to remove
+     * @throws NoSuchElementException when precondition is violated
      */
-    public void remove(int index){
-        heapSize--;
-        heap.remove(index);
-        for (int i = index; i >= 1; i--) { // start at floor(n/2); we can ignore leaf nodes
-            heapify(i);
-        }
-    }
+	public void remove(int index) {
+	if (heapSize == 0) {
+		throw new NoSuchElementException("remove: cannot get root from an empty heap.");
+	}else if (heapSize == 1) { // edge case
+			heapSize--;
+			heap.remove(index);
+		} else {
+			heapSize--;
+			heap.remove(index);
+			for (int i = index; i >= 1; i--) { // start at floor(n/2); we can ignore leaf nodes
+				heapify(i);
+			}
+		}
+	}
 
     /**Accessors*/
 
