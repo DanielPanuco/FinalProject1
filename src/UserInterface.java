@@ -459,9 +459,9 @@ public class UserInterface {
 		String dateStr;
 		int date;
 		while(!choice.equals("1") && !choice.equals("2")) {
-			System.out.println("\nWould you like to search by:\n" +
+			System.out.println("\nWhat would you like to search by?\n" +
 					"1. Title\n" +
-					"2. Date\n");
+					"2. Release Date\n");
 			System.out.print("Enter your choice: ");
 			choice = input.nextLine();
 			if(!choice.equals("1") && !choice.equals("2")) {
@@ -474,20 +474,26 @@ public class UserInterface {
 			title = input.nextLine();
 			searchVG = new VideoGame(title);
 			searchVG = vgByTitle.search(searchVG, tc);
+			if (searchVG != null) {
+				System.out.println("\nWe were able to find this video game: \n\n"
+						+ searchVG);
+			} else {
+				System.out.println("Sorry, we don't have " + title + " in our catalog yet!");
+			}
 		} else {
-			System.out.print("\nEnter the date (YYYYMMDD format, no slashes): ");
+			System.out.print("\nEnter the release date (YYYYMMDD format, without slashes): ");
 			dateStr = input.nextLine();
 			date = Integer.parseInt(dateStr);
 			searchVG = new VideoGame(date);
 			searchVG = vgByDate.search(searchVG, dc);
+			if (searchVG != null) {
+				System.out.println("\nWe were able to find these video game(s) with that release date: \n\n"
+						+ searchVG);
+			} else {
+				System.out.println("Sorry, we don't have any video games with that release date in our catalog!");
+			}
 		}
-		if (searchVG != null) {
-			System.out.println("\nWe were able to find this video game: \n\n"
-					+ searchVG);
-		} else {
-			System.out.println("Sorry, we don't have this "
-					+ "video game in our system yet!");
-		}
+		
 	}
 
 	public static void listVG(BST<VideoGame> vgByTitle,
