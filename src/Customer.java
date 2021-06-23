@@ -216,12 +216,18 @@ public class Customer extends User {
 		return result;
 	}
 	
-	public boolean equals(Customer cust, String s) {
-        String name = this.getFirstName() + this.getLastName();
-        if (name.equals(cust.getFirstName() + cust.getLastName())) {
-        	return true;
-        } else {
-        	return false;
+	public boolean equals(Customer cust, String s) throws NullPointerException{
+        if(cust == null) {
+        	throw new NullPointerException("Customer.equals(): customer is null cannot equal");
+        }else if(cust == this) {
+            return true;
+        }else {
+        	String name = this.getFirstName() + this.getLastName();
+        	if (name.equals(cust.getFirstName() + cust.getLastName())) {
+        		return true;
+        	} else {
+        		return false;
+        	}
         }
 	}
 
