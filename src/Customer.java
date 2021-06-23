@@ -58,7 +58,6 @@ public class Customer extends User {
 	public Customer(String username, String firstName, String lastName, String email, String password, 
 			String address, String city, String state, int zip,
 			List<Order> unshippedOrders, List<Order> shippedOrders) {
-		//TODO: Are we using this? if not delete it
 		super(firstName, lastName, email, password);
 		this.username = username;
 		this.address = address;
@@ -66,7 +65,7 @@ public class Customer extends User {
 		this.state = state;
 		this.zip = zip;
 		this.unshippedOrders = unshippedOrders; 
-		this.shippedOrders = shippedOrders; //addorder or setter if we don't use this
+		this.shippedOrders = shippedOrders;
 	}
 	
 	public String getUsername() {

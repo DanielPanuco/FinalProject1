@@ -350,7 +350,6 @@ public class BST<T> {
 			inOrderPrint(node.right);
 		}
 	}
-	//TODO: extra mcRating: certain rating: add to al
 
 	/**
 	 * Prints the data in post order to the console followed by a new line

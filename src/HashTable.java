@@ -133,15 +133,14 @@ public class HashTable<T> {
      * @throws NullPointerException when t is null
      */
     //TODO:one insert, same thing. just have one key after prior concat
-    public void insert(T t, String key) throws NullPointerException{
-        if(t == null) {
+    public void insert(T t, String key) throws NullPointerException {
+        if (t == null) {
             throw new NullPointerException("insert: cannot insert null");
-        }else {
+        } else {
             int bucket = hash(key);
             Table.get(bucket).addLast(t);
             numElements++;
         }
-
     }
 
     /**
