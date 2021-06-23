@@ -255,7 +255,7 @@ public class UserInterface {
 					viewPriorityQueue(priorityQueue);
 					break;
 				case "2":
-					System.out.println(custHT); //TODO: call right method
+					Employee.viewCustomers(custHT);
 					break;
 				case "3":
 					searchingCust(custByName);

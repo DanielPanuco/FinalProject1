@@ -83,14 +83,14 @@ public class HeapTest {
                 "7203 W. Rosewood Ave", "Chardon", "Ohio", 44024);
         ArrayList<Order> orderArrayList = new ArrayList<>();
         List<VideoGame> tempVG = new List<>();
-        tempVG.addLast(new VideoGame("Halo", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox"));
+        tempVG.addLast(new VideoGame("Halo", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox", true));
 
         List<VideoGame> tempVG2 = new List<>();
-        tempVG2.addLast(new VideoGame("Halo 3", "Bungie", 20081026, 7.00, "Shooter", "M", 86, "Xbox"));
-        tempVG2.addLast(new VideoGame("Halo 2", "Bungie", 20081003, 5.00, "Shooter", "M", 86, "Xbox"));
+        tempVG2.addLast(new VideoGame("Halo 3", "Bungie", 20081026, 7.00, "Shooter", "M", 86, "Xbox", true ));
+        tempVG2.addLast(new VideoGame("Halo 2", "Bungie", 20081003, 5.00, "Shooter", "M", 86, "Xbox", true));
 
         List<VideoGame> tempVG3 = new List<>();
-        tempVG3.addLast(new VideoGame("Halo CE", "Bungie", 2008107, 5.00, "Shooter", "M", 86, "Xbox"));
+        tempVG3.addLast(new VideoGame("Halo CE", "Bungie", 2008107, 5.00, "Shooter", "M", 86, "Xbox",  true));
         //Order tempOrder4 = new Order(tempC, "202106177", tempVG, 2, false);
         try {
             Thread.sleep(10);
@@ -132,9 +132,9 @@ public class HeapTest {
         // tempC.placeUnshippedOrder();
         BST<VideoGame> videoGameBST = new BST<>();
         TitleComparator titleComparator = new TitleComparator();
-        VideoGame tempvggg = new VideoGame("Halo", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox");
-        VideoGame tempvggg2 = new VideoGame("Pokemon", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox");
-        VideoGame tempvggg3 = new VideoGame("Call of Duty", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox");
+        VideoGame tempvggg = new VideoGame("Halo", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox", true);
+        VideoGame tempvggg2 = new VideoGame("Pokemon", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox", true);
+        VideoGame tempvggg3 = new VideoGame("Call of Duty", "Bungie", 20081023, 5.00, "Shooter", "M", 86, "Xbox", true);
         videoGameBST.insert(tempvggg, titleComparator);
         videoGameBST.insert(tempvggg2, titleComparator);
         videoGameBST.insert(tempvggg3, titleComparator);

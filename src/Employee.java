@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Employee.java
  * @author Henry Choy, Mario Panuco, Nigel Erlund, Weifeng Bai, Thanyared Wong
@@ -51,6 +53,13 @@ public class Employee extends User {
 	@Override public String toString() {
 		return super.toString();
 	}
-	
-	
+
+	public static void viewCustomers(HashTable<Customer> customerHashTable) {
+		System.out.println();
+		ArrayList<Customer> custAL = customerHashTable.hashToAl();
+		for (int i = 0; i < custAL.size(); i++) {
+			custAL.get(i).displayCustomer();
+			System.out.println();
+		}
+	}
 }
