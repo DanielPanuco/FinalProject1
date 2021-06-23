@@ -133,13 +133,9 @@ public class VideoGame {
         System.out.println("Price: " + price);
     }
     @Override public String toString() {
-    	String S = "";
-    	if (inStock == false) {
-    		return S;
-    	} else {
     	DecimalFormat df = new DecimalFormat("##0.00");
         String dateStr = "" + releaseDate;
-        S = "Title: " + title + "\n"
+        String S = "Title: " + title + "\n"
                 + "Developer: " + developer + "\n"
 				+ "Release Date: " + dateStr.substring(4, 6) + "/"
 				+ dateStr.substring(6) + "/" + dateStr.substring(0, 4) + "\n"
@@ -148,9 +144,8 @@ public class VideoGame {
                 + "ESRB Rating: " + esrb + "\n"
                 + "Metacritic Score: " + metaCriticScore + "\n"
                 + "Platform: " + platform + "\n"
-                + "Availability: " + inStock + "\n";
+                + "In Stock: " + inStock + "\n";
         return S;
-    	}
     }
 
     public String toText() {

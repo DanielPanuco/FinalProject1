@@ -344,48 +344,53 @@ public class UserInterface {
 				tempVG = vgByTitle.search(tempVG, tc);
 			}
 			if (tempVG.getInStock() == false) {
-				System.out.print("" + tempVG.getTitle() + "This game is currently out of stock.");
+				System.out.println("\n" + tempVG.getTitle() + " is currently out of stock.");
 			} else {
-			unshippedVG.addLast(tempVG);
+				unshippedVG.addLast(tempVG);
 			}
 		}
-		System.out.println("\nWhich shipping option would you like to choose?\n");
-		System.out.println("1. Standard Shipping (5 Days): $4.95 *Free for orders over $35!*"
-				+ "\n2. Rush Shipping (2 Days): $7.95" + "\n3. Overnight Shipping (1 Day): $14.95\n");
-		System.out.print("Please choose your desired shipping speed: ");
-		userInput = input.nextLine();
-		do {
+		if (!unshippedVG.isEmpty()) {
+			System.out.println("\nWhich shipping option would you like to choose?\n");
+			System.out.println("1. Standard Shipping (5 Days): $4.95 *Free for orders over $35!*"
+					+ "\n2. Rush Shipping (2 Days): $7.95" + "\n3. Overnight Shipping (1 Day): $14.95\n");
+			System.out.print("Please choose your desired shipping speed: ");
+			userInput = input.nextLine();
+			do {
 
-			try {
-				numChoice = Integer.parseInt(userInput);
+				try {
+					numChoice = Integer.parseInt(userInput);
 
-				if (numChoice >= 1 && numChoice <= 3) {
-					break;
+					if (numChoice >= 1 && numChoice <= 3) {
+						break;
+					}
+
+				} catch (NumberFormatException e) {
 				}
 
-			} catch (NumberFormatException e) {
+				System.out.print("Input must be a number between 1 and 3: ");
+				userInput = input.nextLine();
+			} while (true);
+
+			switch (numChoice) {
+			case 1:
+				numChoice = 5;
+				break;
+			case 2:
+				numChoice = 2;
+				break;
+			case 3:
+				numChoice = 1;
+				break;
+				
 			}
-
-			System.out.print("Input must be a number between 1 and 3: ");
-			userInput = input.nextLine();
-		} while (true);
-
-		switch (numChoice) {
-		case 1:
-			numChoice = 5;
-			break;
-		case 2:
-			numChoice = 2;
-			break;
-		case 3:
-			numChoice = 1;
-			break;
-		}
 		System.out.println("\nThank you, your order is being processed!\n");
-        placeOrder = new Order(currentC, unshippedVG, numChoice, false);
-        placeOrder.displayPriceCalculation(unshippedVG, numChoice);
-        priorityQueue.insert(placeOrder);
-        currentC.placeUnshippedOrder(placeOrder);
+		placeOrder = new Order(currentC, unshippedVG, numChoice, false);
+		placeOrder.displayPriceCalculation(unshippedVG, numChoice);
+		priorityQueue.insert(placeOrder);
+		currentC.placeUnshippedOrder(placeOrder);
+		} else {
+			System.out.println("\nOrder empty, returning to main menu.");
+		}
 	}
 
 	public static void viewOrders() {
