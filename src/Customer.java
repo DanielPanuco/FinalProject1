@@ -214,20 +214,15 @@ public class Customer extends User {
 		return result;
 	}
 	
-		public boolean equals(Object o, String temp) {
-        if(o == this) {
-            return true;
-        } else if (!(o instanceof Customer)) {
-            return false;
+	public boolean equals(Customer cust, String s) {
+        String name = this.getFirstName() + this.getLastName();
+        if (name.equals(cust.getFirstName() + cust.getLastName())) {
+        	return true;
         } else {
-            Customer cust = (Customer) o;
-            if (cust.getFirstName().equals(((Customer) o).getFirstName()) && cust.getLastName().equals(((Customer) o).getLastName())) {
-                return true;
-            } else {
-                return false;
-            }
+        	return false;
         }
-    }
+	}
+
 
 	public void displayCustomer() {
 		System.out.println("Email: " + getEmail());
