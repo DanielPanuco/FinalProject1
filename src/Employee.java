@@ -41,6 +41,12 @@ public class Employee extends User {
 		byTitle.remove(videogame, tc);
 		byDate.remove(videogame, dc);
 	}
+	
+	public static void updateAvailability(BST<VideoGame> byTitle, BST<VideoGame> byDate, VideoGame videogame,
+			TitleComparator tc, DateComparator dc) {
+		byTitle.search(videogame, tc).setAvailability(false);
+		byDate.search(videogame, dc).setAvailability(false);
+	}
 
 	@Override public String toString() {
 		return super.toString();

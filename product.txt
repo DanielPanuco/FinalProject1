@@ -6,6 +6,7 @@ Life Simulation
 E
 90
 Nintendo Switch
+false
 
 Clash Of Clans
 Supercell
@@ -15,6 +16,7 @@ Strategy
 E
 100
 Mobile
+true
 
 Crusader Kings III
 Paradox Interactive
@@ -24,6 +26,7 @@ Strategy
 M
 91
 PC
+true
 
 Dark Souls
 From Software
@@ -33,6 +36,7 @@ Action RPG
 M
 89
 PC
+true
 
 Dark Souls II
 From Software
@@ -42,6 +46,7 @@ Action RPG
 T
 87
 PC
+true
 
 Dark Souls III
 From Software
@@ -51,6 +56,7 @@ Action RPG
 M
 89
 PC
+true
 
 Genshin Impact
 Mihoyo
@@ -60,6 +66,7 @@ Action RPG
 T
 84
 PC
+true
 
 Hades
 Supergiant Games
@@ -69,6 +76,7 @@ Roguelike
 T
 93
 Nintendo Switch
+true
 
 Halo 3
 Bungie
@@ -78,6 +86,7 @@ First-person shooter
 M
 94
 PC
+true
 
 Halo 5: Guardians
 343 Industries
@@ -87,6 +96,7 @@ First-person shooter
 T
 84
 Xbox One
+true
 
 Halo Infinite
 343 Industries
@@ -96,6 +106,7 @@ First-person shooter
 M
 80
 PC
+true
 
 Okami HD
 Capcom
@@ -105,6 +116,7 @@ Action-Adventure
 T
 92
 Nintendo Switch
+true
 
 Phoenix Wright: Ace Attorney - Dual Destinies
 Capcom
@@ -114,6 +126,7 @@ Visual Novel
 M
 81
 Nintendo 3DS
+true
 
 Red Dead Redemption
 Rockstar Games
@@ -123,6 +136,7 @@ Action-Adventure
 M
 97
 PS4
+true
 
 Resident Evil Village
 Capcom
@@ -132,6 +146,7 @@ Action Adventure
 M
 81
 PC
+true
 
 The Legend of Zelda: Breath of the Wild
 Nintendo
@@ -141,6 +156,7 @@ Action-Adventure
 E 10+
 97
 Nintendo Switch
+true
 
 The Witcher
 CD Projekt Red
@@ -150,6 +166,7 @@ Action RPG
 M
 81
 PC
+true
 
 Valorant
 Riot Games
@@ -159,6 +176,7 @@ Tactical FPS
 T
 80
 PC
+true
 
 Victoria II
 Paradox Development Studio
@@ -168,6 +186,7 @@ Strategy
 T
 75
 PC
+true
 
 Xenoblade Chronicles 2
 Monolith Soft
@@ -177,6 +196,7 @@ JRPG
 T
 83
 Nintendo Switch
+true
 
 Xenoblade Chronicles: Definitive Edition
 Monolith Soft
@@ -186,6 +206,7 @@ JRPG
 T
 89
 Nintendo Switch
+true
 
 Zero Escape: Virtue's Last Reward
 Spike Chunsoft
@@ -195,4 +216,5 @@ Visual Novel
 M
 88
 Nintendo 3DS
+true
 

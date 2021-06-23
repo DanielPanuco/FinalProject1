@@ -291,7 +291,6 @@ public class UserInterface {
 		}
 	}
 	public static void placeOrder(BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) {
-		double orderPrice; //TODO: unused
 		Order placeOrder;
 		String userInput;
 		int numChoice;
@@ -328,7 +327,11 @@ public class UserInterface {
 				tempVG = new VideoGame(userInput);
 				tempVG = vgByTitle.search(tempVG, tc);
 			}
+			if (tempVG.getInStock() == false) {
+				System.out.print("" + tempVG.getTitle() + "This game is currently out of stock.");
+			} else {
 			unshippedVG.addLast(tempVG);
+			}
 		}
 		System.out.println("\nWhich shipping option would you like to choose?\n");
 		System.out.println("1. Standard Shipping (5 Days): $4.95 *Free for orders over $35!*"
@@ -475,6 +478,7 @@ public class UserInterface {
 		String dev, genre, ESRB, pform;
 		double price;
 		int rDate, mcScore;
+		boolean avail;
 
 		System.out.print("\nPlease enter the title of the video game: ");
 		title = input.nextLine();
@@ -497,8 +501,11 @@ public class UserInterface {
 			input.nextLine();
 			System.out.print("Please enter the platform: ");
 			pform = input.nextLine();
+			System.out.print("Please enter the availability (true for available, false for unavailable):");
+			avail = input.nextBoolean();
+			input.nextLine();
 			VideoGame newVG = new VideoGame(title, dev, rDate, price, genre, ESRB,
-					mcScore, pform);
+					mcScore, pform, avail);
 			Employee.addProduct(vgByTitle, vgByDate, newVG, tc, dc);
 		} else {
 			System.out.println(
@@ -512,8 +519,8 @@ public class UserInterface {
 		title = input.nextLine();
 		VideoGame vg = vgByTitle.search(new VideoGame(title), tc);
 		if (vg != null) {
-			Employee.removeProduct(vgByTitle, vgByDate, vg, tc, dc);
-			System.out.println(title + " has been successfully removed from our product catalog!");
+			Employee.updateAvailability(vgByTitle, vgByDate, vg, tc, dc);
+			System.out.println(title + " has been successfully tagged as out of stock!");
 		} else {
 			System.out.println("Cannot find " + title + "in our product catalog, please try again!");
 		}
@@ -650,6 +657,7 @@ public class UserInterface {
 		String dev, genre, ESRB, pform;
 		double price;
 		int rDate, mcScore;
+		boolean avail;
 		File file = new File(vgFile);
 		input = new Scanner(file);
 		while (input.hasNextLine()) {
@@ -663,11 +671,13 @@ public class UserInterface {
 			mcScore = input.nextInt();
 			input.nextLine();
 			pform = input.nextLine();
+			avail = input.nextBoolean();
+			input.nextLine();
 			if (input.hasNextLine()) {
 				input.nextLine();
 			}
 			VideoGame newVG = new VideoGame(title, dev, rDate, price, genre,
-					ESRB, mcScore, pform);
+					ESRB, mcScore, pform, avail);
 			vgByTitle.insert(newVG, tc);
 			vgByDate.insert(newVG, dc);
 		}

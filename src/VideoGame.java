@@ -11,11 +11,12 @@ public class VideoGame {
     private String title, developer, genre, esrb, platform;
     private double price;
     private int releaseDate, metaCriticScore;
+    private boolean inStock;
 
     //constructors
 	public VideoGame(String title, String developer, int releaseDate,
 			double price, String genre, String esrb, int metaCriticScore,
-			String platform) {
+			String platform, boolean inStock) {
 		this.title = title;
 		this.developer = developer;
 		this.releaseDate = releaseDate;
@@ -24,6 +25,7 @@ public class VideoGame {
 		this.esrb = esrb;
 		this.metaCriticScore = metaCriticScore;
 		this.platform = platform;
+		this.inStock = inStock;
 	}
 
     public VideoGame(String title) {
@@ -35,6 +37,7 @@ public class VideoGame {
         esrb = "no ESRB";
         metaCriticScore = 0;
         platform = "no platform";
+        inStock = true;
     }
 
     public VideoGame(int releaseDate) {
@@ -46,6 +49,7 @@ public class VideoGame {
         esrb = "no ESRB";
         metaCriticScore = 0;
         platform = "no platform";
+        inStock = true;
     }
 
     //accessors
@@ -80,6 +84,10 @@ public class VideoGame {
     public String getPlatform() {
         return platform;
     }
+    
+    public boolean getInStock() {
+    	return inStock;
+    }
 
     //mutators
     public void setTitle(String title) {
@@ -113,6 +121,10 @@ public class VideoGame {
     public void setPlatform(String platform) {
         this.platform = platform;
     }
+    
+    public void setAvailability(boolean inStock) {
+    	this.inStock = inStock;
+    }
 
     //additional operations
 
@@ -121,9 +133,13 @@ public class VideoGame {
         System.out.println("Price: " + price);
     }
     @Override public String toString() {
-        DecimalFormat df = new DecimalFormat("##0.00");
+    	String S = "";
+    	if (inStock == false) {
+    		return S;
+    	} else {
+    	DecimalFormat df = new DecimalFormat("##0.00");
         String dateStr = "" + releaseDate;
-        String S = "Title: " + title + "\n"
+        S = "Title: " + title + "\n"
                 + "Developer: " + developer + "\n"
 				+ "Release Date: " + dateStr.substring(4, 6) + "/"
 				+ dateStr.substring(6) + "/" + dateStr.substring(0, 4) + "\n"
@@ -131,8 +147,10 @@ public class VideoGame {
                 + "Genre: " + genre + "\n"
                 + "ESRB Rating: " + esrb + "\n"
                 + "Metacritic Score: " + metaCriticScore + "\n"
-                + "Platform: " + platform + "\n";
+                + "Platform: " + platform + "\n"
+                + "Availability: " + inStock + "\n";
         return S;
+    	}
     }
 
     public String toText() {
@@ -143,7 +161,8 @@ public class VideoGame {
                 + genre + "\n"
                 + esrb + "\n"
                 + metaCriticScore + "\n"
-                + platform + "\n";
+                + platform + "\n"
+        		+ "availability: " + inStock + "\n";
         return S;
     }
     //compares this videoGame to another object for equality, compares titles
