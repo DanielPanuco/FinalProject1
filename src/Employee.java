@@ -20,10 +20,10 @@ public class Employee extends User {
 		int hash = customersByName.getHash(fullNameKey);
 		List<Customer> customersList = customersByName.getBucket(hash);
 		customersList.placeIterator();
-		for(int i = 0; i < customersList.getLength(); i++) {
-			if(customersList.getIterator().equals(new Customer(firstName, lastName, "NA"), "")) {
+		for (int i = 0; i < customersList.getLength(); i++) {
+			if (customersList.getIterator().equals(new Customer(firstName, lastName, "NA"), "")) {
 				return customersList.getIterator();
-			}else {
+			} else {
 				customersList.advanceIterator();
 			}
 		}

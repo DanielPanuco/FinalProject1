@@ -5,10 +5,7 @@
  */
 
 import java.io.*;
-import java.lang.reflect.Array; //TODO: unused
-import java.text.DecimalFormat; //TODO: unused
 import java.util.ArrayList;
-import java.util.PriorityQueue; //TODO: unused
 
 import java.util.Scanner;
 
@@ -178,8 +175,6 @@ public class UserInterface {
 					break;
 				case "3":
 					searchVG(vgByTitle);
-					//TODO: prob a good idea to have an option for the user to buy this title
-					//pass in the title into a variation of our placeOrder method
 					break;
 				case "4":
 					viewOrders();
@@ -215,7 +210,6 @@ public class UserInterface {
 		while (!(empHT.contains(currentEmp, emailPWKey))) {
 			System.out.println("\nPlease make sure you entered your correct"
 					+ " case sensitive email and password!");
-			// TODO: extra, give them X tries, count with a num,
 			//if they exceed X tries the program will terminate.
 			System.out.print("\nEnter your email address: ");
 			email = input.nextLine();
@@ -232,7 +226,7 @@ public class UserInterface {
 									BST<VideoGame> vgByDate, HashTable<Customer> custHT,
 									HashTable<Customer> custByName, HashTable<Employee> empHT,
 									Heap<Order> priorityQueue) {
-		String choice = "", ans; // TODO: EXTRA: access cust email, if title
+		String choice = "", ans;
 		// = val/gen imp,
 		// then print out f2p games with seperate for loop
 		empLogin(empHT);
@@ -365,13 +359,12 @@ public class UserInterface {
 			numChoice = 2;
 			break;
 		case 3:
-			numChoice = 2;
+			numChoice = 1;
 			break;
-		// TODO: Missing a default case
 		}
 		System.out.println("\nThank you, your order is being processed!\n");
         placeOrder = new Order(currentC, unshippedVG, numChoice, false);
-        //placeOrder.displayPriceCalculation(unshippedVG, numChoice);
+        placeOrder.displayPriceCalculation(unshippedVG, numChoice);
         priorityQueue.insert(placeOrder);
         currentC.placeUnshippedOrder(placeOrder);
 	}
@@ -414,25 +407,25 @@ public class UserInterface {
 	public static void shipOrder(Heap<Order> priorityQueue) {
 		if (priorityQueue.getHeapSize() == 0) {
 			System.out.println("\nThere are no orders to ship!");
-			} else {
-		System.out.println("\nShipping an order...\n");
-		Order tempOrder = priorityQueue.getMax();
-		//TODO: check pq's size to see if there are orders to ship
-		priorityQueue.remove(1);
-		List<VideoGame> tempOrderVG = tempOrder.getOrderContents();
-		System.out.println("Date ordered: " + tempOrder.getCurrentDate());
-		System.out.println("Shipping speed: " + tempOrder.getShippingSpeed());
-		tempOrderVG.placeIterator();
-		while (!tempOrderVG.offEnd()) {
-			tempOrderVG.getIterator().printContent();
-			tempOrderVG.advanceIterator();
-		}
-		//TODO: System.out.println("Total price: " + ); do we want to print total price here?
-		currentC = tempOrder.getCustomer();
-		currentC.displayCustomer();
-		currentC.removeUnshippedOrder(tempOrder);
-		currentC.placeShippedOrder(tempOrder);
-		System.out.println("\nThe order has been shipped!"); //TODO: specify who's order by using getters
+		} else {
+			System.out.println("\nShipping an order...\n");
+			Order tempOrder = priorityQueue.getMax();
+			//TODO: check pq's size to see if there are orders to ship
+			priorityQueue.remove(1);
+			List<VideoGame> tempOrderVG = tempOrder.getOrderContents();
+			System.out.println("Date ordered: " + tempOrder.getCurrentDate());
+			System.out.println("Shipping speed: " + tempOrder.getShippingSpeed());
+			tempOrderVG.placeIterator();
+			while (!tempOrderVG.offEnd()) {
+				tempOrderVG.getIterator().printContent();
+				tempOrderVG.advanceIterator();
+			}
+			//TODO: System.out.println("Total price: " + ); do we want to print total price here?
+			currentC = tempOrder.getCustomer();
+			currentC.displayCustomer();
+			currentC.removeUnshippedOrder(tempOrder);
+			currentC.placeShippedOrder(tempOrder);
+			System.out.println("\nThe order has been shipped!");
 			}
 	}
 
@@ -539,7 +532,7 @@ public class UserInterface {
 		} else {
 			System.out.println("5. Sign out of your account\n"
 								+ "X. Exit\n");	
-		} // TODO: finalize output
+		}
 	}
 
 	public static void displayEmpMenu() {
@@ -553,7 +546,7 @@ public class UserInterface {
 				+ "6. Add New Product\n"
 				+ "7. Remove a Product\n"
 				+ "8. Sign Out of Your Account\n"
-				+ "X. Exit\n"); //TODO: finalize output
+				+ "X. Exit\n");
 	}
 
 	public static void fileToCustandPQ(HashTable<Customer> custHT,
@@ -682,7 +675,6 @@ public class UserInterface {
 	}
 
 	public static void viewPriorityQueue(Heap<Order> priorityQueue) {
-		//TODO: viewPriorityQueue needs testing
 		ArrayList<Order> tempOrder = priorityQueue.sort();
 		System.out.println("\nPrinting orders in order of priority: \n\n");
 		for (int i = tempOrder.size() - 1; i > 0; i--) {
@@ -697,13 +689,13 @@ public class UserInterface {
 	}
 
 	public static void setVgFile(BST<VideoGame> vgByTitle) throws IOException {
-		  ArrayList<VideoGame> tempal = vgByTitle.inOrderToAL();
-	        String fileOutput = "";
-	        for (int i = 0; i < tempal.size(); i++) {
-	            fileOutput += tempal.get(i).toText();
-	            fileOutput += "\n";
-	        }
-	        //System.out.println("testing file output: \n" + fileOutput);
+		ArrayList<VideoGame> tempal = vgByTitle.inOrderToAL();
+		String fileOutput = "";
+		for (int i = 0; i < tempal.size(); i++) {
+			fileOutput += tempal.get(i).toText();
+			fileOutput += "\n";
+		}
+		//System.out.println("testing file output: \n" + fileOutput);
 		FileWriter vgWriter = new FileWriter(vgFile);
 		vgWriter.write(fileOutput);
 		vgWriter.close();
