@@ -22,7 +22,7 @@ public class UserInterface {
 	public static final OrderComparator oc = new OrderComparator();
 	private static Scanner input;
 	//TODO: maybe change to videoGames.txt, once we decide on a String txt
-	//name it's good to make it final (this is taught in 36B)
+	//name. it's good to make it final (this is taught in 36B)
 	//(if we don't want to end up changing it later on)
 	
 	public static void main(String[] args) {
@@ -47,8 +47,7 @@ public class UserInterface {
 		}
 		input = new Scanner(System.in);
 		System.out.println("Welcome to Triforce Games! \n");
-		//System.out.println("Please note that we don't offer refunds after you place your orders!");
-		//maybe mention credit/debit card only
+		System.out.println("Please note that we don't offer refunds after you place your orders!");
 		System.out.println("[Please select your user type]\n"
 				+ "1. Customer\n"
 				+ "2. Employee");
@@ -490,10 +489,9 @@ public class UserInterface {
 				System.out.println("\nWe were able to find these video game(s) with that release date: \n\n"
 						+ searchVG);
 			} else {
-				System.out.println("Sorry, we don't have any video games with that release date in our catalog!");
+				System.out.println("Sorry, we don't have any video games with this release date in our catalog!");
 			}
 		}
-		
 	}
 
 	public static void listVG(BST<VideoGame> vgByTitle,
