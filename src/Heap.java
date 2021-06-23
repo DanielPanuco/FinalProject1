@@ -1,3 +1,9 @@
+/**
+ * Heap.java
+ * @author Henry Choy, Mario Panuco, Nigel Erlund, Weifeng Bai, Thanyared Wong
+ * CIS 22C, Final Project
+ */
+
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 import java.util.ArrayList;
