@@ -162,9 +162,10 @@ public class VideoGame {
                 + esrb + "\n"
                 + metaCriticScore + "\n"
                 + platform + "\n"
-        		+ "availability: " + inStock + "\n";
+        		+ inStock + "\n";
         return S;
     }
+    
     //compares this videoGame to another object for equality, compares titles
     @Override public boolean equals(Object o) {
         if (o == this) {
@@ -188,7 +189,7 @@ public class VideoGame {
     }
 }
 
-//comparators, compare by
+//Comparators, compare by
 class TitleComparator implements Comparator<VideoGame> {
 	public int compare(VideoGame v1, VideoGame v2) {
 		return v1.getTitle().compareTo(v2.getTitle());

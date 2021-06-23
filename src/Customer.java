@@ -139,7 +139,8 @@ public class Customer extends User {
 	}
 	
 	public void viewUnshippedOrders() {
-		String divider = "----------------------------------------------------------------------------------";
+		String divider = "------------------------------------------"
+						+ "----------------------------------------";
 		String t2 = "\t\t", t3 = "\t\t\t", t4 = "\t\t\t\t";
 		if (unshippedOrders.isEmpty()) {
 			System.out.println("You don't have any unshipped orders!");
@@ -169,10 +170,11 @@ public class Customer extends User {
 	}
 
 	public void viewShippedOrders() {
-		String divider = "----------------------------------------------------------------------------------";
+		String divider = "------------------------------------------"
+						+ "----------------------------------------";
 		String t2 = "\t\t", t3 = "\t\t\t", t4 = "\t\t\t\t";
 		if (shippedOrders.isEmpty()) {
-			System.out.println("You don't have any unshipped orders!");
+			System.out.println("You don't have any shipped orders!");
 		} else {
 			shippedOrders.placeIterator();
 			for (int i = 0; i < shippedOrders.getLength(); i++) {

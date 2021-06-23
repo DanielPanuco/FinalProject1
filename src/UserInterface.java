@@ -73,68 +73,82 @@ public class UserInterface {
 		String createAcc = "\nLet's create an account for you!\n";
 		String enterUsername = "Enter your username: "; //only do this if it's clear
 		String createPW = "Create a password: ";
-		System.out.println("\nWelcome to our store, please login here!");
-		System.out.println("\n[Choose your customer type]\n"
-				+ "1. Guest\n"
-				+ "2. New Customer\n"
-				+ "3. Existing Customer");
-		System.out.print("\nPlease enter 1, 2, or 3: ");
-		ans = input.nextLine();
-		if (ans.equals("1")) {
-			System.out.println("\nPlease start by filling out "
-					+ "your shipping info!");
-			createAccount();
-			emailPWKey = email + pw;
-			fullNameKey = fName + lName;
-			currentC = new Customer(fName, lName, email, addr,
-					city, state, zip);
-			custHT.insert(currentC, emailPWKey);
-			custByName.insert(currentC, emailPWKey);
-			System.out.println("\nThank you for filling out your shipping info, "
-							+ fName + " " + lName + "!");
-		} else if (ans.equals("2")) {
-			createAccount();
-			System.out.println(createAcc);
-			System.out.print(enterUsername);
-			username = input.nextLine();
-			System.out.print(createPW);
-			pw = input.nextLine();
-			emailPWKey = email + pw;
-			fullNameKey = fName + lName;
-			currentC = new Customer(username, fName, lName, email, pw, addr,
-					city, state, zip);
-			custHT.insert(currentC, emailPWKey);
-			custByName.insert(currentC, emailPWKey);
-			System.out.println("\nYou have successfully created an account, "
-					+ fName + " " + lName + "!\n");
-		} else if (ans.equals("3")){
-			System.out.print("\nEnter your email address: ");
-			email = input.nextLine();
-			System.out.print("Enter your password: ");
-			pw = input.nextLine();
-			emailPWKey = email + pw;
-			fullNameKey = fName + lName;
-			Customer tempC = new Customer(email, pw);
-			boolean signinStatus = custHT.contains(tempC, emailPWKey);
-			if (!(signinStatus)) {
-				System.out.println("\nIt appears we don't have "
-						+ "your account on file...\n");
+		boolean restart = true;
+		while (restart) {
+			System.out.println("\nWelcome to our store, please login here!");
+			System.out.println("\n[Choose your customer type]\n"
+					+ "1. Guest\n"
+					+ "2. New Customer\n"
+					+ "3. Existing Customer");
+			System.out.print("\nPlease enter 1, 2, or 3: ");
+			ans = input.nextLine();
+			if (ans.equals("1")) {
+				System.out.println("\nPlease start by filling out "
+						+ "your shipping info!");
+				createAccount();
+				emailPWKey = email + pw;
+				fullNameKey = fName + lName;
+				currentC = new Customer(fName, lName, email, addr,
+						city, state, zip);
+				custHT.insert(currentC, emailPWKey);
+				custByName.insert(currentC, emailPWKey);
+				System.out.println("\nThank you for filling out your shipping info, "
+								+ fName + " " + lName + "!");
+				restart = false;
+			} else if (ans.equals("2")) {
+				createAccount();
 				System.out.println(createAcc);
 				System.out.print(enterUsername);
 				username = input.nextLine();
 				System.out.print(createPW);
 				pw = input.nextLine();
-				createAccount();
+				emailPWKey = email + pw;
+				fullNameKey = fName + lName;
 				currentC = new Customer(username, fName, lName, email, pw, addr,
 						city, state, zip);
 				custHT.insert(currentC, emailPWKey);
-				custByName.insert(currentC, fullNameKey);
+				custByName.insert(currentC, emailPWKey);
 				System.out.println("\nYou have successfully created an account, "
 						+ fName + " " + lName + "!\n");
-			} else {
-				currentC = custHT.get(tempC, emailPWKey);
-				System.out.println("\nWelcome back, " + currentC.getFirstName() + " "
-						+ currentC.getLastName() + "!\n");
+				restart = false;
+			} else if (ans.equals("3")){
+				System.out.print("\nEnter your email address: ");
+				email = input.nextLine();
+				System.out.print("Enter your password: ");
+				pw = input.nextLine();
+				emailPWKey = email + pw;
+				fullNameKey = fName + lName;
+				Customer tempC = new Customer(email, pw);
+				boolean signinStatus = custHT.contains(tempC, emailPWKey);
+				if (!(signinStatus)) {
+					System.out.println("\nIt appears we don't have "
+							+ "your account on file...\n");
+					System.out.print("Would you like to try again? (y/n): ");
+					ans = input.nextLine();
+					if (ans.equalsIgnoreCase("y")) {
+						restart = true;
+					} else { 
+						//EXTRA: if we want to do input validation, loop while they don't put y or n
+						System.out.println(createAcc);
+						System.out.print(enterUsername);
+						username = input.nextLine();
+						System.out.print(createPW);
+						pw = input.nextLine();
+						createAccount();
+						currentC = new Customer(username, fName, lName, email, pw, addr,
+								city, state, zip);
+						custHT.insert(currentC, emailPWKey);
+						custByName.insert(currentC, fullNameKey);
+						System.out.println("\nYou have successfully created an account, "
+								+ fName + " " + lName + "!\n");
+						restart = false;
+					}
+				} else {
+					currentC = custHT.get(tempC, emailPWKey);
+					System.out.println("\nWelcome back, " + currentC.getFirstName() + " "
+							+ currentC.getLastName() + "!\n");
+					restart = false;
+				}
 			}
 		}
 	}
@@ -163,7 +177,9 @@ public class UserInterface {
 		String choice = "", ans;
 		custAccSetup(custHT, custByName);
 		while (!choice.equalsIgnoreCase("X")) {
-			displayCustMenu();
+			if (currentC != null) {
+				displayCustMenu();
+			}
 			System.out.print("Enter your choice: "); //TODO: will convert this to a member string
 			choice = input.nextLine();
 			switch (choice.toUpperCase()) {
@@ -538,7 +554,7 @@ public class UserInterface {
 								+ "X. Exit\n");
 		} else {
 			System.out.println("5. Sign out of your account\n"
-								+ "X. Exit\n");	
+								+ "X. Exit\n");
 		}
 	}
 
@@ -686,9 +702,12 @@ public class UserInterface {
 
 	public static void viewPriorityQueue(Heap<Order> priorityQueue) {
 		ArrayList<Order> tempOrder = priorityQueue.sort();
-		System.out.println("\nPrinting orders in order of priority: \n\n");
+		System.out.println("\nPrinting orders in order of priority: \n");
 		for (int i = tempOrder.size() - 1; i > 0; i--) {
-			System.out.println("Temp Order " + i + ": " + tempOrder.get(i));
+			System.out.println(tempOrder.get(i).getCustomer().getFirstName()
+					+ " " + tempOrder.get(i).getCustomer().getLastName() + "'s Unshipped Order " + i + ": "
+					+ "\nOrder Date: " + tempOrder.get(i).getCurrentDate() + "\n"
+					+  tempOrder.get(i).getOrderContents().getIterator().getTitle() + "\n");
 		}
 	}
 
