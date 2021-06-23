@@ -1,8 +1,10 @@
 /**
  * HashTable.java
+ *
  * @author Henry Choy, Mario Panuco, Nigel Erlund, Weifeng Bai, Thanyared Wong
  * CIS 22C, Final Project
  */
+
 import java.util.ArrayList;
 
 public class HashTable<T> {
@@ -21,33 +23,49 @@ public class HashTable<T> {
      */
     public HashTable(int size) {
         Table = new ArrayList<>();
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             Table.add(new List<T>());
         }
         numElements = 0;
     }
 
     /**Accessors*/
-  
+
     /**
      * returns the hash value in the Table
      * for a given Object 
      * @param key the Object
      * @return the index in the Table
      */
-
-    private int hash(String key) { 
-    	int code = 0;
-    	for (int i = 0; i < key.length(); i++) {
+    private int hash(String key) {
+        int code = 0;
+        for (int i = 0; i < key.length(); i++) {
             code += (int) key.charAt(i);
         }
         return code % Table.size();
     }
-    
-    public int getHash(String key) {
-    	return hash(key);
+
+    public ArrayList<T> hashToAl() {
+        ArrayList<T> tempAL = new ArrayList<>();
+        for (int i = 0; i < Table.size(); i++) {
+            List<T> tempList = Table.get(i);
+            if (tempList.isEmpty()) {
+                continue;
+            } else {
+                tempList.placeIterator();
+                while (!tempList.offEnd()) {
+                    tempAL.add(tempList.getIterator());
+                    tempList.advanceIterator();
+                }
+            }
+        }
+        return tempAL;
     }
-    
+
+    public int getHash(String key) {
+        return hash(key);
+    }
+
     /**
      * counts the number of elements at this index
      * @param index the index in the Table
@@ -55,16 +73,16 @@ public class HashTable<T> {
      * @return the count of elements at this index
      * @throws IndexOutOfBoundsException
      */
-    public int countBucket(int index) throws IndexOutOfBoundsException{
-        if(index < 0 || index >= Table.size()) {
+    public int countBucket(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= Table.size()) {
             throw new IndexOutOfBoundsException("countBucket(): "
                     + "index is outside bounds of the table");
         }
         return Table.get(index).getLength();
     }
-    
-    public List<T> getBucket(int index) throws IndexOutOfBoundsException{
-        if(index < 0 || index >= Table.size()) {
+
+    public List<T> getBucket(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= Table.size()) {
             throw new IndexOutOfBoundsException("countBucket(): "
                     + "index is outside bounds of the table");
         }
@@ -87,42 +105,40 @@ public class HashTable<T> {
      * @precondition t != null
      * @throws NullPointerException when t is null
      */
-    
-    public T get(T t, String key) throws NullPointerException{
-		if (t == null) {
-			throw new NullPointerException("get: cannot get null");
-		} else {
-			int bucket = hash(key);
-			List<T> list = Table.get(bucket);
-			list.placeIterator();
-			int position = list.linearSearch(t);
-			if (position == -1) {
-				return null;
-			} else {
-				list.iteratorToIndex(position);
-				return list.getIterator();
-			}
-		}
-	}
+    public T get(T t, String key) throws NullPointerException {
+        if (t == null) {
+            throw new NullPointerException("get: cannot get null");
+        } else {
+            int bucket = hash(key);
+            List<T> list = Table.get(bucket);
+            list.placeIterator();
+            int position = list.linearSearch(t);
+            if (position == -1) {
+                return null;
+            } else {
+                list.iteratorToIndex(position);
+                return list.getIterator();
+            }
+        }
+    }
 
     /**
      * Determines whether a specified key is in 
      * the Table
      * @param t the element to search for
-     * @return  whether the element is in the Table 
+     * @return whether the element is in the Table
      * @precondition t != null
      * @throws NullPointerException when t is null
      */
+    public boolean contains(T t, String key) throws NullPointerException {
+        if (t == null) {
+            throw new NullPointerException("contains: cannot contain null");
+        } else {
+            int bucket = hash(key);
+            return Table.get(bucket).linearSearch(t) == -1 ? false : true;
+        }
+    }
 
-	public boolean contains(T t, String key) throws NullPointerException {
-		if (t == null) {
-			throw new NullPointerException("contains: cannot contain null");
-		} else {
-			int bucket = hash(key);
-			return Table.get(bucket).linearSearch(t) == -1 ? false : true;
-		}
-	}
-    
     /**Mutators*/
 
     /**
@@ -132,7 +148,6 @@ public class HashTable<T> {
      * @precondition t != null
      * @throws NullPointerException when t is null
      */
-    //TODO:one insert, same thing. just have one key after prior concat
     public void insert(T t, String key) throws NullPointerException {
         if (t == null) {
             throw new NullPointerException("insert: cannot insert null");
@@ -152,16 +167,15 @@ public class HashTable<T> {
      * @param t the key to remove
      * @throws NullPointerException when t is null
      */
-
     public void remove(T t, String key) throws NullPointerException {
-        if(t == null) {
+        if (t == null) {
             throw new NullPointerException("remove: object to be removed is null, "
                     + "cannot remove");
-        }else {
+        } else {
             int bucket = hash(key);
             List<T> list = Table.get(bucket);
             int position = list.linearSearch(t);
-            if(position != -1) {
+            if (position != -1) {
                 list.iteratorToIndex(position);
                 list.removeIterator();
                 numElements--;
@@ -175,7 +189,7 @@ public class HashTable<T> {
     public void clear() {
         int size = Table.size();
         Table = new ArrayList<>();
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             Table.add(new List<T>());
         }
         numElements = 0;
@@ -194,10 +208,10 @@ public class HashTable<T> {
      * @param bucket the index in the Table
      */
     public void printBucket(int bucket) {
-        if(bucket < 0 || bucket >= Table.size()) {
+        if (bucket < 0 || bucket >= Table.size()) {
             System.out.println("Invalid bucket index!");
-        }else {
-            System.out.println("Printing bucket #" + bucket +": \n");
+        } else {
+            System.out.println("Printing bucket #" + bucket + ": \n");
             System.out.print(Table.get(bucket));
         }
     }
@@ -211,12 +225,12 @@ public class HashTable<T> {
      * empty, prints the message "This bucket
      * is empty." followed by two blank lines
      */
-    public void printTable(){
-        for(int i = 0; i < Table.size(); i++) {
+    public void printTable() {
+        for (int i = 0; i < Table.size(); i++) {
             System.out.println("Bucket: " + i);
-            if(Table.get(i).getLength() == 0) {
+            if (Table.get(i).getLength() == 0) {
                 System.out.println("This bucket is empty.");
-            }else {
+            } else {
                 System.out.println(Table.get(i).getFirst());
                 System.out.println("+ " + (Table.get(i).getLength() - 1)
                         + " more at this bucket");
@@ -230,15 +244,16 @@ public class HashTable<T> {
      * in order until the last bucket, concatenates
      * all elements at all buckets into one String
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
         String result = "";
-        for(int i = 0; i < Table.size(); i++) {
-            if(Table.get(i).getLength() == 0) {
+        for (int i = 0; i < Table.size(); i++) {
+            if (Table.get(i).getLength() == 0) {
                 continue;
             }
             result += Table.get(i);
         }
         return result;
     }
- 
+
 }

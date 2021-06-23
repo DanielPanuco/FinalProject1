@@ -255,7 +255,7 @@ public class UserInterface {
 					viewPriorityQueue(priorityQueue);
 					break;
 				case "2":
-					System.out.println(custHT); //TODO: call right method
+					Employee.viewCustomers(custHT);
 					break;
 				case "3":
 					searchingCust(custByName);
@@ -702,12 +702,41 @@ public class UserInterface {
 
 	public static void viewPriorityQueue(Heap<Order> priorityQueue) {
 		ArrayList<Order> tempOrder = priorityQueue.sort();
-		System.out.println("\nPrinting orders in order of priority: \n");
+		Customer tempC;
+		int orderPriorityNum = 1;
+		String divider = "---------------------------------------------";
+		System.out.println("\nHere are the customers' unshipped orders "
+				+ "(sorted in terms of priority for being shipped): \n");
 		for (int i = tempOrder.size() - 1; i > 0; i--) {
-			System.out.println(tempOrder.get(i).getCustomer().getFirstName()
-					+ " " + tempOrder.get(i).getCustomer().getLastName() + "'s Unshipped Order " + i + ": "
-					+ "\nOrder Date: " + tempOrder.get(i).getCurrentDate() + "\n"
-					+  tempOrder.get(i).getOrderContents().getIterator().getTitle() + "\n");
+			tempC = tempOrder.get(i).getCustomer();
+			if (orderPriorityNum > 1) {
+				System.out.println();
+			}
+			System.out.println(divider + "\n[#" + orderPriorityNum + "] "
+					+ tempC.getFirstName() + " " + tempC.getLastName()
+					+ "'s Unshipped Order\n" + divider + "\n\t   Order Date: "
+					+ tempOrder.get(i).getCurrentDate() + "\n");
+			System.out.print("   Shipping type: ");
+			if (tempOrder.get(i).getShippingSpeed() == 1) {
+				System.out.print("[Overnight Shipping]\n\n");
+			} else if (tempOrder.get(i).getShippingSpeed() == 2) {
+				System.out.print("[Rush Shipping]\n\n");
+			} else {
+				System.out.print("[Standard Shipping]\n\n");
+			}
+			tempOrder.get(i).getShippingSpeed();
+			List<VideoGame> indivOrderInfo = tempOrder.get(i)
+					.getOrderContents();
+			indivOrderInfo.placeIterator();
+			for (int j = 0; j < indivOrderInfo.getLength(); j++) {
+				VideoGame currVG = indivOrderInfo.getIterator();
+				indivOrderInfo.advanceIterator();
+				System.out.println("   " + currVG.getTitle());
+			}
+			orderPriorityNum++;
+			if (i == 1) {
+				System.out.println("\n" + divider + "------------\n");
+			}
 		}
 	}
 
