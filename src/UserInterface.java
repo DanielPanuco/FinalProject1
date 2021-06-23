@@ -190,7 +190,7 @@ public class UserInterface {
 					listVG(vgByTitle, vgByDate);
 					break;
 				case "3":
-					searchVG(vgByTitle);
+					searchVG(vgByTitle, vgByDate);
 					break;
 				case "4":
 					viewOrders();
@@ -448,13 +448,34 @@ public class UserInterface {
 			}
 	}
 
-	public static void searchVG(BST<VideoGame> vgByTitle) {
+	public static void searchVG(BST<VideoGame> vgByTitle, BST<VideoGame> vgByDate) {
 		VideoGame searchVG;
+		String choice = "0";
+		String dateStr;
+		int date;
+		while(!choice.equals("1") && !choice.equals("2")) {
+			System.out.println("\nWould you like to search by:\n" +
+					"1. Title\n" +
+					"2. Date\n");
+			System.out.print("Enter your choice: ");
+			choice = input.nextLine();
+			if(!choice.equals("1") && !choice.equals("2")) {
+				System.out.println("Sorry, that input is invalid.");
+			}
+		}
 		System.out.println("\nWhich video game would you like to search for?");
-		System.out.print("\nEnter the title: ");
-		title = input.nextLine();
-		searchVG = new VideoGame(title);
-		searchVG = vgByTitle.search(searchVG, tc);
+		if (choice.equals("1")) {
+			System.out.print("\nEnter the title: ");
+			title = input.nextLine();
+			searchVG = new VideoGame(title);
+			searchVG = vgByTitle.search(searchVG, tc);
+		} else {
+			System.out.print("\nEnter the date (YYYYMMDD format, no slashes): ");
+			dateStr = input.nextLine();
+			date = Integer.parseInt(dateStr);
+			searchVG = new VideoGame(date);
+			searchVG = vgByDate.search(searchVG, dc);
+		}
 		if (searchVG != null) {
 			System.out.println("\nWe were able to find this video game: \n\n"
 					+ searchVG);
