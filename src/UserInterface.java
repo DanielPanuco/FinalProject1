@@ -27,6 +27,7 @@ public class UserInterface {
 	
 	public static void main(String[] args) {
 		final int custSize = 5, empSize = 3;
+		int numChoice;
 		String userType;
 		HashTable<Customer> custHT = new HashTable<>(custSize * 2);
 		HashTable<Customer> custByName = new HashTable<>(custSize * 2);
@@ -53,7 +54,20 @@ public class UserInterface {
 				+ "2. Employee");
 		System.out.print("\nPlease enter 1 or 2: ");
 		userType = input.nextLine();
-		if (userType.equals("1")) {
+		do {
+			try {
+				numChoice = Integer.parseInt(userType);
+				if (numChoice == 1 || numChoice == 2) {
+					break;
+				}
+			} catch (NumberFormatException e) {
+				System.out.println(e.getMessage());
+			}
+			System.out.print("Please enter 1 or 2: ");
+			userType = input.nextLine();
+		} while (true);
+		
+		if (numChoice == 1) {
 			custInterface(custHT, custByName, vgByTitle, vgByDate, priorityQueue);
 		} else {
 			empInterface(vgByTitle, vgByDate, custHT, custByName, empHT, priorityQueue);
@@ -68,6 +82,7 @@ public class UserInterface {
 
 	public static void custAccSetup(HashTable<Customer> custHT,
 			HashTable<Customer> custByName) {
+		int numChoice;
 		String ans;
 		String createAcc = "\nLet's create an account for you!\n";
 		String enterUsername = "Enter your username: "; //only do this if it's clear
@@ -81,7 +96,19 @@ public class UserInterface {
 					+ "3. Existing Customer");
 			System.out.print("\nPlease enter 1, 2, or 3: ");
 			ans = input.nextLine();
-			if (ans.equals("1")) {
+			do {
+				try {
+					numChoice = Integer.parseInt(ans);
+					if (numChoice >= 1 && numChoice <= 3) {
+						break;
+					}
+				} catch (NumberFormatException e) {
+					System.out.println(e.getMessage());
+				}
+				System.out.print("Please enter 1, 2, or 3: ");
+				ans = input.nextLine();
+			} while (true);
+			if (numChoice == 1) {
 				System.out.println("\nPlease start by filling out "
 						+ "your shipping info!");
 				createAccount();
@@ -94,7 +121,7 @@ public class UserInterface {
 				System.out.println("\nThank you for filling out your shipping info, "
 								+ fName + " " + lName + "!");
 				restart = false;
-			} else if (ans.equals("2")) {
+			} else if (numChoice == 2) {
 				createAccount();
 				System.out.println(createAcc);
 				System.out.print(enterUsername);
@@ -110,7 +137,7 @@ public class UserInterface {
 				System.out.println("\nYou have successfully created an account, "
 						+ fName + " " + lName + "!\n");
 				restart = false;
-			} else if (ans.equals("3")){
+			} else if (numChoice == 3){
 				System.out.print("\nEnter your email address: ");
 				email = input.nextLine();
 				System.out.print("Enter your password: ");
@@ -124,6 +151,10 @@ public class UserInterface {
 							+ "your account on file...\n");
 					System.out.print("Would you like to try again? (y/n): ");
 					ans = input.nextLine();
+					while (!ans.equalsIgnoreCase("y") && !ans.equalsIgnoreCase("n")) {
+						System.out.print("Please enter \"y\" or \"n\": ");
+						ans = input.nextLine();
+					}
 					if (ans.equalsIgnoreCase("y")) {
 						restart = true;
 					} else { 
@@ -181,6 +212,7 @@ public class UserInterface {
 			}
 			System.out.print("Enter your choice: "); //TODO: will convert this to a member string
 			choice = input.nextLine();
+			
 			switch (choice.toUpperCase()) {
 				case "1":
 					placeOrder(vgByTitle, priorityQueue);
@@ -196,9 +228,13 @@ public class UserInterface {
 					break;
 				case "5":
 					System.out.println("\nWould you like to sign out?\n");
-					System.out.print("Enter (Y/N): ");
+					System.out.print("Enter (y/n): ");
 					ans = input.nextLine();  //TODO: buffer issue, enter twice
-					if (ans.equalsIgnoreCase("Y")) {
+					while (!ans.equalsIgnoreCase("y") && !ans.equalsIgnoreCase("n")) {
+						System.out.print("Please enter \"y\" or \"n\": ");
+						ans = input.nextLine();
+					}
+					if (ans.equalsIgnoreCase("y")) {
 						custAccSetup(custHT, custByName);
 					}
 					break;
@@ -273,9 +309,13 @@ public class UserInterface {
 					break;
 				case "8":
 					System.out.println("\nWould you like to sign out?\n");
-					System.out.print("Enter (Y/N): ");
+					System.out.print("Enter (y/n): ");
 					ans = input.nextLine();
-					if (ans.equalsIgnoreCase("Y")) {
+					while (!ans.equalsIgnoreCase("y") && !ans.equalsIgnoreCase("n")) {
+						System.out.print("Please enter \"y\" or \"n\": ");
+						ans = input.nextLine();
+					}
+					if (ans.equalsIgnoreCase("y")) {
 						empLogin(empHT);
 					}
 					break;
@@ -400,6 +440,10 @@ public class UserInterface {
 				+ "S: My Shipped Orders\n");
 		System.out.print("Enter your choice: "); //TODO: extra add while loop
 		ans = input.nextLine();
+		while (!ans.equalsIgnoreCase("u") && !ans.equalsIgnoreCase("s")) {
+			System.out.print("Please enter \"u\" or \"s\": ");
+			ans = input.nextLine();
+		}
 		if (ans.equalsIgnoreCase("U")) {
 			if (!currentC.getUsername().equals("NA")) {
 				System.out.println("\n\t\t\t[" + currentC.getUsername()
@@ -421,9 +465,6 @@ public class UserInterface {
 						+ currentC.getLastName() + "'s Shipped Orders]\n");
 				currentC.viewShippedOrders();
 			}
-		} else {
-			System.out.println(
-					"Invalid Input, Please enter only U or S next time!");
 		}
 	}
 
@@ -463,8 +504,9 @@ public class UserInterface {
 					"2. Release Date\n");
 			System.out.print("Enter your choice: ");
 			choice = input.nextLine();
-			if(!choice.equals("1") && !choice.equals("2")) {
-				System.out.println("Sorry, that input is invalid.");
+			while(!choice.equals("1") && !choice.equals("2")) {
+				System.out.print("Please enter \"1\" or \"2\": ");
+				choice = input.nextLine();
 			}
 		}
 		System.out.println("\nWhich video game would you like to search for?");
@@ -506,7 +548,7 @@ public class UserInterface {
 		System.out.println();
 		while (!(choice.equals("1") || choice.equals("2"))) {
 			// TODO: Is this fixed now?
-			System.out.println("Wrong input\nEnter 1 to search by title | 2 to search by date: ");
+			System.out.println("Please enter \"1\" or \"2\": ");
 			choice = input.nextLine();
 		}
 		if (choice.equals("1")) {
@@ -547,7 +589,7 @@ public class UserInterface {
 			input.nextLine();
 			System.out.print("Please enter the platform: ");
 			pform = input.nextLine();
-			System.out.print("Please enter the availability (true for available, false for unavailable):");
+			System.out.print("Please enter whether or not title is in stock(\"true\" or \"false\"): ");
 			avail = input.nextBoolean();
 			input.nextLine();
 			VideoGame newVG = new VideoGame(title, dev, rDate, price, genre, ESRB,
