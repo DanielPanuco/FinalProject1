@@ -6,7 +6,6 @@
 
 import java.io.*;
 import java.util.ArrayList;
-
 import java.util.Scanner;
 
 public class UserInterface {
@@ -264,7 +263,6 @@ public class UserInterface {
 		while (!(empHT.contains(currentEmp, emailPWKey))) {
 			System.out.println("\nPlease make sure you entered your correct"
 					+ " case sensitive email and password!");
-			//if they exceed X tries the program will terminate.
 			System.out.print("\nEnter your email address: ");
 			email = input.nextLine();
 			System.out.print("\nEnter your password: ");

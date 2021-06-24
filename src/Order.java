@@ -26,7 +26,7 @@ public class Order {
         this.customer = customer;
         this.orderContents = orderContents;
         this.shippingSpeed = shippingSpeed;
-        this.priority = (System.currentTimeMillis() - (shippingSpeed * 86400000));
+        this.priority = (System.currentTimeMillis() + (shippingSpeed * 86400000));
         this.shippingStatus = shippingStatus;
         this.totalOrderPrice = calculateOrderPrice(orderContents, shippingSpeed);
     }
