@@ -855,10 +855,10 @@ public class UserInterface {
 	}
 
 	public static void setVgFile(BST<VideoGame> vgByTitle) throws IOException {
-		ArrayList<VideoGame> tempal = vgByTitle.inOrderToAL();
+		ArrayList<VideoGame> tempAl = vgByTitle.inOrderToAL();
 		String fileOutput = "";
-		for (int i = 0; i < tempal.size(); i++) {
-			fileOutput += tempal.get(i).toText();
+		for (int i = 0; i < tempAl.size(); i++) {
+			fileOutput += tempAl.get(i).toText();
 			fileOutput += "\n";
 		}
 		FileWriter vgWriter = new FileWriter(vgFile);
