@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
-	private static final String vgFile = ("product.txt"),
+	private static final String vgFile = ("products.txt"),
 			custFile = ("customers.txt"), empFile = ("employees.txt");
 	public static String fName, lName, email, addr, city, state, pw, title,
 						 username, fullNameKey, emailPWKey;
