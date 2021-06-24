@@ -38,12 +38,7 @@ slaj
 
 0
 
-1
-5
-5/20/2021
-1623816563974
-1
-Halo Infinite
+0
 
 Nuse1973
 Craig
@@ -69,25 +64,9 @@ Chardon
 Ohio
 44024
 
-2
-2
-5/20/2021
-1624044873668
-1
-Xenoblade Chronicles: Definitive Edition
-2
-5/20/2021
-1624075310271
-2
-Resident Evil Village
-Dark Souls II
+0
 
-1
-2
-5/19/2021
-1623991950827
-1
-Halo Infinite
+0
 
 Bobby123
 Bob
@@ -99,12 +78,7 @@ San Jose
 California
 93224
 
-1
-2
-5/20/2021
-1624075897685
-1
-Animal Crossing: New Horizons
+0
 
 0
 
