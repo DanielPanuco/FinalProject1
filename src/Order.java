@@ -20,7 +20,7 @@ public class Order {
     public Order(Customer customer, List<VideoGame> orderContents,
                  int shippingSpeed, boolean shippingStatus) {
         Calendar rightNow = Calendar.getInstance();
-        this.currentDate = "" + rightNow.get(Calendar.MONTH) + "/"
+        this.currentDate = "" + (rightNow.get(Calendar.MONTH)+1) + "/"
                 + rightNow.get(Calendar.DATE) + "/"
                 + rightNow.get(Calendar.YEAR);
         this.customer = customer;
