@@ -21,9 +21,6 @@ public class UserInterface {
 	public static final DateComparator dc = new DateComparator();
 	public static final OrderComparator oc = new OrderComparator();
 	private static Scanner input;
-	//TODO: maybe change to videoGames.txt, once we decide on a String txt
-	//name. it's good to make it final (this is taught in 36B)
-	//(if we don't want to end up changing it later on)
 	
 	public static void main(String[] args) {
 		final int custSize = 5, empSize = 3;
@@ -48,7 +45,7 @@ public class UserInterface {
 		}
 		input = new Scanner(System.in);
 		System.out.println("Welcome to Triforce Games! \n");
-		System.out.println("Please note that we don't offer refunds after you place your orders!");
+		System.out.println("Please note that we don't offer refunds after you place your orders!\n");
 		System.out.println("[Please select your user type]\n"
 				+ "1. Customer\n"
 				+ "2. Employee");
@@ -76,7 +73,7 @@ public class UserInterface {
 			customerToFile(custHT);
 			setVgFile(vgByTitle);
 		} catch (IOException e) {
-			e.getMessage(); //TODO: write a custom message for this
+			e.getMessage();
 		}
 	}
 
@@ -85,7 +82,7 @@ public class UserInterface {
 		int numChoice;
 		String ans;
 		String createAcc = "\nLet's create an account for you!\n";
-		String enterUsername = "Enter your username: "; //only do this if it's clear
+		String enterUsername = "Enter your username: ";
 		String createPW = "Create a password: ";
 		boolean restart = true;
 		while (restart) {
@@ -157,8 +154,7 @@ public class UserInterface {
 					}
 					if (ans.equalsIgnoreCase("y")) {
 						restart = true;
-					} else { 
-						//EXTRA: if we want to do input validation, loop while they don't put y or n
+					} else {
 						System.out.println(createAcc);
 						System.out.print(enterUsername);
 						username = input.nextLine();
@@ -210,7 +206,7 @@ public class UserInterface {
 			if (currentC != null) {
 				displayCustMenu();
 			}
-			System.out.print("Enter your choice: "); //TODO: will convert this to a member string
+			System.out.print("Enter your choice: ");
 			choice = input.nextLine();
 			
 			switch (choice.toUpperCase()) {
@@ -229,17 +225,24 @@ public class UserInterface {
 				case "5":
 					System.out.println("\nWould you like to sign out?\n");
 					System.out.print("Enter (y/n): ");
-					ans = input.nextLine();  //TODO: buffer issue, enter twice
+					ans = input.nextLine();
 					while (!ans.equalsIgnoreCase("y") && !ans.equalsIgnoreCase("n")) {
 						System.out.print("Please enter \"y\" or \"n\": ");
 						ans = input.nextLine();
 					}
 					if (ans.equalsIgnoreCase("y")) {
+						try {
+							customerToFile(custHT);
+							setVgFile(vgByTitle);
+						} catch (IOException e) {
+							e.getMessage();
+						}
 						custAccSetup(custHT, custByName);
 					}
 					break;
 				case "X":
-					System.out.println("\nGoodbye! We hope to see you again!");
+					System.out.println("\nGoodbye! Thank you for being a valued customer!"
+							+ "We hope to see you again!");
 					break;
 				default:
 					System.out.println("\nInvalid menu option."
@@ -251,8 +254,8 @@ public class UserInterface {
 
 	public static void empLogin(HashTable<Employee> empHT) {
 		System.out.println("\n[Employee Login Menu]");
-		System.out.println("\nWelcome back! Please login here");
-		System.out.println("-------------------------------\n");
+		System.out.println("\nWelcome back! Please login here:");
+		System.out.println("--------------------------------\n");
 		System.out.print("Enter your email address: ");
 		email = input.nextLine();
 		System.out.print("Enter your password: ");
@@ -278,8 +281,6 @@ public class UserInterface {
 									HashTable<Customer> custByName, HashTable<Employee> empHT,
 									Heap<Order> priorityQueue) {
 		String choice = "", ans;
-		// = val/gen imp,
-		// then print out f2p games with seperate for loop
 		empLogin(empHT);
 		while (!choice.equalsIgnoreCase("X")) {
 			displayEmpMenu();
@@ -316,11 +317,18 @@ public class UserInterface {
 						ans = input.nextLine();
 					}
 					if (ans.equalsIgnoreCase("y")) {
+						try {
+							customerToFile(custHT);
+							setVgFile(vgByTitle);
+						} catch (IOException e) {
+							e.getMessage();
+						}
 						empLogin(empHT);
 					}
 					break;
 				case "X":
-					System.out.println("\nGoodbye!");
+					System.out.println("\nGoodbye! Thank you for your hard work, "
+									+ currentEmp.getFirstName() + " "+ currentEmp.getLastName() + "!");
 					break;
 				default:
 					System.out.println("\nInvalid menu option."
@@ -345,14 +353,19 @@ public class UserInterface {
 			cust.displayCustomer();
 		}
 	}
+	
 	public static void placeOrder(BST<VideoGame> vgByTitle, Heap<Order> priorityQueue) {
 		Order placeOrder;
-		String userInput;
+		String userInput, ans;
 		int numChoice;
-		String divider = "----------------------------------"; // for future potential use
+		String divider = "-------------------------------------------"
+					+ "-----------------------------------------------";
+		String t4 = "\t\t\t\t";
 		List<VideoGame> unshippedVG = new List<>();
+		System.out.println();
 		vgByTitle.inOrderPrint();
 		System.out.print("Enter the number of games you would like to purchase: ");
+		
 		userInput = input.nextLine();
 		do {
 			try {
@@ -361,10 +374,11 @@ public class UserInterface {
 					break;
 				}
 			} catch (NumberFormatException e) {
-				System.out.println(e.getMessage());
+				System.out.print("Please enter a number greater than 0: ");
+				userInput = input.nextLine();
 			}
-			System.out.print("Input must be a number greater than 0: ");
-			userInput = input.nextLine();
+			
+								
 		} while (true);
 
 		for (int i = 0; i < numChoice; i++) {
@@ -383,7 +397,7 @@ public class UserInterface {
 				tempVG = vgByTitle.search(tempVG, tc);
 			}
 			if (tempVG.getInStock() == false) {
-				System.out.println("\n" + tempVG.getTitle() + " is currently out of stock.");
+				System.out.println("\nSorry, " + tempVG.getTitle() + " is currently out of stock.");
 			} else {
 				unshippedVG.addLast(tempVG);
 			}
@@ -420,10 +434,18 @@ public class UserInterface {
 			case 3:
 				numChoice = 1;
 				break;
-				
+	
 			}
 		System.out.println("\nThank you, your order is being processed!\n");
 		placeOrder = new Order(currentC, unshippedVG, numChoice, false);
+		System.out.println(t4 + "[Order Info]\n"
+				+ "\t\t  Price" + t4 + "Title\n" + divider);
+		unshippedVG.placeIterator();
+		for (int i = 0; i < unshippedVG.getLength(); i++) {
+			unshippedVG.getIterator().printContentNoDash();
+			unshippedVG.advanceIterator();
+		}
+		System.out.println(divider);
 		placeOrder.displayPriceCalculation(unshippedVG, numChoice);
 		priorityQueue.insert(placeOrder);
 		currentC.placeUnshippedOrder(placeOrder);
@@ -438,7 +460,7 @@ public class UserInterface {
 		System.out.println("\nWhich would you like to view?\n\n"
 				+ "U: My Unshipped Orders\n"
 				+ "S: My Shipped Orders\n");
-		System.out.print("Enter your choice: "); //TODO: extra add while loop
+		System.out.print("Enter your choice: ");
 		ans = input.nextLine();
 		while (!ans.equalsIgnoreCase("u") && !ans.equalsIgnoreCase("s")) {
 			System.out.print("Please enter \"u\" or \"s\": ");
@@ -469,22 +491,38 @@ public class UserInterface {
 	}
 
 	public static void shipOrder(Heap<Order> priorityQueue) {
+		String divider = "--------------------------------------------------"
+						+ "----------------------------------------";
+		String t3 = "\t\t\t", t4 ="\t\t\t\t";
+		Customer tempC;
 		if (priorityQueue.getHeapSize() == 0) {
-			System.out.println("\nThere are no orders to ship!");
+			System.out.println("\nThere aren't any orders to ship!");
 		} else {
-			System.out.println("\nShipping an order...\n");
+			System.out.println("\nShipping the next order with the highest priority!\n");
 			Order tempOrder = priorityQueue.getMax();
 			//TODO: check pq's size to see if there are orders to ship
 			priorityQueue.remove(1);
 			List<VideoGame> tempOrderVG = tempOrder.getOrderContents();
-			System.out.println("Date ordered: " + tempOrder.getCurrentDate());
-			System.out.println("Shipping speed: " + tempOrder.getShippingSpeed());
+			tempC = tempOrder.getCustomer();
+			System.out.print(divider + "\n" + t3 + tempC.getFirstName() + " "
+					+ tempC.getLastName() + "'s Unshipped Order\n" + divider
+					+ "\n" + t4 + "Date ordered: " + tempOrder.getCurrentDate()
+					+ "\n\n" + t3 + "Shipping type: ");
+			if (tempOrder.getShippingSpeed() == 1) {
+				System.out.print("[Overnight Shipping]\n\n");
+			} else if (tempOrder.getShippingSpeed() == 2) {
+				System.out.print("[Rush Shipping]\n\n");
+			} else {
+				System.out.print("[Standard Shipping]\n\n");
+			}
 			tempOrderVG.placeIterator();
 			while (!tempOrderVG.offEnd()) {
 				tempOrderVG.getIterator().printContent();
 				tempOrderVG.advanceIterator();
 			}
-			//TODO: System.out.println("Total price: " + ); do we want to print total price here?
+			int tempShippingSpeed = tempOrder.getShippingSpeed();
+			System.out.println(divider);
+			tempOrder.displayPriceCalculation(tempOrderVG, tempShippingSpeed);
 			currentC = tempOrder.getCustomer();
 			currentC.displayCustomer();
 			currentC.removeUnshippedOrder(tempOrder);
@@ -825,7 +863,6 @@ public class UserInterface {
 			fileOutput += tempal.get(i).toText();
 			fileOutput += "\n";
 		}
-		//System.out.println("testing file output: \n" + fileOutput);
 		FileWriter vgWriter = new FileWriter(vgFile);
 		vgWriter.write(fileOutput);
 		vgWriter.close();

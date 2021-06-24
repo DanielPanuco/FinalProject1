@@ -68,7 +68,7 @@ public class Order {
     }
 
     public void displayPriceCalculation(List<VideoGame> orderContents, int shippingSpeed) {
-        DecimalFormat dc = new DecimalFormat("$ ###,###,##0.00");
+        DecimalFormat dc = new DecimalFormat("$###,###,##0.00");
         double orderPrice = 0;
         double shippingPrice = 0;
         double stateTax;
@@ -77,7 +77,7 @@ public class Order {
             orderPrice += orderContents.getIterator().getPrice();
             orderContents.advanceIterator();
         }
-        System.out.println("\n\tSubtotal: " + dc.format(orderPrice));
+        System.out.println("\tSubtotal: " + dc.format(orderPrice));
 		switch (shippingSpeed) {
 		case 1:
 			shippingPrice = 14.95;

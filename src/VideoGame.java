@@ -129,9 +129,15 @@ public class VideoGame {
     //additional operations
 
     public void printContent() {
-        System.out.println("Title: " + title);
-        System.out.println("Price: " + price);
+    	DecimalFormat df = new DecimalFormat("$####0.00");
+		System.out.println("\t\t  "+ df.format(price) + " - " + title + " (" + platform + ")");
     }
+    
+    public void printContentNoDash() {
+    	DecimalFormat df = new DecimalFormat("$####0.00");
+		System.out.println("\t\t  "+ df.format(price) + "  " + title + " (" + platform + ")");
+    }
+    
     @Override public String toString() {
     	DecimalFormat df = new DecimalFormat("##0.00");
         String dateStr = "" + releaseDate;

@@ -139,8 +139,8 @@ public class Customer extends User {
 	}
 	
 	public void viewUnshippedOrders() {
-		String divider = "------------------------------------------"
-						+ "----------------------------------------";
+		String divider = "-----------------------------------------------"
+						+ "-------------------------------------------";
 		String t2 = "\t\t", t3 = "\t\t\t", t4 = "\t\t\t\t";
 		if (unshippedOrders.isEmpty()) {
 			System.out.println("You don't have any unshipped orders!");
@@ -151,18 +151,17 @@ public class Customer extends User {
 						.getOrderContents();
 				vgList.placeIterator();
 				System.out.println(t4 + "[Order #" + (i + 1) + "]\n"
-						+ "   Qty" + t2 + "   Price" + t4 + "Title\n" + divider);
+						+ "      " + t2 + "  Price" + t4 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
 					VideoGame currVG = vgList.getIterator();
-					System.out.println((j + 1) + ":" + t2 + "   "
+					System.out.println(t2 + "  "
 							+ df.format(currVG.getPrice()) + "\t" + currVG.getTitle() 
 							+ " (" + currVG.getPlatform() + ")");
 					vgList.advanceIterator();
 				}
 				
 				int tempShippingSpeed = unshippedOrders.getIterator().getShippingSpeed();
-				System.out.println();
-				System.out.println("\n" + divider);
+				System.out.println(divider);
 				unshippedOrders.getIterator().displayPriceCalculation(vgList, tempShippingSpeed);
 				unshippedOrders.advanceIterator();
 			}
@@ -170,8 +169,8 @@ public class Customer extends User {
 	}
 
 	public void viewShippedOrders() {
-		String divider = "------------------------------------------"
-						+ "----------------------------------------";
+		String divider = "-----------------------------------------------"
+				+ "-------------------------------------------";
 		String t2 = "\t\t", t3 = "\t\t\t", t4 = "\t\t\t\t";
 		if (shippedOrders.isEmpty()) {
 			System.out.println("You don't have any shipped orders!");
@@ -182,17 +181,16 @@ public class Customer extends User {
 						.getOrderContents();
 				vgList.placeIterator();
 				System.out.println(t4 + "[Order #" + (i + 1) + "]\n"
-						+ "   Qty" + t2 + "   Price" + t4 + "Title\n" + divider);
+						+ "      " + t2 + "  Price" + t4 + "Title\n" + divider);
 				for (int j = 0; j < vgList.getLength(); j++) {
 					VideoGame currVG = vgList.getIterator();
-					System.out.println((j + 1) + ":" + t2
+					System.out.println(t2 + "  "
 							+ df.format(currVG.getPrice()) + "\t" + currVG.getTitle() 
 							+ " (" + currVG.getPlatform() + ")");
 					vgList.advanceIterator();
 				}
 				int tempShippingSpeed = shippedOrders.getIterator().getShippingSpeed();
-				System.out.println();
-				System.out.println("\n" + divider);
+				System.out.println(divider);
 				shippedOrders.getIterator().displayPriceCalculation(vgList, tempShippingSpeed);
 				shippedOrders.advanceIterator();
 
@@ -231,11 +229,13 @@ public class Customer extends User {
         }
 	}
 
-
 	public void displayCustomer() {
-		System.out.println("Email: " + getEmail());
-		System.out.println("Username: " + getUsername());
-		System.out.println("Name: " + getFirstName() + " " + getLastName());
-		System.out.println("City and State: " + getCity() + ", " + getState());
+		String divider = "---------------------------------------"
+						+ "-----------------------------";
+		String t2 = "\t\t";
+		System.out.println(divider + "\n" + t2 + "      Customer's Contact Info\n" + divider);
+		System.out.println(t2 + "Email: " + getEmail());
+		System.out.println(t2 + "Username: " + getUsername());
+		System.out.println(t2 + "Address: " + getAddress() + getCity() + ", " + getState());
 	}
 }
